@@ -1,4 +1,7 @@
-> [!IMPORTANT]
-> This repo contains the original source code for the Sui Explorer, which has been sunset. This is only for reference.
+# Polymedia Explorer
 
-# sui-explorer
+![Polymedia Explorer](./apps/explorer/public/img/open-graph.webp)
+
+This is a fork of the original Sui Explorer, which has now been discontinued by Mysten Labs.
+
+The code and docs can be found in [./apps/explorer/](./apps/explorer/)
