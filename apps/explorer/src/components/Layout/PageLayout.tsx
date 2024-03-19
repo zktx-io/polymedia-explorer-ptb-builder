@@ -20,7 +20,6 @@ import {ButtonOrLink} from '~/ui/utils/ButtonOrLink';
 import {Image} from '~/ui/image/Image';
 import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
 import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
-import {ampli} from '~/utils/analytics/ampli';
 import {CheckboxRedirectPreference, RedirectExplorer, usePreference} from "~/components/CheckboxRedirectPreference";
 
 export type PageLayoutProps = {
@@ -71,10 +70,6 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 		if (checked && !preference) {
 			setPreference(type);
 		}
-		ampli.redirectToExternalExplorer({
-			name: type,
-			url: href,
-		});
 	}
 
 	return (
@@ -141,10 +136,6 @@ function HeaderLink({ type }: { type: RedirectExplorer }) {
 				if (checked && !preference) {
 					setPreference(type);
 				}
-				ampli.redirectToExternalExplorer({
-					name: type,
-					url: href,
-				});
 			}}
 		>
 			{openWithLabel} <ArrowRight12 className="h-4 w-4 -rotate-45" />
@@ -217,10 +208,6 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 	useEffect(() => {
 		if (checked && preference) {
 			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
-			ampli.redirectToExternalExplorer({
-				name: preference,
-				url: redirectUrl,
-			});
 			window.location.href = redirectUrl;
 		}
 	}, [checked, preference, suiscanUrl, suivisionUrl]);
