@@ -22,7 +22,7 @@ import {Image} from '~/ui/image/Image';
 import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
 import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
 import {ampli} from '~/utils/analytics/ampli';
-import {CheckboxRedirectReference, RedirectExplorer, useReference} from "~/components/CheckboxRedirectReference";
+import {CheckboxRedirectPreference, RedirectExplorer, usePreference} from "~/components/CheckboxRedirectPreference";
 
 export type PageLayoutProps = {
 	gradient?: {
@@ -57,9 +57,9 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
 	const {
 		checked,
-		reference,
-		setReference,
-	} = useReference();
+		preference,
+		setPreference,
+	} = usePreference();
 
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const src = type === RedirectExplorer.SUISCAN ? suiscanImg : suivisionImg;
@@ -72,8 +72,8 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 		<div className="relative overflow-hidden rounded-3xl border border-gray-45 transition duration-300 ease-in-out hover:shadow-lg">
 			<ButtonOrLink
 				onClick={() => {
-					if (checked && !reference) {
-						setReference(type);
+					if (checked && !preference) {
+						setPreference(type);
 					}
 					ampli.redirectToExternalExplorer({
 						name: type,
@@ -114,14 +114,14 @@ function RedirectContent() {
 	const redirectExplorers = useRedirectExplorerOrder();
 	const {
 		checked,
-		reference,
-	} = useReference();
+		preference,
+	} = usePreference();
 
 	useEffect(() => {
-		if (checked && reference) {
-			window.location.href = reference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+		if (checked && preference) {
+			window.location.href = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 		}
-	}, [checked, reference, suiscanUrl, suivisionUrl]);
+	}, [checked, preference, suiscanUrl, suivisionUrl]);
 
 	return (
 		<section className="flex flex-col gap-10 sm:gap-20">
@@ -131,7 +131,7 @@ function RedirectContent() {
 				))}
 			</div>
 
-			<CheckboxRedirectReference />
+			<CheckboxRedirectPreference />
 		</section>
 	);
 }

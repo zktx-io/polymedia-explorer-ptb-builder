@@ -1,19 +1,19 @@
-import {CheckboxRedirectReference, RedirectExplorer, useReference} from "~/components/CheckboxRedirectReference";
+import {CheckboxRedirectPreference, RedirectExplorer, usePreference} from "~/components/CheckboxRedirectPreference";
 import {RadioGroup, RadioGroupItem} from "@mysten/ui";
 
-export function Reference() {
+export function Preference() {
     const {
-        reference,
+        preference,
         setReference,
-    } = useReference();
+    } = usePreference();
 
     return (
         <div className="flex flex-col justify-center items-center gap-4 mt-4">
-            <RadioGroup aria-label="redirect-preferences" value={reference} onValueChange={(reference) => setReference(reference as RedirectExplorer)}>
+            <RadioGroup aria-label="redirect-preferences" value={preference} onValueChange={(preference) => setReference(preference as RedirectExplorer)}>
                 <RadioGroupItem value={RedirectExplorer.SUISCAN} label={RedirectExplorer.SUISCAN} />
                 <RadioGroupItem value={RedirectExplorer.SUIVISION} label={RedirectExplorer.SUIVISION} />
             </RadioGroup>
-            <CheckboxRedirectReference />
+            <CheckboxRedirectPreference />
         </div>
     );
 }

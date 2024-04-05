@@ -6,13 +6,13 @@ export enum RedirectExplorer {
     SUIVISION = 'suivision',
 }
 
-export function useReference() {
+export function usePreference() {
     const [checked, setChecked] = useLocalStorage<boolean>(
         'is-explorer-reference-checked',
         true,
     );
 
-    const [reference, setReference] = useLocalStorage<RedirectExplorer | undefined>(
+    const [preference, setPreference] = useLocalStorage<RedirectExplorer | undefined>(
         'explorer-reference',
         undefined,
     );
@@ -20,16 +20,16 @@ export function useReference() {
     return {
         checked,
         setChecked,
-        reference,
-        setReference,
+        preference,
+        setPreference,
     };
 }
 
-export function CheckboxRedirectReference() {
+export function CheckboxRedirectPreference() {
     const {
         checked,
         setChecked,
-    } = useReference();
+    } = usePreference();
 
     return (
         <Checkbox
@@ -38,7 +38,7 @@ export function CheckboxRedirectReference() {
                 setChecked(!!isChecked);
             }}
             id="explorer-reference"
-            label="Remember my explorer reference"
+            label="Remember my explorer preference"
             className="justify-center"
         />
     )
