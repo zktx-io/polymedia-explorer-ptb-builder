@@ -1,5 +1,5 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
-import {CheckSm, CheckStroke16, CheckStroke24} from "@mysten/icons";
+import { CheckStroke16 } from "@mysten/icons";
 import { Text } from "@mysten/ui";
 import clsx from "clsx";
 
