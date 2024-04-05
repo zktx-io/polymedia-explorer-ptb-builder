@@ -197,7 +197,7 @@ export function RedirectHeader() {
 					</div>
 				</div>
 			) : (
-				<Heading variant="heading3/semibold">Experience two amazing explorers on Sui!</Heading>
+				<Heading variant="heading3/semibold">Choose your preferred explorer on Sui</Heading>
 			)}
 		</section>
 	);
@@ -281,7 +281,7 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 					</section>
 				) : null}
 				{!loading && (
-					<section className="mx-auto max-w-[1440px] p-5 pb-20 sm:py-8 md:p-10 md:pb-20">
+					<section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 sm:py-8 md:p-10 md:pb-20">
 						{enableExplorerRedirect ? <RedirectContent /> : content}
 					</section>
 				)}
