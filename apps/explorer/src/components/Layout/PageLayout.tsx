@@ -127,13 +127,13 @@ function RedirectContent() {
 
 	return (
 		<section className="flex flex-col gap-10 sm:gap-20">
+			<CheckboxRedirectPreference />
+
 			<div className="flex flex-col justify-center gap-10 sm:flex-row">
 				{redirectExplorers.map((type) => (
 					<ImageLink key={type} type={type} />
 				))}
 			</div>
-
-			<CheckboxRedirectPreference />
 		</section>
 	);
 }
