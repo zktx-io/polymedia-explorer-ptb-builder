@@ -41,7 +41,7 @@ export const router = sentryCreateBrowserRouter([
 			{ path: 'validators', element: <ValidatorPageResult /> },
 			{ path: 'validator/:id', element: <ValidatorDetails /> },
 			{ path: 'experimental--id/:id', element: <IdPage /> },
-			{ path: 'preference', element: <Preference />}
+			{ path: 'redirect-preference', element: <Preference />}
 		],
 	},
 	{
