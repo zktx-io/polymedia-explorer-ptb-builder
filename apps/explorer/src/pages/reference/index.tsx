@@ -8,7 +8,7 @@ export function Reference() {
     } = useReference();
 
     return (
-        <div>
+        <div className="flex flex-col justify-center items-center gap-4 mt-4">
             <RadioGroup aria-label="redirect-preferences" value={reference} onValueChange={(reference) => setReference(reference as RedirectExplorer)}>
                 <RadioGroupItem value={RedirectExplorer.SUISCAN} label={RedirectExplorer.SUISCAN} />
                 <RadioGroupItem value={RedirectExplorer.SUIVISION} label={RedirectExplorer.SUIVISION} />
