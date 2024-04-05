@@ -1,27 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFeatureIsOn } from '@growthbook/growthbook-react';
-import { useAppsBackend, useElementDimensions, useLocalStorage } from '@mysten/core';
-import { Heading, LoadingIndicator, Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
+import {useFeatureIsOn} from '@growthbook/growthbook-react';
+import {useAppsBackend, useElementDimensions, useLocalStorage} from '@mysten/core';
+import {Heading, LoadingIndicator, Text} from '@mysten/ui';
+import {useQuery} from '@tanstack/react-query';
 import clsx from 'clsx';
-import { type ReactNode, useEffect, useRef } from 'react';
+import {type ReactNode, useEffect, useRef} from 'react';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import { useNetworkContext } from '~/context';
-import { Banner } from '~/ui/Banner';
-import { Network } from '~/utils/api/DefaultRpcClient';
+import {useNetworkContext} from '~/context';
+import {Banner} from '~/ui/Banner';
+import {Network} from '~/utils/api/DefaultRpcClient';
 import suiscanImg from '~/assets/explorer-suiscan.jpg';
 import suivisionImg from '~/assets/explorer-suivision.jpg';
 import suiscanImg2x from '~/assets/explorer-suiscan@2x.jpg';
 import suivisionImg2x from '~/assets/explorer-suivision@2x.jpg';
-import { ButtonOrLink } from '~/ui/utils/ButtonOrLink';
-import { Image } from '~/ui/image/Image';
-import { ArrowRight12, Sui, SuiLogoTxt } from '@mysten/icons';
-import { useRedirectExplorerUrl } from '~/hooks/useRedirectExplorerUrl';
-import { ampli } from '~/utils/analytics/ampli';
+import {ButtonOrLink} from '~/ui/utils/ButtonOrLink';
+import {Image} from '~/ui/image/Image';
+import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
+import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
+import {ampli} from '~/utils/analytics/ampli';
+import {Checkbox} from "~/ui/Checkbox";
 
 enum RedirectExplorer {
 	SUISCAN = 'suiscan',
@@ -57,8 +58,32 @@ function useRedirectExplorerOrder() {
 		: [RedirectExplorer.SUISCAN, RedirectExplorer.SUIVISION];
 }
 
+function useReference() {
+	const [checked, setChecked] = useLocalStorage<boolean>(
+		'is-explorer-reference-checked',
+		true,
+	);
+
+	const [reference, setReference] = useLocalStorage<RedirectExplorer | undefined>(
+		'explorer-reference',
+		undefined,
+	);
+
+	return {
+		checked,
+		setChecked,
+		reference,
+		setReference,
+	};
+}
+
 function ImageLink({ type }: { type: RedirectExplorer }) {
 	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
+	const {
+		checked,
+		reference,
+		setReference,
+	} = useReference();
 
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const src = type === RedirectExplorer.SUISCAN ? suiscanImg : suivisionImg;
@@ -71,6 +96,9 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 		<div className="relative overflow-hidden rounded-3xl border border-gray-45 transition duration-300 ease-in-out hover:shadow-lg">
 			<ButtonOrLink
 				onClick={() => {
+					if (checked && !reference) {
+						setReference(type);
+					}
 					ampli.redirectToExternalExplorer({
 						name: type,
 						url: href,
@@ -106,13 +134,37 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 }
 
 function RedirectContent() {
+	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
 	const redirectExplorers = useRedirectExplorerOrder();
+	const {
+		checked,
+		setChecked,
+		reference,
+	} = useReference();
+
+	useEffect(() => {
+		if (checked && reference) {
+			window.location.href = reference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+		}
+	}, [checked, reference, suiscanUrl, suivisionUrl, history]);
 
 	return (
-		<section className="flex flex-col justify-center gap-10 sm:flex-row">
-			{redirectExplorers.map((type) => (
-				<ImageLink key={type} type={type} />
-			))}
+		<section className="flex flex-col gap-20">
+			<div className="flex flex-col justify-center gap-10 sm:flex-row">
+				{redirectExplorers.map((type) => (
+					<ImageLink key={type} type={type} />
+				))}
+			</div>
+
+			<Checkbox
+				checked={checked}
+				onCheckedChange={(isChecked) => {
+					setChecked(!!isChecked);
+				}}
+				id="explorer-reference"
+				label="Remember my explorer reference"
+				className="justify-center"
+			/>
 		</section>
 	);
 }
