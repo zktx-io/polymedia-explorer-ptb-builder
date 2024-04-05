@@ -15,7 +15,7 @@ import { ValidatorDetails } from './validator/ValidatorDetails';
 import { ValidatorPageResult } from './validators/Validators';
 import { Layout } from '~/components/Layout';
 import { IdPage } from '~/pages/id-page';
-import {Preference} from "~/pages/reference";
+import {Preference} from "~/pages/preference";
 
 function RedirectWithId({ base }: { base: string }) {
 	const params = useParams();

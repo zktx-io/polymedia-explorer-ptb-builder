@@ -117,11 +117,11 @@ function RedirectContent() {
 	useEffect(() => {
 		if (checked && preference) {
 			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
-			window.location.href = redirectUrl;
 			ampli.redirectToExternalExplorer({
 				name: preference,
 				url: redirectUrl,
 			});
+			window.location.href = redirectUrl;
 		}
 	}, [checked, preference, suiscanUrl, suivisionUrl]);
 

@@ -8,12 +8,12 @@ export enum RedirectExplorer {
 
 export function usePreference() {
     const [checked, setChecked] = useLocalStorage<boolean>(
-        'is-explorer-reference-checked',
+        'is-explorer-preference-checked',
         true,
     );
 
     const [preference, setPreference] = useLocalStorage<RedirectExplorer | undefined>(
-        'explorer-reference',
+        'explorer-preference',
         undefined,
     );
 

@@ -1,5 +1,5 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
-import { CheckStroke24 } from "@mysten/icons";
+import {CheckSm, CheckStroke16, CheckStroke24} from "@mysten/icons";
 import { Text } from "@mysten/ui";
 import clsx from "clsx";
 
@@ -15,10 +15,10 @@ export function Checkbox({ id, label, className, ...props }: CheckboxProps) {
             <RadixCheckbox.Root
                 {...props}
                 id={id}
-                className="border border-steel hover:border-steel-dark rounded w-6 h-6"
+                className="border border-steel hover:border-steel-dark rounded w-5 h-5 data-[state='checked']:bg-success"
             >
-                <RadixCheckbox.Indicator className=" items-center justify-center h-full w-full">
-                    <CheckStroke24 className="h-full w-full text-sui-dark"/>
+                <RadixCheckbox.Indicator forceMount className="items-center justify-center h-full w-full text-gray-60/60 data-[state='checked']:text-white">
+                    <CheckStroke16 className="h-full w-full"/>
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>
             {label && (
