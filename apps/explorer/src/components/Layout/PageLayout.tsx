@@ -22,12 +22,7 @@ import {Image} from '~/ui/image/Image';
 import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
 import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
 import {ampli} from '~/utils/analytics/ampli';
-import {Checkbox} from "~/ui/Checkbox";
-
-enum RedirectExplorer {
-	SUISCAN = 'suiscan',
-	SUIVISION = 'suivision',
-}
+import {CheckboxRedirectReference, RedirectExplorer, useReference} from "~/components/CheckboxRedirectReference";
 
 export type PageLayoutProps = {
 	gradient?: {
@@ -56,25 +51,6 @@ function useRedirectExplorerOrder() {
 	return isSuiVisionFirst
 		? [RedirectExplorer.SUIVISION, RedirectExplorer.SUISCAN]
 		: [RedirectExplorer.SUISCAN, RedirectExplorer.SUIVISION];
-}
-
-function useReference() {
-	const [checked, setChecked] = useLocalStorage<boolean>(
-		'is-explorer-reference-checked',
-		true,
-	);
-
-	const [reference, setReference] = useLocalStorage<RedirectExplorer | undefined>(
-		'explorer-reference',
-		undefined,
-	);
-
-	return {
-		checked,
-		setChecked,
-		reference,
-		setReference,
-	};
 }
 
 function ImageLink({ type }: { type: RedirectExplorer }) {
@@ -138,7 +114,6 @@ function RedirectContent() {
 	const redirectExplorers = useRedirectExplorerOrder();
 	const {
 		checked,
-		setChecked,
 		reference,
 	} = useReference();
 
@@ -146,25 +121,17 @@ function RedirectContent() {
 		if (checked && reference) {
 			window.location.href = reference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 		}
-	}, [checked, reference, suiscanUrl, suivisionUrl, history]);
+	}, [checked, reference, suiscanUrl, suivisionUrl]);
 
 	return (
-		<section className="flex flex-col gap-20">
+		<section className="flex flex-col gap-10 sm:gap-20">
 			<div className="flex flex-col justify-center gap-10 sm:flex-row">
 				{redirectExplorers.map((type) => (
 					<ImageLink key={type} type={type} />
 				))}
 			</div>
 
-			<Checkbox
-				checked={checked}
-				onCheckedChange={(isChecked) => {
-					setChecked(!!isChecked);
-				}}
-				id="explorer-reference"
-				label="Remember my explorer reference"
-				className="justify-center"
-			/>
+			<CheckboxRedirectReference />
 		</section>
 	);
 }
