@@ -68,18 +68,20 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 			? `${suiscanImg} 1x, ${suiscanImg2x} 2x`
 			: `${suivisionImg} 1x, ${suivisionImg2x} 2x`;
 
+	const handleRedirect = () => {
+		if (checked && !preference) {
+			setPreference(type);
+		}
+		ampli.redirectToExternalExplorer({
+			name: type,
+			url: href,
+		});
+	}
+
 	return (
 		<div className="relative overflow-hidden rounded-3xl border border-gray-45 transition duration-300 ease-in-out hover:shadow-lg">
 			<ButtonOrLink
-				onClick={() => {
-					if (checked && !preference) {
-						setPreference(type);
-					}
-					ampli.redirectToExternalExplorer({
-						name: type,
-						url: href,
-					});
-				}}
+				onClick={handleRedirect}
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
@@ -89,12 +91,7 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 			<div className="absolute bottom-10 left-1/2 right-0 flex -translate-x-1/2 whitespace-nowrap">
 				<ButtonOrLink
 					className="flex w-full items-center justify-center gap-2 rounded-3xl bg-sui-dark px-3 py-2"
-					onClick={() => {
-						ampli.redirectToExternalExplorer({
-							name: type,
-							url: href,
-						});
-					}}
+					onClick={handleRedirect}
 					href={href}
 					target="_blank"
 					rel="noopener noreferrer"
@@ -119,7 +116,12 @@ function RedirectContent() {
 
 	useEffect(() => {
 		if (checked && preference) {
-			window.location.href = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+			window.location.href = redirectUrl;
+			ampli.redirectToExternalExplorer({
+				name: preference,
+				url: redirectUrl,
+			});
 		}
 	}, [checked, preference, suiscanUrl, suivisionUrl]);
 
@@ -138,6 +140,11 @@ function RedirectContent() {
 
 function HeaderLink({ type }: { type: RedirectExplorer }) {
 	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
+	const {
+		checked,
+		preference,
+		setPreference,
+	} = usePreference();
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const openWithLabel =
 		type === RedirectExplorer.SUISCAN ? 'Open on Suiscan.xyz' : 'Open on Suivision.xyz';
@@ -148,6 +155,9 @@ function HeaderLink({ type }: { type: RedirectExplorer }) {
 			target="_blank"
 			className="flex items-center gap-2 border-b border-gray-100 py-1 text-heading5 font-semibold"
 			onClick={() => {
+				if (checked && !preference) {
+					setPreference(type);
+				}
 				ampli.redirectToExternalExplorer({
 					name: type,
 					url: href,
