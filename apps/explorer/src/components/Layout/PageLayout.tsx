@@ -126,7 +126,7 @@ function RedirectContent() {
 	}, [checked, preference, suiscanUrl, suivisionUrl]);
 
 	return (
-		<section className="flex flex-col gap-10 sm:gap-20">
+		<section className="flex flex-col gap-10">
 			<CheckboxRedirectPreference />
 
 			<div className="flex flex-col justify-center gap-10 sm:flex-row">
@@ -175,7 +175,7 @@ export function RedirectHeader() {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center gap-5 px-5 py-12 text-center sm:mb-20"
+			className="flex flex-col items-center justify-center gap-5 px-5 py-12 text-center"
 			style={{
 				background: 'linear-gradient(159deg, #FAF8D2 50.65%, #F7DFD5 86.82%)',
 			}}
@@ -281,7 +281,7 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 					</section>
 				) : null}
 				{!loading && (
-					<section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 sm:py-8 md:p-10 md:pb-20">
+					<section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 sm:py-8 md:p-10 md:pb-25">
 						{enableExplorerRedirect ? <RedirectContent /> : content}
 					</section>
 				)}
