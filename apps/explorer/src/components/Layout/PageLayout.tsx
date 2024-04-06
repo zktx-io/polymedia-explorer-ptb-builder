@@ -1,32 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFeatureIsOn } from '@growthbook/growthbook-react';
-import { useAppsBackend, useElementDimensions, useLocalStorage } from '@mysten/core';
-import { Heading, LoadingIndicator, Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
+import {useFeatureIsOn} from '@growthbook/growthbook-react';
+import {useAppsBackend, useElementDimensions, useLocalStorage} from '@mysten/core';
+import {Heading, LoadingIndicator, Text} from '@mysten/ui';
+import {useQuery} from '@tanstack/react-query';
 import clsx from 'clsx';
-import { type ReactNode, useEffect, useRef } from 'react';
+import {type ReactNode, useEffect, useRef} from 'react';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import { useNetworkContext } from '~/context';
-import { Banner } from '~/ui/Banner';
-import { Network } from '~/utils/api/DefaultRpcClient';
+import {useNetworkContext} from '~/context';
+import {Banner} from '~/ui/Banner';
+import {Network} from '~/utils/api/DefaultRpcClient';
 import suiscanImg from '~/assets/explorer-suiscan.jpg';
 import suivisionImg from '~/assets/explorer-suivision.jpg';
 import suiscanImg2x from '~/assets/explorer-suiscan@2x.jpg';
 import suivisionImg2x from '~/assets/explorer-suivision@2x.jpg';
-import { ButtonOrLink } from '~/ui/utils/ButtonOrLink';
-import { Image } from '~/ui/image/Image';
-import { ArrowRight12, Sui, SuiLogoTxt } from '@mysten/icons';
-import { useRedirectExplorerUrl } from '~/hooks/useRedirectExplorerUrl';
-import { ampli } from '~/utils/analytics/ampli';
-
-enum RedirectExplorer {
-	SUISCAN = 'suiscan',
-	SUIVISION = 'suivision',
-}
+import {ButtonOrLink} from '~/ui/utils/ButtonOrLink';
+import {Image} from '~/ui/image/Image';
+import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
+import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
+import {ampli} from '~/utils/analytics/ampli';
+import {CheckboxRedirectPreference, RedirectExplorer, usePreference} from "~/components/CheckboxRedirectPreference";
 
 export type PageLayoutProps = {
 	gradient?: {
@@ -59,6 +55,11 @@ function useRedirectExplorerOrder() {
 
 function ImageLink({ type }: { type: RedirectExplorer }) {
 	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
+	const {
+		checked,
+		preference,
+		setPreference,
+	} = usePreference();
 
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const src = type === RedirectExplorer.SUISCAN ? suiscanImg : suivisionImg;
@@ -67,15 +68,20 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 			? `${suiscanImg} 1x, ${suiscanImg2x} 2x`
 			: `${suivisionImg} 1x, ${suivisionImg2x} 2x`;
 
+	const handleRedirect = () => {
+		if (checked && !preference) {
+			setPreference(type);
+		}
+		ampli.redirectToExternalExplorer({
+			name: type,
+			url: href,
+		});
+	}
+
 	return (
 		<div className="relative overflow-hidden rounded-3xl border border-gray-45 transition duration-300 ease-in-out hover:shadow-lg">
 			<ButtonOrLink
-				onClick={() => {
-					ampli.redirectToExternalExplorer({
-						name: type,
-						url: href,
-					});
-				}}
+				onClick={handleRedirect}
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
@@ -85,12 +91,7 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 			<div className="absolute bottom-10 left-1/2 right-0 flex -translate-x-1/2 whitespace-nowrap">
 				<ButtonOrLink
 					className="flex w-full items-center justify-center gap-2 rounded-3xl bg-sui-dark px-3 py-2"
-					onClick={() => {
-						ampli.redirectToExternalExplorer({
-							name: type,
-							url: href,
-						});
-					}}
+					onClick={handleRedirect}
 					href={href}
 					target="_blank"
 					rel="noopener noreferrer"
@@ -106,19 +107,44 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 }
 
 function RedirectContent() {
+	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
 	const redirectExplorers = useRedirectExplorerOrder();
+	const {
+		checked,
+		preference,
+	} = usePreference();
+
+	useEffect(() => {
+		if (checked && preference) {
+			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+			ampli.redirectToExternalExplorer({
+				name: preference,
+				url: redirectUrl,
+			});
+			window.location.href = redirectUrl;
+		}
+	}, [checked, preference, suiscanUrl, suivisionUrl]);
 
 	return (
-		<section className="flex flex-col justify-center gap-10 sm:flex-row">
-			{redirectExplorers.map((type) => (
-				<ImageLink key={type} type={type} />
-			))}
+		<section className="flex flex-col gap-10">
+			<CheckboxRedirectPreference />
+
+			<div className="flex flex-col justify-center gap-10 sm:flex-row">
+				{redirectExplorers.map((type) => (
+					<ImageLink key={type} type={type} />
+				))}
+			</div>
 		</section>
 	);
 }
 
 function HeaderLink({ type }: { type: RedirectExplorer }) {
 	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
+	const {
+		checked,
+		preference,
+		setPreference,
+	} = usePreference();
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const openWithLabel =
 		type === RedirectExplorer.SUISCAN ? 'Open on Suiscan.xyz' : 'Open on Suivision.xyz';
@@ -129,6 +155,9 @@ function HeaderLink({ type }: { type: RedirectExplorer }) {
 			target="_blank"
 			className="flex items-center gap-2 border-b border-gray-100 py-1 text-heading5 font-semibold"
 			onClick={() => {
+				if (checked && !preference) {
+					setPreference(type);
+				}
 				ampli.redirectToExternalExplorer({
 					name: type,
 					url: href,
@@ -146,7 +175,7 @@ export function RedirectHeader() {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center gap-5 px-5 py-12 text-center sm:mb-20"
+			className="flex flex-col items-center justify-center gap-5 px-5 py-12 text-center"
 			style={{
 				background: 'linear-gradient(159deg, #FAF8D2 50.65%, #F7DFD5 86.82%)',
 			}}
@@ -168,7 +197,7 @@ export function RedirectHeader() {
 					</div>
 				</div>
 			) : (
-				<Heading variant="heading3/semibold">Experience two amazing explorers on Sui!</Heading>
+				<Heading variant="heading3/semibold">Choose your preferred explorer on Sui</Heading>
 			)}
 		</section>
 	);
@@ -252,7 +281,7 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 					</section>
 				) : null}
 				{!loading && (
-					<section className="mx-auto max-w-[1440px] p-5 pb-20 sm:py-8 md:p-10 md:pb-20">
+					<section className="mx-auto max-w-[1440px] px-5 pb-20 pt-10 sm:py-8 md:p-10 md:pb-25">
 						{enableExplorerRedirect ? <RedirectContent /> : content}
 					</section>
 				)}

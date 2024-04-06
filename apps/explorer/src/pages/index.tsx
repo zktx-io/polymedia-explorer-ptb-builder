@@ -15,6 +15,7 @@ import { ValidatorDetails } from './validator/ValidatorDetails';
 import { ValidatorPageResult } from './validators/Validators';
 import { Layout } from '~/components/Layout';
 import { IdPage } from '~/pages/id-page';
+import {Preference} from "~/pages/preference";
 
 function RedirectWithId({ base }: { base: string }) {
 	const params = useParams();
@@ -40,6 +41,7 @@ export const router = sentryCreateBrowserRouter([
 			{ path: 'validators', element: <ValidatorPageResult /> },
 			{ path: 'validator/:id', element: <ValidatorDetails /> },
 			{ path: 'experimental--id/:id', element: <IdPage /> },
+			{ path: 'redirect-preference', element: <Preference />}
 		],
 	},
 	{
