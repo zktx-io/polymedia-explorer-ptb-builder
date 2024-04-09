@@ -107,23 +107,7 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 }
 
 function RedirectContent() {
-	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
 	const redirectExplorers = useRedirectExplorerOrder();
-	const {
-		checked,
-		preference,
-	} = usePreference();
-
-	useEffect(() => {
-		if (checked && preference) {
-			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
-			ampli.redirectToExternalExplorer({
-				name: preference,
-				url: redirectUrl,
-			});
-			window.location.href = redirectUrl;
-		}
-	}, [checked, preference, suiscanUrl, suivisionUrl]);
 
 	return (
 		<section className="flex flex-col gap-10">
@@ -208,6 +192,11 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 	const [network] = useNetworkContext();
 	const { request } = useAppsBackend();
 	const outageOverride = useFeatureIsOn('network-outage-override');
+	const { suiscanUrl, suivisionUrl } = useRedirectExplorerUrl();
+	const {
+		checked,
+		preference,
+	} = usePreference();
 
 	const { data } = useQuery({
 		queryKey: ['apps-backend', 'monitor-network'],
@@ -226,10 +215,32 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 	const headerRef = useRef<HTMLElement | null>(null);
 	const [headerHeight] = useElementDimensions(headerRef, DEFAULT_HEADER_HEIGHT);
 
+	useEffect(() => {
+		if (checked && preference) {
+			const redirectUrl = preference === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
+			ampli.redirectToExternalExplorer({
+				name: preference,
+				url: redirectUrl,
+			});
+			window.location.href = redirectUrl;
+		}
+	}, [checked, preference, suiscanUrl, suivisionUrl]);
+
+
 	const networkDegradeBannerCopy =
 		network === Network.TESTNET
 			? 'Sui Explorer (Testnet) is currently under-going maintenance. Some data may be incorrect or missing.'
 			: "The explorer is running slower than usual. We're working to fix the issue and appreciate your patience.";
+
+	if (checked && preference) {
+		return (
+			<div className="h-full w-full relative">
+				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+					<LoadingIndicator />
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className="relative min-h-screen w-full">
