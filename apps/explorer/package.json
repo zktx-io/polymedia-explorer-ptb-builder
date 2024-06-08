@@ -18,8 +18,8 @@
     "storybook": "storybook dev",
     "build-storybook": "storybook build",
     "preview-storybook": "pnpm dlx serve ./storybook-static",
-		"deploy-dev": "pnpm build && wrangler pages deploy build/ --project-name polymedia-explorer --branch dev",
-		"deploy-prod": "pnpm build && wrangler pages deploy build/ --project-name polymedia-explorer --branch main"
+    "deploy-dev": "pnpm build && wrangler pages deploy build/ --project-name polymedia-explorer --branch dev",
+    "deploy-prod": "pnpm build && wrangler pages deploy build/ --project-name polymedia-explorer --branch main"
   },
   "dependencies": {
     "@floating-ui/react": "^0.23.0",
@@ -103,7 +103,8 @@
     "typescript": "^5.3.3",
     "vite": "^4.4.4",
     "vite-plugin-svgr": "^3.2.0",
-    "vitest": "^0.33.0"
+    "vitest": "^0.33.0",
+    "wrangler": "^3.60.0"
   },
   "browserslist": {
     "production": [
