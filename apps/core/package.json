@@ -1,47 +1,42 @@
 {
-  "name": "@mysten/core",
-  "main": "src/index.ts",
-  "private": true,
-  "sideEffects": false,
-  "author": "Mysten Labs <build@mystenlabs.com>",
-  "repository": {
-    "type": "git",
-    "url": "github.com:MystenLabs/sui.git"
-  },
-  "license": "Apache-2.0",
-  "scripts": {
-    "prettier:check": "prettier -c --ignore-unknown .",
-    "prettier:fix": "prettier -w --ignore-unknown .",
-    "prettier:fix:watch": "onchange '**' -i -f add -f change -j 5 -- prettier -w --ignore-unknown {{file}}",
-    "eslint:check": "eslint --max-warnings=0 .",
-    "eslint:fix": "pnpm run eslint:check --fix",
-    "lint": "pnpm run eslint:check && pnpm run prettier:check",
-    "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^3.6.0",
-    "@mysten/dapp-kit": "^0.14.5",
-    "@mysten/kiosk": "^0.9.5",
-    "@mysten/sui": "^1.0.5",
-    "@tanstack/react-query": "^5.40.1",
-    "bignumber.js": "^9.1.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-hook-form": "^7.51.5",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@headlessui/tailwindcss": "^0.2.1",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.7",
-    "@types/react": "^18.3.3",
-    "@vanilla-extract/vite-plugin": "^4.0.10",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.13",
-    "vitest": "^1.6.0"
-  }
+    "private": true,
+    "name": "@mysten/core",
+    "main": "src/index.ts",
+    "scripts": {
+        "prettier:check": "prettier -c --ignore-unknown .",
+        "prettier:fix": "prettier -w --ignore-unknown .",
+        "prettier:fix:watch": "onchange '**' -i -f add -f change -j 5 -- prettier -w --ignore-unknown {{file}}",
+        "eslint:check": "eslint --max-warnings=0 .",
+        "eslint:fix": "pnpm run eslint:check --fix",
+        "lint": "pnpm run eslint:check && pnpm run prettier:check",
+        "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^3.6.0",
+        "@mysten/dapp-kit": "^0.14.5",
+        "@mysten/kiosk": "^0.9.5",
+        "@mysten/sui": "^1.0.5",
+        "@tanstack/react-query": "^5.40.1",
+        "bignumber.js": "^9.1.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-hook-form": "^7.51.5",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@headlessui/tailwindcss": "^0.2.1",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/forms": "^0.5.7",
+        "@types/react": "^18.3.3",
+        "@vanilla-extract/vite-plugin": "^4.0.10",
+        "postcss": "^8.4.38",
+        "tailwindcss": "^3.4.4",
+        "typescript": "^5.4.5",
+        "vite": "^5.2.13",
+        "vitest": "^1.6.0"
+    },
+    "type": "module",
+    "sideEffects": false
 }
