@@ -35,24 +35,24 @@
 		"@radix-ui/react-slot": "^1.0.2",
 		"@radix-ui/react-switch": "^1.0.3",
 		"class-variance-authority": "^0.7.0",
-		"cmdk": "^0.2.0",
-		"framer-motion": "^10.12.22",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"cmdk": "^1.0.0",
+		"framer-motion": "^11.2.10",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
-		"@storybook/addon-a11y": "^7.1.0",
-		"@storybook/addon-essentials": "^7.1.0",
-		"@storybook/addon-interactions": "^7.1.0",
-		"@storybook/addon-links": "^7.1.0",
-		"@storybook/blocks": "^7.1.0",
-		"@storybook/react": "^7.1.0",
-		"@storybook/react-vite": "^7.1.0",
-		"@storybook/testing-library": "^0.2.0",
-		"@types/react": "^18.2.15",
+		"@storybook/addon-a11y": "^8.1.6",
+		"@storybook/addon-essentials": "^8.1.6",
+		"@storybook/addon-interactions": "^8.1.6",
+		"@storybook/addon-links": "^8.1.6",
+		"@storybook/blocks": "^8.1.6",
+		"@storybook/react": "^8.1.6",
+		"@storybook/react-vite": "^8.1.6",
+		"@storybook/testing-library": "^0.2.2",
+		"@types/react": "^18.3.3",
 		"prop-types": "^15.8.1",
-		"storybook": "^7.1.0",
-		"tailwindcss": "^3.3.3",
-		"typescript": "^5.3.3"
+		"storybook": "^8.1.6",
+		"tailwindcss": "^3.4.4",
+		"typescript": "^5.4.5"
 	}
 }
