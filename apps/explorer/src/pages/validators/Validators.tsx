@@ -9,7 +9,7 @@ import {
 	formatPercentageDisplay,
 } from '@mysten/core';
 import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { type SuiEvent, type SuiValidatorSummary } from '@mysten/sui.js/client';
+import { type SuiEvent, type SuiValidatorSummary } from '@mysten/sui/client';
 import { Heading, Text } from '@mysten/ui';
 import { lazy, Suspense, useMemo } from 'react';
 

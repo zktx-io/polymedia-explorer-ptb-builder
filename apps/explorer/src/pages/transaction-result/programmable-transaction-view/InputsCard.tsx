@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiCallArg } from '@mysten/sui.js/client';
+import { type SuiCallArg } from '@mysten/sui/client';
 import { Text } from '@mysten/ui';
 
 import { ProgrammableTxnBlockCard } from '~/components/transactions/ProgTxnBlockCard';

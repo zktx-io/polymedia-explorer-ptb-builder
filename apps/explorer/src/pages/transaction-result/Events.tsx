@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ChevronRight12 } from '@mysten/icons';
-import { type SuiEvent } from '@mysten/sui.js/client';
-import { parseStructTag, formatAddress } from '@mysten/sui.js/utils';
+import { type SuiEvent } from '@mysten/sui/client';
+import { parseStructTag, formatAddress } from '@mysten/sui/utils';
 import { Text } from '@mysten/ui';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import clsx from 'clsx';

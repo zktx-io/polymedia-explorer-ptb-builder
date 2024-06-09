@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useSuiClient } from '@mysten/dapp-kit';
-import { type SuiClient } from '@mysten/sui.js/client';
+import { type SuiClient } from '@mysten/sui/client';
 import { useQuery } from '@tanstack/react-query';
 
 export function useGetAllEpochAddressMetrics(

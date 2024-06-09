@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Search24 } from '@mysten/icons';
-import { type SuiMoveNormalizedStruct, type SuiObjectResponse } from '@mysten/sui.js/client';
+import { type SuiMoveNormalizedStruct, type SuiObjectResponse } from '@mysten/sui/client';
 import { Text, LoadingIndicator, Combobox, ComboboxInput, ComboboxList } from '@mysten/ui';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';

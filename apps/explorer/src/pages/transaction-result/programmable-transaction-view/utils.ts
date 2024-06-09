@@ -1,6 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { type SuiArgument } from '@mysten/sui.js/client';
+import { type SuiArgument } from '@mysten/sui/client';
 
 export function flattenSuiArguments(data: (SuiArgument | SuiArgument[])[]): string {
 	if (!data) {

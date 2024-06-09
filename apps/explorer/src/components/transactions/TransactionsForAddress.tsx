@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useSuiClient } from '@mysten/dapp-kit';
-import { type SuiTransactionBlockResponse } from '@mysten/sui.js/client';
+import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
 import { LoadingIndicator, Text } from '@mysten/ui';
 import { useQuery } from '@tanstack/react-query';
 

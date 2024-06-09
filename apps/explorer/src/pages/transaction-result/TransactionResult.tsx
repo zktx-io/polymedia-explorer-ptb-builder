@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiTransactionBlockResponse } from '@mysten/sui.js/client';
+import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
 import { useParams } from 'react-router-dom';
 
 import { TransactionView } from './TransactionView';

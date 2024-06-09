@@ -1,8 +1,8 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiObjectResponse } from '@mysten/sui.js/client';
-import { formatAddress } from '@mysten/sui.js/utils';
+import { type SuiObjectResponse } from '@mysten/sui/client';
+import { formatAddress } from '@mysten/sui/utils';
 import { Placeholder, Text } from '@mysten/ui';
 import { type ReactNode } from 'react';
 

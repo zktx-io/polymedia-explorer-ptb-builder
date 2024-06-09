@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useSuiClient } from '@mysten/dapp-kit';
-import { type CheckpointPage } from '@mysten/sui.js/client';
+import { type CheckpointPage } from '@mysten/sui/client';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 
 export const DEFAULT_CHECKPOINTS_LIMIT = 20;

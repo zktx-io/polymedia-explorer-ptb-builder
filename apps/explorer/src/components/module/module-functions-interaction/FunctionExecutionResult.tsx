@@ -4,7 +4,7 @@
 import { LinkGroup } from './LinkGroup';
 import { Banner } from '~/ui/Banner';
 
-import type { SuiTransactionBlockResponse, OwnedObjectRef } from '@mysten/sui.js/client';
+import type { SuiTransactionBlockResponse, OwnedObjectRef } from '@mysten/sui/client';
 
 function toObjectLink(object: OwnedObjectRef) {
 	return {

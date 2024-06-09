@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiTransactionBlockResponse } from '@mysten/sui.js/client';
+import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
 import {
 	parseSerializedSignature,
 	type SignatureScheme,
 	type PublicKey,
-} from '@mysten/sui.js/cryptography';
-import { parsePartialSignatures } from '@mysten/sui.js/multisig';
-import { toB64, normalizeSuiAddress } from '@mysten/sui.js/utils';
-import { publicKeyFromRawBytes } from '@mysten/sui.js/verify';
+} from '@mysten/sui/cryptography';
+import { parsePartialSignatures } from '@mysten/sui/multisig';
+import { toB64, normalizeSuiAddress } from '@mysten/sui/utils';
+import { publicKeyFromRawBytes } from '@mysten/sui/verify';
 import { Text } from '@mysten/ui';
 
 import { DescriptionItem, DescriptionList } from '~/ui/DescriptionList';

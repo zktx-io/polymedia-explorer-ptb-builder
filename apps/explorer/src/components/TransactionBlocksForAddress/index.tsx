@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type TransactionFilter } from '@mysten/sui.js/client';
+import { type TransactionFilter } from '@mysten/sui/client';
 import { Heading, RadioGroup, RadioGroupItem } from '@mysten/ui';
 import { useReducer, useState } from 'react';
 
