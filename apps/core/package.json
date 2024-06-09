@@ -3,6 +3,7 @@
     "name": "@mysten/core",
     "main": "src/index.ts",
     "scripts": {
+        "clean": "rm -rf dist/ node_modules/ .turbo/ .wrangler/",
         "prettier:check": "prettier -c --ignore-unknown .",
         "prettier:fix": "prettier -w --ignore-unknown .",
         "prettier:fix:watch": "onchange '**' -i -f add -f change -j 5 -- prettier -w --ignore-unknown {{file}}",

@@ -12,6 +12,7 @@
         }
     },
     "scripts": {
+        "clean": "rm -rf dist/ node_modules/ .turbo/ .wrangler/",
         "prettier:check": "prettier -c --ignore-unknown .",
         "prettier:fix": "prettier -w --ignore-unknown .",
         "eslint:check": "eslint --max-warnings=0 .",
