@@ -90,6 +90,9 @@ function ModuleView({ id, name, code }: Props) {
 									{line.map((token, key) => {
 										const reference = normalizedModuleReferences?.[token.content];
 
+										const tokenProps = getTokenProps({ token, key });
+										const { key: tokenKey, ...restTokenProps } = tokenProps;
+
 										if (
 											(token.types.includes('class-name') || token.types.includes('constant')) &&
 											reference
@@ -97,32 +100,27 @@ function ModuleView({ id, name, code }: Props) {
 											const href = `/object/${reference.address}?module=${reference.module}`;
 
 											return (
-												<LinkWithQuery
-													key={key}
-													{...getTokenProps({
-														token,
-														key,
-													})}
-													to={href}
-													target={
-														normalizeSuiAddress(reference.address) === normalizeSuiAddress(id!)
-															? undefined
-															: '_blank'
-													}
-												/>
+											<LinkWithQuery
+												key={tokenKey}
+												{...restTokenProps}
+												to={href}
+												target={
+												normalizeSuiAddress(reference.address) === normalizeSuiAddress(id!)
+													? undefined
+													: '_blank'
+												}
+											/>
 											);
 										}
 
 										return (
 											<span
-												{...getTokenProps({
-													token,
-													key,
-												})}
-												key={key}
+												key={tokenKey}
+												{...restTokenProps}
 											/>
 										);
 									})}
+
 								</div>
 							))}
 						</pre>
