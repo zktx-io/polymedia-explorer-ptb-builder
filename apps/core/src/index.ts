@@ -1,7 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-export * from './api/SentryHttpTransport';
 export * from './hooks/useFormatCoin';
 export * from './hooks/useTimeAgo';
 export * from './hooks/useGetValidatorsEvents';

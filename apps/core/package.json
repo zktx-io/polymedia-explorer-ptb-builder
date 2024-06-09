@@ -25,7 +25,6 @@
     "@mysten/dapp-kit": "^0.12.9",
     "@mysten/kiosk": "^0.8.6",
     "@mysten/sui.js": "^0.51.2",
-    "@sentry/react": "^7.59.2",
     "@tanstack/react-query": "^5.0.0",
     "bignumber.js": "^9.1.1",
     "react": "^18.2.0",
