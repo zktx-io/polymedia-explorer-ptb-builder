@@ -21,7 +21,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@growthbook/growthbook-react": "^0.15.0",
     "@hookform/resolvers": "^3.1.1",
     "@mysten/dapp-kit": "^0.12.9",
     "@mysten/kiosk": "^0.8.6",

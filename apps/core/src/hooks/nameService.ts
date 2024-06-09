@@ -1,7 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFeatureIsOn } from '@growthbook/growthbook-react';
 import { useSuiClient } from '@mysten/dapp-kit';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,7 +13,7 @@ export function isSuiNSName(name: string) {
 }
 
 export function useSuiNSEnabled() {
-	return useFeatureIsOn(SUI_NS_FEATURE_FLAG);
+	return true;
 }
 
 export function useResolveSuiNSAddress(name?: string | null, enabled?: boolean) {
