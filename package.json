@@ -1,5 +1,14 @@
 {
     "name": "sui-explorer",
     "version": "1.0.0",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "turbo run build",
+        "clean": "turbo run clean && rm -rf dist/ node_modules/ .turbo/ src/sui/build/",
+        "dev": "turbo run dev",
+        "lint": "turbo run lint"
+    },
+    "devDependencies": {
+        "turbo": "^1.13.4"
+    }
 }
