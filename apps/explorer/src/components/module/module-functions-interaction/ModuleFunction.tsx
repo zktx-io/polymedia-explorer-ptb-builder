@@ -1,3 +1,4 @@
+/*
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -95,7 +96,7 @@ export function ModuleFunction({
 			<form
 				onSubmit={handleSubmit((formData) =>
 					execute.mutateAsync(formData).catch(() => {
-						/* ignore tx execution errors */
+						// ignore tx execution errors
 					}),
 				)}
 				autoComplete="off"
@@ -155,3 +156,4 @@ export function ModuleFunction({
 		</DisclosureBox>
 	);
 }
+*/
