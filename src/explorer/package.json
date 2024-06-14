@@ -15,6 +15,7 @@
         "storybook": "storybook dev",
         "test": "pnpm test:unit",
         "test:unit": "vitest run",
+        "tunnel": "lt --port 3000",
         "typecheck": "tsc -b"
     },
     "dependencies": {
@@ -90,6 +91,7 @@
         "@vitest/ui": "^1.6.0",
         "autoprefixer": "^10.4.19",
         "happy-dom": "^14.12.0",
+        "localtunnel": "^2.0.2",
         "onchange": "^7.1.0",
         "postcss": "^8.4.38",
         "start-server-and-test": "^2.0.4",
