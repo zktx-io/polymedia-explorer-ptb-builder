@@ -28,7 +28,7 @@ const splitPanelsOrientation: { label: string; value: Direction }[] = [
 
 function PkgView({ data }: { data: DataType }) {
 	const [selectedSplitPanelOrientation, setSplitPanelOrientation] = useState(
-		splitPanelsOrientation[1].value,
+		splitPanelsOrientation[0].value,
 	);
 
 	const { data: txnData, isPending } = useGetTransaction(data.data.tx_digest!);
@@ -85,7 +85,7 @@ function PkgView({ data }: { data: DataType }) {
 					<TabsList>
 						<div className="mt-16 flex w-full justify-between">
 							<TabsTrigger value="modules">Modules</TabsTrigger>
-							<div className="hidden md:block">
+							<div className="hidden">
 								<RadioGroup
 									aria-label="split-panel-bytecode-viewer"
 									value={selectedSplitPanelOrientation}

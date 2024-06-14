@@ -81,23 +81,23 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 			),
 			defaultSize: 40,
 		},
-		{
-			panel: (
-				<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
-					<TabHeader size="md" title="Execute">
-						<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
-							<ModuleFunctionsInteraction
-								// force recreating everything when we change modules
-								key={`${id}-${selectedModuleName}`}
-								packageId={id}
-								moduleName={selectedModuleName}
-							/>
-						</div>
-					</TabHeader>
-				</div>
-			),
-			defaultSize: 60,
-		},
+		// {
+		// 	panel: (
+		// 		<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
+		// 			<TabHeader size="md" title="Execute">
+		// 				<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
+		// 					<ModuleFunctionsInteraction
+		// 						// force recreating everything when we change modules
+		// 						key={`${id}-${selectedModuleName}`}
+		// 						packageId={id}
+		// 						moduleName={selectedModuleName}
+		// 					/>
+		// 				</div>
+		// 			</TabHeader>
+		// 		</div>
+		// 	),
+		// 	defaultSize: 60,
+		// },
 	];
 
 	return (
