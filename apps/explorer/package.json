@@ -26,7 +26,7 @@
         "@floating-ui/react": "^0.26.16",
         "@fontsource-variable/inter": "^5.0.18",
         "@fontsource-variable/red-hat-mono": "^5.0.19",
-        "@headlessui/react": "^2.0.4",
+        "@headlessui/react": "^1.7.19",
         "@mysten/core": "workspace:*",
         "@mysten/dapp-kit": "^0.14.5",
         "@mysten/icons": "workspace:*",
