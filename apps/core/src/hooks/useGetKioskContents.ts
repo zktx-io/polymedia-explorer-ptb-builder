@@ -102,7 +102,6 @@ export function useGetKioskContents(address?: string | null, disableOriginByteKi
 	const { client: suiClient, network } = useSuiClientContext();
 	const kioskClient = useKioskClient();
 	return useQuery({
-		// eslint-disable-next-line @tanstack/query/exhaustive-deps
 		queryKey: ["get-kiosk-contents", address, disableOriginByteKiosk, network, kioskClient.network],
 		queryFn: async () => {
 			const suiKiosks = await getSuiKioskContents(address!, kioskClient);

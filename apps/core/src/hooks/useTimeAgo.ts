@@ -1,6 +1,8 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
+/* eslint-disable @typescript-eslint/prefer-literal-enum-member, @typescript-eslint/no-unsafe-enum-comparison */
+
 import { useEffect, useMemo, useState } from "react";
 
 const TIME_LABEL = {

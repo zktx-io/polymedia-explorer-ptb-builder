@@ -41,8 +41,7 @@ export function getRefGasPrice(validators?: SuiValidatorSummary[]) {
 	let sumOfStakes = 0;
 	let result = "0";
 
-	for (let i = 0; i < sortedByGasPrice.length; i++) {
-		const validator = sortedByGasPrice[i];
+	for (const validator of sortedByGasPrice) {
 		const stake = BigInt(validator?.stakingPoolSuiBalance);
 
 		const stakeShare = calculateStakeShare(stake, totalStaked);
