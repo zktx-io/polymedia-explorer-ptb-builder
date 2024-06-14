@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetDynamicFields, useGetObject } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { type SuiObjectResponse } from '@mysten/sui/client';
-import { Heading } from '@mysten/ui';
-import { type ReactNode, useState } from 'react';
+import { useGetDynamicFields, useGetObject } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { type SuiObjectResponse } from "@mysten/sui/client";
+import { Heading } from "@mysten/ui";
+import { type ReactNode, useState } from "react";
 
-import { DynamicFieldsCard } from '~/components/Object/DynamicFieldsCard';
-import { ObjectFieldsCard } from '~/components/Object/ObjectFieldsCard';
-import TransactionBlocksForAddress from '~/components/TransactionBlocksForAddress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/ui/Tabs';
+import { DynamicFieldsCard } from "~/components/Object/DynamicFieldsCard";
+import { ObjectFieldsCard } from "~/components/Object/ObjectFieldsCard";
+import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
 
 function FieldsContainer({ children }: { children: ReactNode }) {
 	return (
@@ -21,8 +21,8 @@ function FieldsContainer({ children }: { children: ReactNode }) {
 }
 
 enum TABS_VALUES {
-	FIELDS = 'fields',
-	DYNAMIC_FIELDS = 'dynamicFields',
+	FIELDS = "fields",
+	DYNAMIC_FIELDS = "dynamicFields",
 }
 
 function useObjectFieldsCard(id: string) {
@@ -30,11 +30,11 @@ function useObjectFieldsCard(id: string) {
 
 	const objectType =
 		suiObjectResponseData?.data?.type ??
-		suiObjectResponseData?.data?.content?.dataType === 'package'
+		suiObjectResponseData?.data?.content?.dataType === "package"
 			? suiObjectResponseData.data.type
 			: suiObjectResponseData?.data?.content?.type;
 
-	const [packageId, moduleName, functionName] = objectType?.split('<')[0]?.split('::') || [];
+	const [packageId, moduleName, functionName] = objectType?.split("<")[0]?.split("::") || [];
 
 	// Get the normalized struct for the object
 	const {
@@ -42,7 +42,7 @@ function useObjectFieldsCard(id: string) {
 		isPending: loadingNormalizedStruct,
 		isError: errorNormalizedMoveStruct,
 	} = useSuiClientQuery(
-		'getNormalizedMoveStruct',
+		"getNormalizedMoveStruct",
 		{
 			package: packageId,
 			module: moduleName,
@@ -96,7 +96,7 @@ export function FieldsContent({ objectId }: { objectId: string }) {
 			<TabsContent value={TABS_VALUES.FIELDS}>
 				<FieldsContainer>
 					<ObjectFieldsCard
-						objectType={objectType || ''}
+						objectType={objectType || ""}
 						normalizedStructData={normalizedStructData}
 						suiObjectResponseData={suiObjectResponseData}
 						loading={objectFieldsCardLoading}

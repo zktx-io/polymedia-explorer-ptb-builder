@@ -1,18 +1,18 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiCallArg } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
+import { type SuiCallArg } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
 
-import { ProgrammableTxnBlockCard } from '~/components/transactions/ProgTxnBlockCard';
-import { AddressLink, ObjectLink } from '~/ui/InternalLink';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { ProgrammableTxnBlockCard } from "~/components/transactions/ProgTxnBlockCard";
+import { AddressLink, ObjectLink } from "~/ui/InternalLink";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
 const REGEX_NUMBER = /^\d+$/;
 
-interface InputsCardProps {
+type InputsCardProps = {
 	inputs: SuiCallArg[];
-}
+};
 
 export function InputsCard({ inputs }: InputsCardProps) {
 	if (!inputs?.length) {
@@ -26,15 +26,15 @@ export function InputsCard({ inputs }: InputsCardProps) {
 					let renderValue;
 					const stringValue = String(value);
 
-					if (key === 'mutable') {
+					if (key === "mutable") {
 						renderValue = String(value);
-					} else if (key === 'objectId') {
+					} else if (key === "objectId") {
 						renderValue = <ObjectLink objectId={stringValue} />;
 					} else if (
-						'valueType' in input &&
-						'value' in input &&
-						input.valueType === 'address' &&
-						key === 'value'
+						"valueType" in input &&
+						"value" in input &&
+						input.valueType === "address" &&
+						key === "value"
 					) {
 						renderValue = <AddressLink address={stringValue} />;
 					} else if (REGEX_NUMBER.test(stringValue)) {
@@ -66,7 +66,7 @@ export function InputsCard({ inputs }: InputsCardProps) {
 		<ProgrammableTxnBlockCard
 			initialClose
 			items={expandableItems}
-			itemsLabel={inputs.length > 1 ? 'Inputs' : 'Input'}
+			itemsLabel={inputs.length > 1 ? "Inputs" : "Input"}
 			count={inputs.length}
 		/>
 	);

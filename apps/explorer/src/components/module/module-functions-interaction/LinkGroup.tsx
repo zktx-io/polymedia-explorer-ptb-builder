@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Link } from '~/ui/Link';
+import { Link } from "~/ui/Link";
 
 export type LinkGroupProps = {
 	title: string;
@@ -9,8 +9,8 @@ export type LinkGroupProps = {
 
 export function LinkGroup(props: LinkGroupProps) {
 	const { title } = props;
-	const isLinks = 'links' in props;
-	const isText = 'text' in props;
+	const isLinks = "links" in props;
+	const isText = "text" in props;
 	if ((isLinks && !props.links.length) || (isText && !props.text)) {
 		return null;
 	}

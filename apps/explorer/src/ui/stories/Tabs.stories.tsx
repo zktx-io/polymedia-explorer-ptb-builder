@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Tabs";
 
 export default {
 	component: Tabs,
@@ -27,6 +27,6 @@ export const Default: StoryObj<typeof Tabs> = {
 export const Large: StoryObj = {
 	...Default,
 	args: {
-		size: 'lg',
+		size: "lg",
 	},
 };

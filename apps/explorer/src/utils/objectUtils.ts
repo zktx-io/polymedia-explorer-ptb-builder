@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type ObjectOwner, type SuiObjectResponse } from '@mysten/sui/client';
+import { type ObjectOwner, type SuiObjectResponse } from "@mysten/sui/client";
 
-import { findIPFSvalue } from './stringUtils';
+import { findIPFSvalue } from "./stringUtils";
 
 export function parseImageURL(display?: Record<string, string> | null) {
 	const url = display?.image_url;
@@ -17,31 +17,31 @@ export function parseImageURL(display?: Record<string, string> | null) {
 			//do nothing
 		}
 	}
-	return '';
+	return "";
 }
 
 export function parseObjectType(data: SuiObjectResponse): string {
-	if (data.data?.content?.dataType === 'package') {
-		return 'Move Package';
+	if (data.data?.content?.dataType === "package") {
+		return "Move Package";
 	}
-	return data.data?.type ?? data?.data?.content?.type ?? 'unknown';
+	return data.data?.type ?? data?.data?.content?.type ?? "unknown";
 }
 
 export function getOwnerStr(owner: ObjectOwner | string): string {
-	if (typeof owner === 'object') {
-		if ('AddressOwner' in owner) return owner.AddressOwner;
-		if ('ObjectOwner' in owner) return owner.ObjectOwner;
-		if ('Shared' in owner) return 'Shared';
+	if (typeof owner === "object") {
+		if ("AddressOwner" in owner) return owner.AddressOwner;
+		if ("ObjectOwner" in owner) return owner.ObjectOwner;
+		if ("Shared" in owner) return "Shared";
 	}
 	return owner;
 }
 
-export const checkIsPropertyType = (value: any) => ['number', 'string'].includes(typeof value);
+export const checkIsPropertyType = (value: any) => ["number", "string"].includes(typeof value);
 
 export const extractName = (display?: Record<string, string> | null) => {
-	if (!display || !('name' in display)) return undefined;
+	if (!display || !("name" in display)) return undefined;
 	const name = display.name;
-	if (typeof name === 'string') {
+	if (typeof name === "string") {
 		return name;
 	}
 	return null;

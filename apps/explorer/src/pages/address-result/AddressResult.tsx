@@ -1,22 +1,22 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { isSuiNSName, useResolveSuiNSAddress, useResolveSuiNSName } from '@mysten/core';
-import { Domain32 } from '@mysten/icons';
-import { LoadingIndicator } from '@mysten/ui';
-import { useParams } from 'react-router-dom';
+import { isSuiNSName, useResolveSuiNSAddress, useResolveSuiNSName } from "@mysten/core";
+import { Domain32 } from "@mysten/icons";
+import { LoadingIndicator } from "@mysten/ui";
+import { useParams } from "react-router-dom";
 
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { OwnedCoins } from '~/components/OwnedCoins';
-import { OwnedObjects } from '~/components/OwnedObjects';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { TransactionsForAddress } from '~/components/transactions/TransactionsForAddress';
-import { useBreakpoint } from '~/hooks/useBreakpoint';
-import { Divider } from '~/ui/Divider';
-import { PageHeader } from '~/ui/PageHeader';
-import { LOCAL_STORAGE_SPLIT_PANE_KEYS, SplitPanes } from '~/ui/SplitPanes';
-import { TabHeader, TabsList, TabsTrigger } from '~/ui/Tabs';
-import { TotalStaked } from './TotalStaked';
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { OwnedCoins } from "~/components/OwnedCoins";
+import { OwnedObjects } from "~/components/OwnedObjects";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { TransactionsForAddress } from "~/components/transactions/TransactionsForAddress";
+import { useBreakpoint } from "~/hooks/useBreakpoint";
+import { Divider } from "~/ui/Divider";
+import { PageHeader } from "~/ui/PageHeader";
+import { LOCAL_STORAGE_SPLIT_PANE_KEYS, SplitPanes } from "~/ui/SplitPanes";
+import { TabHeader, TabsList, TabsTrigger } from "~/ui/Tabs";
+import { TotalStaked } from "./TotalStaked";
 
 const LEFT_RIGHT_PANEL_MIN_SIZE = 30;
 const TOP_PANEL_MIN_SIZE = 20;
@@ -43,7 +43,7 @@ function SuiNSAddressResultPageHeader({ name }: { name: string }) {
 }
 
 function AddressResult({ address }: { address: string }) {
-	const isMediumOrAbove = useBreakpoint('md');
+	const isMediumOrAbove = useBreakpoint("md");
 
 	const leftPane = {
 		panel: <OwnedCoins id={address} />,
@@ -144,7 +144,7 @@ export default function AddressResultPage() {
 	return (
 		<PageLayout
 			gradient={{
-				size: 'md',
+				size: "md",
 				content: isSuiNSAddress ? (
 					<SuiNSAddressResultPageHeader name={id!} />
 				) : (

@@ -3,18 +3,18 @@
 import {
 	DryRunTransactionBlockResponse,
 	type SuiTransactionBlockResponse,
-} from '@mysten/sui/client';
-import { useMemo } from 'react';
+} from "@mysten/sui/client";
+import { useMemo } from "react";
 
-import { getBalanceChangeSummary } from '../utils/transaction/getBalanceChangeSummary';
-import { getGasSummary } from '../utils/transaction/getGasSummary';
-import { getLabel } from '../utils/transaction/getLabel';
+import { getBalanceChangeSummary } from "../utils/transaction/getBalanceChangeSummary";
+import { getGasSummary } from "../utils/transaction/getGasSummary";
+import { getLabel } from "../utils/transaction/getLabel";
 import {
 	getObjectChangeSummary,
 	SuiObjectChangeWithDisplay,
-} from '../utils/transaction/getObjectChangeSummary';
-import { getObjectDisplayLookup } from '../utils/transaction/getObjectDisplayLookup';
-import { useMultiGetObjects } from './useMultiGetObjects';
+} from "../utils/transaction/getObjectChangeSummary";
+import { getObjectDisplayLookup } from "../utils/transaction/getObjectDisplayLookup";
+import { useMultiGetObjects } from "./useMultiGetObjects";
 
 export function useTransactionSummary({
 	transaction,
@@ -28,7 +28,7 @@ export function useTransactionSummary({
 	const { objectChanges } = transaction ?? {};
 
 	const objectIds = objectChanges
-		?.map((change) => 'objectId' in change && change.objectId)
+		?.map((change) => "objectId" in change && change.objectId)
 		.filter(Boolean) as string[];
 
 	const { data } = useMultiGetObjects(objectIds, { showDisplay: true });
@@ -38,7 +38,7 @@ export function useTransactionSummary({
 		() =>
 			[...(objectChanges ?? [])].map((change) => ({
 				...change,
-				display: 'objectId' in change ? lookup?.get(change.objectId) : null,
+				display: "objectId" in change ? lookup?.get(change.objectId) : null,
 			})),
 		[lookup, objectChanges],
 	) as SuiObjectChangeWithDisplay[];
@@ -49,7 +49,7 @@ export function useTransactionSummary({
 		const balanceChangeSummary = getBalanceChangeSummary(transaction, recognizedPackagesList);
 		const gas = getGasSummary(transaction);
 
-		if ('digest' in transaction) {
+		if ("digest" in transaction) {
 			// Non-dry-run transaction:
 			return {
 				gas,
@@ -61,7 +61,7 @@ export function useTransactionSummary({
 				status: transaction.effects?.status.status,
 				timestamp: transaction.timestampMs,
 				upgradedSystemPackages: transaction.effects?.mutated?.filter(
-					({ owner }) => owner === 'Immutable',
+					({ owner }) => owner === "Immutable",
 				),
 			};
 		} else {

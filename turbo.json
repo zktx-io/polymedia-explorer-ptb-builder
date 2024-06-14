@@ -13,9 +13,12 @@
             "cache": false,
             "persistent": true
         },
-        "lint": {
-            "outputs": []
-        },
+        "eslint:check": { "outputs": [] },
+        "eslint:fix": { "outputs": [] },
+        "prettier:check": { "outputs": [] },
+        "prettier:fix": { "outputs": [] },
+        "lint": { "outputs": [] },
+        "lint:fix": { "outputs": [] },
         "test": {
             "dependsOn": ["^build"],
             "outputs": []

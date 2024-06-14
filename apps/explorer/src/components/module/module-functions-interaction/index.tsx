@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { LoadingIndicator } from '@mysten/ui';
-import { useMemo } from 'react';
+import { LoadingIndicator } from "@mysten/ui";
+import { useMemo } from "react";
 
 // import { ModuleFunction } from './ModuleFunction';
-import { useNormalizedMoveModule } from '~/hooks/useNormalizedMoveModule';
-import { Banner } from '~/ui/Banner';
+import { useNormalizedMoveModule } from "~/hooks/useNormalizedMoveModule";
+import { Banner } from "~/ui/Banner";
 
 export type ModuleFunctionsInteractionProps = {
 	packageId: string;

@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SuiClientProvider } from '@mysten/dapp-kit';
-import { type Meta, type StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { SuiClientProvider } from "@mysten/dapp-kit";
+import { type Meta, type StoryObj } from "@storybook/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+import { MemoryRouter } from "react-router-dom";
 
-import { Link } from '../Link';
+import { Link } from "../Link";
 import {
 	CloseButton,
 	Modal,
@@ -15,8 +15,8 @@ import {
 	ModalContent,
 	ModalHeading,
 	type ModalProps,
-} from '../Modal';
-import { ObjectModal, type ObjectModalProps } from '../Modal/ObjectModal';
+} from "../Modal";
+import { ObjectModal, type ObjectModalProps } from "../Modal/ObjectModal";
 
 export default {
 	component: () => {
@@ -54,7 +54,7 @@ export const Default: StoryObj<ModalProps> = {
 };
 
 export const Image: StoryObj<ObjectModalProps> = {
-	name: 'Image Modal',
+	name: "Image Modal",
 	render: () => {
 		const [open, setOpen] = useState(true);
 		return (
@@ -75,7 +75,7 @@ export const Image: StoryObj<ObjectModalProps> = {
 };
 
 export const Video: StoryObj<ObjectModalProps> = {
-	name: 'Video Modal',
+	name: "Video Modal",
 	render: () => {
 		const [open, setOpen] = useState(true);
 		return (

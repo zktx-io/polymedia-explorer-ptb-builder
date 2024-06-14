@@ -8,46 +8,46 @@
  * now we are including App UI Components in the base UI component directory.
  */
 
-import { autoUpdate, flip, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
-import { Popover } from '@headlessui/react';
-import { useZodForm } from '@mysten/core';
-import { HamburgerRest16 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
-import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { z } from 'zod';
+import { autoUpdate, flip, FloatingPortal, offset, shift, useFloating } from "@floating-ui/react";
+import { Popover } from "@headlessui/react";
+import { useZodForm } from "@mysten/core";
+import { HamburgerRest16 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { z } from "zod";
 
-import { NavItem } from './NavItem';
-import { ReactComponent as CheckIcon } from '../icons/check_16x16.svg';
-import { ReactComponent as MenuIcon } from '../icons/menu.svg';
+import { NavItem } from "./NavItem";
+import { ReactComponent as CheckIcon } from "../icons/check_16x16.svg";
+import { ReactComponent as MenuIcon } from "../icons/menu.svg";
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from "react";
 
-export interface NetworkOption {
+export type NetworkOption = {
 	id: string;
 	label: string;
-}
+};
 
-export interface NetworkSelectProps {
+export type NetworkSelectProps = {
 	networks: NetworkOption[];
 	value: string;
 	version?: number | string;
 	binaryVersion?: string;
 	onChange(networkId: string): void;
-}
+};
 
 enum NetworkState {
-	UNSELECTED = 'UNSELECTED',
-	PENDING = 'PENDING',
-	SELECTED = 'SELECTED',
+	UNSELECTED = "UNSELECTED",
+	PENDING = "PENDING",
+	SELECTED = "SELECTED",
 }
 
-interface SelectableNetworkProps extends ComponentProps<'div'> {
+type SelectableNetworkProps = {
 	state: NetworkState;
 	children: ReactNode;
 	onClick(): void;
-}
+} & ComponentProps<"div">;
 
 function SelectableNetwork({ state, children, onClick, ...props }: SelectableNetworkProps) {
 	return (
@@ -55,22 +55,22 @@ function SelectableNetwork({ state, children, onClick, ...props }: SelectableNet
 			role="button"
 			onClick={onClick}
 			className={clsx(
-				'flex items-start gap-3 rounded-md px-1.25 py-2 text-body font-semibold hover:bg-gray-40 ui-active:bg-gray-40',
-				state !== NetworkState.UNSELECTED ? 'text-steel-darker' : 'text-steel-dark',
+				"flex items-start gap-3 rounded-md px-1.25 py-2 text-body font-semibold hover:bg-gray-40 ui-active:bg-gray-40",
+				state !== NetworkState.UNSELECTED ? "text-steel-darker" : "text-steel-dark",
 			)}
 			{...props}
 		>
 			<CheckIcon
-				className={clsx('flex-shrink-0', {
-					'text-success': state === NetworkState.SELECTED,
-					'text-steel': state === NetworkState.PENDING,
-					'text-gray-45': state === NetworkState.UNSELECTED,
+				className={clsx("flex-shrink-0", {
+					"text-success": state === NetworkState.SELECTED,
+					"text-steel": state === NetworkState.PENDING,
+					"text-gray-45": state === NetworkState.UNSELECTED,
 				})}
 			/>
 			<div className="mt-px">
 				<Text
 					variant="body/semibold"
-					color={state === NetworkState.SELECTED ? 'steel-darker' : 'steel-dark'}
+					color={state === NetworkState.SELECTED ? "steel-darker" : "steel-dark"}
 				>
 					{children}
 				</Text>
@@ -92,7 +92,7 @@ function CustomRPCInput({
 }) {
 	const { register, handleSubmit, formState } = useZodForm({
 		schema: CustomRPCSchema,
-		mode: 'all',
+		mode: "all",
 		defaultValues: {
 			url: value,
 		},
@@ -108,11 +108,11 @@ function CustomRPCInput({
 			className="relative flex items-center rounded-md"
 		>
 			<input
-				{...register('url')}
+				{...register("url")}
 				type="text"
 				className={clsx(
-					'block w-full rounded-md border p-3 pr-16 shadow-sm outline-none',
-					errors.url ? 'border-issue-dark text-issue-dark' : 'border-gray-65 text-gray-90',
+					"block w-full rounded-md border p-3 pr-16 shadow-sm outline-none",
+					errors.url ? "border-issue-dark text-issue-dark" : "border-gray-65 text-gray-90",
 				)}
 			/>
 
@@ -150,7 +150,7 @@ function NetworkVersion({
 	);
 }
 
-function NetworkSelectPanel({ networks, onChange, value }: Omit<NetworkSelectProps, 'version'>) {
+function NetworkSelectPanel({ networks, onChange, value }: Omit<NetworkSelectProps, "version">) {
 	const isCustomNetwork = !networks.find(({ id }) => id === value);
 	const [customOpen, setCustomOpen] = useState(isCustomNetwork);
 
@@ -187,7 +187,7 @@ function NetworkSelectPanel({ networks, onChange, value }: Omit<NetworkSelectPro
 				Custom RPC URL
 				{customOpen && (
 					<div className="mt-3">
-						<CustomRPCInput value={isCustomNetwork ? value : ''} onChange={onChange} />
+						<CustomRPCInput value={isCustomNetwork ? value : ""} onChange={onChange} />
 					</div>
 				)}
 			</SelectableNetwork>
@@ -212,7 +212,7 @@ export function NetworkSelect({
 	onChange,
 }: NetworkSelectProps) {
 	const { x, y, refs, strategy } = useFloating({
-		placement: 'bottom-end',
+		placement: "bottom-end",
 		middleware: [offset(5), flip(), shift()],
 		whileElementsMounted: autoUpdate,
 	});
@@ -226,7 +226,7 @@ export function NetworkSelect({
 					<Popover.Button ref={refs.setReference} as={NavItem} afterIcon={<ResponsiveIcon />}>
 						<div className="hidden md:block">
 							<Text variant="body/semibold" color="hero-darkest">
-								{selected?.label || 'Custom'}
+								{selected?.label || "Custom"}
 							</Text>
 						</div>
 					</Popover.Button>
@@ -268,7 +268,7 @@ export function NetworkSelect({
 									{!!value && version && binaryVersion ? (
 										<div className="-mx-3 -mb-4 mt-2 rounded-b-lg bg-hero-darkest/5">
 											<NetworkVersion
-												label={selected?.label ?? 'Custom RPC'}
+												label={selected?.label ?? "Custom RPC"}
 												binaryVersion={binaryVersion}
 												version={version}
 											/>

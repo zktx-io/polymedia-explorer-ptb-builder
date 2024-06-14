@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Heading, Text } from '@mysten/ui';
+import { Heading, Text } from "@mysten/ui";
 
-import { Amount, type AmountProps } from '~/ui/Amount';
-import { DateCard } from '~/ui/DateCard';
+import { Amount, type AmountProps } from "~/ui/Amount";
+import { DateCard } from "~/ui/DateCard";
 
-export interface StatAmountProps extends Omit<AmountProps, 'size'> {
+export type StatAmountProps = {
 	dollarAmount?: number;
 	date?: Date | number | null;
-}
+} & Omit<AmountProps, "size">;
 
 export function StatAmount({ dollarAmount, date, ...props }: StatAmountProps) {
 	return (
@@ -27,8 +27,8 @@ export function StatAmount({ dollarAmount, date, ...props }: StatAmountProps) {
 			{dollarAmount && (
 				<Text variant="bodySmall/semibold" color="steel-dark">
 					{new Intl.NumberFormat(undefined, {
-						style: 'currency',
-						currency: 'USD',
+						style: "currency",
+						currency: "USD",
 					}).format(dollarAmount)}
 				</Text>
 			)}

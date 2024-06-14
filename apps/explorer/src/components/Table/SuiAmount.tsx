@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { CoinFormat, useFormatCoin } from '@mysten/core';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { Text } from '@mysten/ui';
+import { CoinFormat, useFormatCoin } from "@mysten/core";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { Text } from "@mysten/ui";
 
 export function SuiAmount({
 	amount,

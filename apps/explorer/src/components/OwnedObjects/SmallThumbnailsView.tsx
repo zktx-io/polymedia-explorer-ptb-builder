@@ -1,23 +1,23 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiObjectResponse } from '@mysten/sui/client';
-import { formatAddress } from '@mysten/sui/utils';
-import { Placeholder } from '@mysten/ui';
-import { type ReactNode } from 'react';
+import { type SuiObjectResponse } from "@mysten/sui/client";
+import { formatAddress } from "@mysten/sui/utils";
+import { Placeholder } from "@mysten/ui";
+import { type ReactNode } from "react";
 
-import { OwnedObjectsText } from '~/components/OwnedObjects/OwnedObjectsText';
-import { useResolveVideo } from '~/hooks/useResolveVideo';
-import { ObjectLink } from '~/ui/InternalLink';
-import { ObjectVideoImage } from '~/ui/ObjectVideoImage';
-import { parseObjectType } from '~/utils/objectUtils';
-import { trimStdLibPrefix } from '~/utils/stringUtils';
+import { OwnedObjectsText } from "~/components/OwnedObjects/OwnedObjectsText";
+import { useResolveVideo } from "~/hooks/useResolveVideo";
+import { ObjectLink } from "~/ui/InternalLink";
+import { ObjectVideoImage } from "~/ui/ObjectVideoImage";
+import { parseObjectType } from "~/utils/objectUtils";
+import { trimStdLibPrefix } from "~/utils/stringUtils";
 
-interface Props {
+type Props = {
 	limit: number;
 	data?: SuiObjectResponse[];
 	loading?: boolean;
-}
+};
 
 function OwnObjectContainer({ id, children }: { id: string; children: ReactNode }) {
 	return (
@@ -44,8 +44,8 @@ function SmallThumbnailsViewLoading({ limit }: { limit: number }) {
 function SmallThumbnail({ obj }: { obj: SuiObjectResponse }) {
 	const video = useResolveVideo(obj);
 	const displayMeta = obj.data?.display?.data;
-	const src = displayMeta?.image_url || '';
-	const name = displayMeta?.name ?? displayMeta?.description ?? '--';
+	const src = displayMeta?.image_url || "";
+	const name = displayMeta?.name ?? displayMeta?.description ?? "--";
 	const type = trimStdLibPrefix(parseObjectType(obj));
 	const id = obj.data?.objectId;
 

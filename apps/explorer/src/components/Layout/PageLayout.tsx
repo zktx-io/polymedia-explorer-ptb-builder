@@ -1,30 +1,30 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useElementDimensions, useLocalStorage } from '@mysten/core';
-import { Heading, LoadingIndicator, Text } from '@mysten/ui';
-import clsx from 'clsx';
-import { type ReactNode, useEffect, useRef } from 'react';
+import { useElementDimensions, useLocalStorage } from "@mysten/core";
+import { Heading, LoadingIndicator, Text } from "@mysten/ui";
+import clsx from "clsx";
+import { type ReactNode, useEffect, useRef } from "react";
 
-import Footer from '../footer/Footer';
-import Header from '../header/Header';
-import { useNetworkContext } from '~/context';
-import { Banner } from '~/ui/Banner';
-import { Network } from '~/utils/api/DefaultRpcClient';
-import suiscanImg from '~/assets/explorer-suiscan.jpg';
-import suivisionImg from '~/assets/explorer-suivision.jpg';
-import suiscanImg2x from '~/assets/explorer-suiscan@2x.jpg';
-import suivisionImg2x from '~/assets/explorer-suivision@2x.jpg';
-import { ButtonOrLink } from '~/ui/utils/ButtonOrLink';
-import { Image } from '~/ui/image/Image';
-import { ArrowRight12, Sui, SuiLogoTxt } from '@mysten/icons';
-import { useRedirectExplorerUrl } from '~/hooks/useRedirectExplorerUrl';
+import Footer from "../footer/Footer";
+import Header from "../header/Header";
+import { useNetworkContext } from "~/context";
+import { Banner } from "~/ui/Banner";
+import { Network } from "~/utils/api/DefaultRpcClient";
+import suiscanImg from "~/assets/explorer-suiscan.jpg";
+import suivisionImg from "~/assets/explorer-suivision.jpg";
+import suiscanImg2x from "~/assets/explorer-suiscan@2x.jpg";
+import suivisionImg2x from "~/assets/explorer-suivision@2x.jpg";
+import { ButtonOrLink } from "~/ui/utils/ButtonOrLink";
+import { Image } from "~/ui/image/Image";
+import { ArrowRight12, Sui, SuiLogoTxt } from "@mysten/icons";
+import { useRedirectExplorerUrl } from "~/hooks/useRedirectExplorerUrl";
 import { CheckboxRedirectPreference, RedirectExplorer, usePreference } from "~/components/CheckboxRedirectPreference";
 
 export type PageLayoutProps = {
 	gradient?: {
 		content: ReactNode;
-		size: 'lg' | 'md';
+		size: "lg" | "md";
 	};
 	isError?: boolean;
 	content: ReactNode;
@@ -35,12 +35,12 @@ const DEFAULT_HEADER_HEIGHT = 68;
 
 function useRedirectExplorerOrder() {
 	const [isSuiVisionFirst, setSuiVisionOrder] = useLocalStorage<boolean | undefined>(
-		'is-suivision-first',
+		"is-suivision-first",
 		undefined,
 	);
 
 	useEffect(() => {
-		if (typeof isSuiVisionFirst === 'undefined') {
+		if (typeof isSuiVisionFirst === "undefined") {
 			setSuiVisionOrder(new Date().getMilliseconds() % 2 === 0);
 		}
 	}, [isSuiVisionFirst, setSuiVisionOrder]);
@@ -69,7 +69,7 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 		if (checked && !preference) {
 			setPreference(type);
 		}
-	}
+	};
 
 	return (
 		<div className="relative overflow-hidden rounded-3xl border border-gray-45 transition duration-300 ease-in-out hover:shadow-lg">
@@ -90,7 +90,7 @@ function ImageLink({ type }: { type: RedirectExplorer }) {
 					rel="noopener noreferrer"
 				>
 					<Text variant="body/semibold" color="white">
-						{type === RedirectExplorer.SUISCAN ? 'Visit Suiscan.xyz' : 'Visit Suivision.xyz'}
+						{type === RedirectExplorer.SUISCAN ? "Visit Suiscan.xyz" : "Visit Suivision.xyz"}
 					</Text>
 					<ArrowRight12 className="h-3 w-3 -rotate-45 text-white" />
 				</ButtonOrLink>
@@ -124,7 +124,7 @@ function HeaderLink({ type }: { type: RedirectExplorer }) {
 	} = usePreference();
 	const href = type === RedirectExplorer.SUISCAN ? suiscanUrl : suivisionUrl;
 	const openWithLabel =
-		type === RedirectExplorer.SUISCAN ? 'Open on Suiscan.xyz' : 'Open on Suivision.xyz';
+		type === RedirectExplorer.SUISCAN ? "Open on Suiscan.xyz" : "Open on Suivision.xyz";
 
 	return (
 		<ButtonOrLink
@@ -150,12 +150,12 @@ export function RedirectHeader() {
 		<section
 			className="flex flex-col items-center justify-center gap-5 px-5 py-12 text-center"
 			style={{
-				background: 'linear-gradient(159deg, #FAF8D2 50.65%, #F7DFD5 86.82%)',
+				background: "linear-gradient(159deg, #FAF8D2 50.65%, #F7DFD5 86.82%)",
 			}}
 		>
 			<div className="flex items-center gap-1">
-				<Sui className={clsx(hasMatch ? 'h-7.5 w-5' : 'h-11 w-9')} />
-				<SuiLogoTxt className={clsx(hasMatch ? 'h-5 w-7.5' : 'h-7 w-11')} />
+				<Sui className={clsx(hasMatch ? "h-7.5 w-5" : "h-11 w-9")} />
+				<SuiLogoTxt className={clsx(hasMatch ? "h-5 w-7.5" : "h-7 w-11")} />
 			</div>
 
 			{hasMatch ? (
@@ -215,7 +215,7 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 
 	const networkDegradeBannerCopy =
 		network === Network.TESTNET
-			? 'Sui Explorer (Testnet) is currently under-going maintenance. Some data may be incorrect or missing.'
+			? "Sui Explorer (Testnet) is currently under-going maintenance. Some data may be incorrect or missing."
 			: "The explorer is running slower than usual. We're working to fix the issue and appreciate your patience.";
 
 	if (checked && preference) {
@@ -225,7 +225,7 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 					<LoadingIndicator />
 				</div>
 			</div>
-		)
+		);
 	}
 
 	return (
@@ -260,17 +260,17 @@ export function PageLayout({ gradient, content, loading, isError }: PageLayoutPr
 							paddingTop: `${headerHeight}px`,
 						}}
 						className={clsx(
-							'group/gradientContent',
-							loading && 'bg-gradients-graph-cards',
-							isError && 'bg-gradients-failure',
-							!isError && 'bg-gradients-graph-cards',
+							"group/gradientContent",
+							loading && "bg-gradients-graph-cards",
+							isError && "bg-gradients-failure",
+							!isError && "bg-gradients-graph-cards",
 						)}
 					>
 						<div
 							className={clsx(
-								'mx-auto max-w-[1440px] py-8 lg:px-6 xl:px-10',
-								gradient.size === 'lg' && 'px-4 xl:py-12',
-								gradient.size === 'md' && 'px-4',
+								"mx-auto max-w-[1440px] py-8 lg:px-6 xl:px-10",
+								gradient.size === "lg" && "px-4 xl:py-12",
+								gradient.size === "md" && "px-4",
 							)}
 						>
 							{gradient.content}

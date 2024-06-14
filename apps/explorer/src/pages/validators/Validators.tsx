@@ -7,27 +7,27 @@ import {
 	type ApyByValidator,
 	useGetValidatorsEvents,
 	formatPercentageDisplay,
-} from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { type SuiEvent, type SuiValidatorSummary } from '@mysten/sui/client';
-import { Heading, Text } from '@mysten/ui';
-import { useMemo } from 'react';
+} from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { type SuiEvent, type SuiValidatorSummary } from "@mysten/sui/client";
+import { Heading, Text } from "@mysten/ui";
+import { useMemo } from "react";
 
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { StakeColumn } from '~/components/top-validators-card/StakeColumn';
-import { DelegationAmount } from '~/components/validator/DelegationAmount';
-import { Banner } from '~/ui/Banner';
-import { Card } from '~/ui/Card';
-import { ImageIcon } from '~/ui/ImageIcon';
-import { Link } from '~/ui/Link';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { Stats } from '~/ui/Stats';
-import { TableCard } from '~/ui/TableCard';
-import { TableHeader } from '~/ui/TableHeader';
-import { Tooltip } from '~/ui/Tooltip';
-import { getValidatorMoveEvent } from '~/utils/getValidatorMoveEvent';
-import { VALIDATOR_LOW_STAKE_GRACE_PERIOD } from '~/utils/validatorConstants';
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { StakeColumn } from "~/components/top-validators-card/StakeColumn";
+import { DelegationAmount } from "~/components/validator/DelegationAmount";
+import { Banner } from "~/ui/Banner";
+import { Card } from "~/ui/Card";
+import { ImageIcon } from "~/ui/ImageIcon";
+import { Link } from "~/ui/Link";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { Stats } from "~/ui/Stats";
+import { TableCard } from "~/ui/TableCard";
+import { TableHeader } from "~/ui/TableHeader";
+import { Tooltip } from "~/ui/Tooltip";
+import { getValidatorMoveEvent } from "~/utils/getValidatorMoveEvent";
+import { VALIDATOR_LOW_STAKE_GRACE_PERIOD } from "~/utils/validatorConstants";
 
 // const ValidatorMap = lazy(() => import('../../components/validator-map'));
 
@@ -79,8 +79,8 @@ export function validatorsTableData(
 			}),
 		columns: [
 			{
-				header: '#',
-				accessorKey: 'number',
+				header: "#",
+				accessorKey: "number",
 				cell: (props: any) => (
 					<Text variant="bodySmall/medium" color="steel-dark">
 						{props.table.getSortedRowModel().flatRows.indexOf(props.row) + 1}
@@ -88,12 +88,12 @@ export function validatorsTableData(
 				),
 			},
 			{
-				header: 'Name',
-				accessorKey: 'name',
+				header: "Name",
+				accessorKey: "name",
 				enableSorting: true,
 				sortingFn: (a: any, b: any, colId: string) =>
-					a.getValue(colId).name.localeCompare(b.getValue(colId).name, 'en', {
-						sensitivity: 'base',
+					a.getValue(colId).name.localeCompare(b.getValue(colId).name, "en", {
+						sensitivity: "base",
 						numeric: true,
 					}),
 				cell: (props: any) => {
@@ -113,20 +113,20 @@ export function validatorsTableData(
 				},
 			},
 			{
-				header: 'Stake',
-				accessorKey: 'stake',
+				header: "Stake",
+				accessorKey: "stake",
 				enableSorting: true,
 				cell: (props: any) => <StakeColumn stake={props.getValue()} />,
 			},
 			{
-				header: 'Proposed Next Epoch Gas Price',
-				accessorKey: 'nextEpochGasPrice',
+				header: "Proposed Next Epoch Gas Price",
+				accessorKey: "nextEpochGasPrice",
 				enableSorting: true,
 				cell: (props: any) => <StakeColumn stake={props.getValue()} inMIST />,
 			},
 			{
-				header: 'APY',
-				accessorKey: 'apy',
+				header: "APY",
+				accessorKey: "apy",
 				enableSorting: true,
 				sortingFn: (a: any, b: any, colId: string) =>
 					a.getValue(colId)?.apy < b.getValue(colId)?.apy ? -1 : 1,
@@ -134,14 +134,14 @@ export function validatorsTableData(
 					const { apy, isApyApproxZero } = props.getValue();
 					return (
 						<Text variant="bodySmall/medium" color="steel-darker">
-							{formatPercentageDisplay(apy, '--', isApyApproxZero)}
+							{formatPercentageDisplay(apy, "--", isApyApproxZero)}
 						</Text>
 					);
 				},
 			},
 			{
-				header: 'Commission',
-				accessorKey: 'commission',
+				header: "Commission",
+				accessorKey: "commission",
 				enableSorting: true,
 				cell: (props: any) => {
 					const commissionRate = props.getValue();
@@ -153,8 +153,8 @@ export function validatorsTableData(
 				},
 			},
 			{
-				header: 'Last Epoch Rewards',
-				accessorKey: 'lastReward',
+				header: "Last Epoch Rewards",
+				accessorKey: "lastReward",
 				enableSorting: true,
 				cell: (props: any) => {
 					const lastReward = props.getValue();
@@ -168,8 +168,8 @@ export function validatorsTableData(
 				},
 			},
 			{
-				header: 'Voting Power',
-				accessorKey: 'votingPower',
+				header: "Voting Power",
+				accessorKey: "votingPower",
 				enableSorting: true,
 				cell: (props: any) => {
 					const votingPower = props.getValue();
@@ -181,11 +181,11 @@ export function validatorsTableData(
 				},
 			},
 			{
-				header: 'Status',
-				accessorKey: 'atRisk',
+				header: "Status",
+				accessorKey: "atRisk",
 				cell: (props: any) => {
 					const atRisk = props.getValue();
-					const label = 'At Risk';
+					const label = "At Risk";
 					return atRisk !== null ? (
 						<Tooltip
 							tip="Staked SUI is below the minimum SUI stake threshold to remain a validator."
@@ -196,7 +196,7 @@ export function validatorsTableData(
 								</Text>
 								&nbsp;
 								<Text uppercase variant="bodySmall/medium" color="steel-dark">
-									{atRisk > 1 ? `in ${atRisk} epochs` : 'next epoch'}
+									{atRisk > 1 ? `in ${atRisk} epochs` : "next epoch"}
 								</Text>
 							</div>
 						</Tooltip>
@@ -212,7 +212,7 @@ export function validatorsTableData(
 }
 
 function ValidatorPageResult() {
-	const { data, isPending, isSuccess, isError } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data, isPending, isSuccess, isError } = useSuiClientQuery("getLatestSuiSystemState");
 
 	const numberOfValidators = data?.activeValidators.length || 0;
 
@@ -222,7 +222,7 @@ function ValidatorPageResult() {
 		isError: validatorEventError,
 	} = useGetValidatorsEvents({
 		limit: numberOfValidators,
-		order: 'descending',
+		order: "descending",
 	});
 
 	const { data: validatorsApy } = useGetValidatorsApy();
@@ -239,7 +239,7 @@ function ValidatorPageResult() {
 
 		// if all validators have isApyApproxZero, return ~0
 		if (Object.values(validatorsApy)?.every(({ isApyApproxZero }) => isApyApproxZero)) {
-			return '~0';
+			return "~0";
 		}
 
 		// exclude validators with no apy
@@ -297,7 +297,7 @@ function ValidatorPageResult() {
 											>
 												<DelegationAmount
 													amount={
-														typeof lastEpochRewardOnAllValidators === 'number'
+														typeof lastEpochRewardOnAllValidators === "number"
 															? lastEpochRewardOnAllValidators
 															: 0n
 													}
@@ -340,8 +340,8 @@ function ValidatorPageResult() {
 									<PlaceholderTable
 										rowCount={20}
 										rowHeight="13px"
-										colHeadings={['Name', 'Address', 'Stake']}
-										colWidths={['220px', '220px', '220px']}
+										colHeadings={["Name", "Address", "Stake"]}
+										colWidths={["220px", "220px", "220px"]}
 									/>
 								)}
 

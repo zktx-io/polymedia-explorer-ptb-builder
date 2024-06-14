@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
 
 type FooterItem = {
 	category: string;
@@ -15,20 +15,20 @@ export type FooterItems = FooterItem[];
 
 export const footerLinks = [
 	{
-		title: 'About',
-		href: 'https://polymedia.app',
+		title: "About",
+		href: "https://polymedia.app",
 	},
 	{
-		title: 'GitHub',
-		href: 'https://github.com/juzybits/polymedia-explorer',
+		title: "GitHub",
+		href: "https://github.com/juzybits/polymedia-explorer",
 	},
 	{
-		title: 'Twitter',
-		href: 'https://twitter.com/polymedia_app',
+		title: "Twitter",
+		href: "https://twitter.com/polymedia_app",
 	},
 	{
-		title: 'Discord',
-		href: 'https://discord.gg/DsxqP88EQp',
+		title: "Discord",
+		href: "https://discord.gg/DsxqP88EQp",
 	},
 ];
 

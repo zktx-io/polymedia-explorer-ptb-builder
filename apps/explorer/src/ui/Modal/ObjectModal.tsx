@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { X12 } from '@mysten/icons';
-import { Text, Heading, IconButton } from '@mysten/ui';
+import { X12 } from "@mysten/icons";
+import { Text, Heading, IconButton } from "@mysten/ui";
 
-import { Modal, type ModalProps } from './index';
-import { Image } from '../image/Image';
+import { Modal, type ModalProps } from "./index";
+import { Image } from "../image/Image";
 
-export interface ObjectModalProps extends Omit<ModalProps, 'children'> {
+export type ObjectModalProps = {
 	title: string;
 	subtitle: string;
 	alt: string;
 	src: string;
 	video?: string | null;
 	moderate?: boolean;
-}
+} & Omit<ModalProps, "children">;
 
 export function ObjectModal({
 	open,

@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useElementDimensions, useGetCoins, useOnScreen } from '@mysten/core';
-import { LoadingIndicator } from '@mysten/ui';
-import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useElementDimensions, useGetCoins, useOnScreen } from "@mysten/core";
+import { LoadingIndicator } from "@mysten/ui";
+import clsx from "clsx";
+import { useEffect, useRef } from "react";
 
-import CoinItem from './CoinItem';
+import CoinItem from "./CoinItem";
 
 const MIN_CONTAINER_WIDTH_SIZE = 500;
 
@@ -35,15 +35,14 @@ export default function CoinsPanel({ coinType, id }: CoinsPanelProps) {
 	return (
 		<div className="max-h-ownCoinsPanel overflow-auto pb-3">
 			<div className="flex flex-wrap" ref={coinsSectionRef}>
-				{data &&
-					data.pages.map((page) =>
+				{data?.pages.map((page) =>
 						page.data.map((coin) => (
 							<div
 								key={coin.coinObjectId}
 								className={clsx(
-									'w-full min-w-coinItemContainer pb-3 pl-3',
-									multiCols && 'basis-1/3',
-									!multiCols && 'pr-3',
+									"w-full min-w-coinItemContainer pb-3 pl-3",
+									multiCols && "basis-1/3",
+									!multiCols && "pr-3",
 								)}
 							>
 								<CoinItem coin={coin} />

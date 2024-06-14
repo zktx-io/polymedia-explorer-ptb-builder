@@ -1,28 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { ArrowRight12 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
-import { useMemo, useState } from 'react';
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { ArrowRight12 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
+import { useMemo, useState } from "react";
 
-import { genTableDataFromCheckpointsData } from './utils';
-import { useGetCheckpoints } from '~/hooks/useGetCheckpoints';
-import { Link } from '~/ui/Link';
-import { Pagination, useCursorPagination } from '~/ui/Pagination';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
-import { numberSuffix } from '~/utils/numberUtil';
+import { genTableDataFromCheckpointsData } from "./utils";
+import { useGetCheckpoints } from "~/hooks/useGetCheckpoints";
+import { Link } from "~/ui/Link";
+import { Pagination, useCursorPagination } from "~/ui/Pagination";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
+import { numberSuffix } from "~/utils/numberUtil";
 
 const DEFAULT_CHECKPOINTS_LIMIT = 20;
 
-interface Props {
+type Props = {
 	disablePagination?: boolean;
 	refetchInterval?: number;
 	initialLimit?: number;
 	initialCursor?: string;
 	maxCursor?: string;
-}
+};
 
 export function CheckpointsTable({
 	disablePagination,
@@ -32,7 +32,7 @@ export function CheckpointsTable({
 }: Props) {
 	const [limit, setLimit] = useState(initialLimit);
 
-	const countQuery = useSuiClientQuery('getLatestCheckpointSequenceNumber');
+	const countQuery = useSuiClientQuery("getLatestCheckpointSequenceNumber");
 
 	const checkpoints = useGetCheckpoints(initialCursor, limit);
 
@@ -66,8 +66,8 @@ export function CheckpointsTable({
 				<PlaceholderTable
 					rowCount={Number(limit)}
 					rowHeight="16px"
-					colHeadings={['Digest', 'Sequence Number', 'Time', 'Transaction Count']}
-					colWidths={['100px', '120px', '204px', '90px', '38px']}
+					colHeadings={["Digest", "Sequence Number", "Time", "Transaction Count"]}
+					colWidths={["100px", "120px", "204px", "90px", "38px"]}
 				/>
 			) : (
 				<div>
@@ -80,7 +80,7 @@ export function CheckpointsTable({
 					<Pagination
 						{...pagination}
 						hasNext={
-							maxCursor ? Number(data && data.nextCursor) > Number(maxCursor) : pagination.hasNext
+							maxCursor ? Number(data?.nextCursor) > Number(maxCursor) : pagination.hasNext
 						}
 					/>
 				) : (
@@ -94,8 +94,8 @@ export function CheckpointsTable({
 
 				<div className="flex items-center space-x-3">
 					<Text variant="body/medium" color="steel-dark">
-						{count ? numberSuffix(Number(count)) : '-'}
-						{` Total`}
+						{count ? numberSuffix(Number(count)) : "-"}
+						{" Total"}
 					</Text>
 					{!disablePagination && (
 						<select

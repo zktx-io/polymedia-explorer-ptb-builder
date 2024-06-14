@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import * as Icons from '@mysten/icons';
-import { type Meta } from '@storybook/react';
+import * as Icons from "@mysten/icons";
+import { type Meta } from "@storybook/react";
 
 export default {
-	title: '@mysten/icons',
+	title: "@mysten/icons",
 } as Meta;
 
 export const AllIcons = {

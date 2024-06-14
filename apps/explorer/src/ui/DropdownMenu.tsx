@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Text, Toggle } from '@mysten/ui';
-import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
-import { type ReactNode } from 'react';
+import { Text, Toggle } from "@mysten/ui";
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
+import { type ReactNode } from "react";
 
 export type DropdownMenuProps = {
 	content: ReactNode;
 	trigger: ReactNode;
-	side?: RadixDropdownMenu.MenuContentProps['side'];
-	align?: RadixDropdownMenu.MenuContentProps['align'];
-} & Omit<RadixDropdownMenu.DropdownMenuProps, 'className' | 'asChild'>;
+	side?: RadixDropdownMenu.MenuContentProps["side"];
+	align?: RadixDropdownMenu.MenuContentProps["align"];
+} & Omit<RadixDropdownMenu.DropdownMenuProps, "className" | "asChild">;
 
 export function DropdownMenu({
 	content,
@@ -39,7 +39,7 @@ export function DropdownMenu({
 
 export type DropdownMenuCheckboxItemProps = Omit<
 	RadixDropdownMenu.DropdownMenuCheckboxItemProps,
-	'className' | 'checked' | 'asChild'
+	"className" | "checked" | "asChild"
 > & { checked?: boolean; label: ReactNode };
 export function DropdownMenuCheckboxItem({
 	checked = false,
@@ -56,7 +56,7 @@ export function DropdownMenuCheckboxItem({
 						e.stopPropagation();
 					}}
 					checked={checked}
-					/* eslint-disable-next-line react/jsx-handler-names */
+					 
 					onCheckedChange={radixRootProps.onCheckedChange}
 				/>
 			</div>

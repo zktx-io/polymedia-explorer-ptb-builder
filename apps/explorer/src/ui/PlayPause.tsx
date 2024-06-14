@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { AutorefreshPause24, AutorefreshPlay24 } from '@mysten/icons';
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { AutorefreshPause24, AutorefreshPlay24 } from "@mysten/icons";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const getAnimationVariants = (duration: number) => ({
 	initial: {
@@ -17,7 +17,7 @@ const getAnimationVariants = (duration: number) => ({
 	},
 });
 
-export interface PlayPauseProps {
+export type PlayPauseProps = {
 	paused?: boolean;
 	onChange(): void;
 	animate?: {
@@ -25,7 +25,7 @@ export interface PlayPauseProps {
 		start: boolean;
 		setStart: (bool: boolean) => void;
 	};
-}
+};
 
 export function PlayPause({ paused, onChange, animate }: PlayPauseProps) {
 	const Icon = paused ? AutorefreshPlay24 : AutorefreshPause24;
@@ -47,7 +47,7 @@ export function PlayPause({ paused, onChange, animate }: PlayPauseProps) {
 	return (
 		<button
 			type="button"
-			aria-label={paused ? 'Paused' : 'Playing'}
+			aria-label={paused ? "Paused" : "Playing"}
 			onClick={onChange}
 			className="relative cursor-pointer border-none bg-transparent text-steel hover:text-steel-darker"
 		>

@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
-import { getNormalizedFunctionParameterTypeDetails } from '../utils';
+import { getNormalizedFunctionParameterTypeDetails } from "../utils";
 
-import type { SuiMoveNormalizedType } from '@mysten/sui/client';
+import type { SuiMoveNormalizedType } from "@mysten/sui/client";
 
 export function useFunctionParamsDetails(
 	params: SuiMoveNormalizedType[],

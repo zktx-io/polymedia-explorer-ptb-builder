@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dialog, Transition } from '@headlessui/react';
-import { X12 } from '@mysten/icons';
-import { Heading } from '@mysten/ui';
-import { Fragment, type ReactNode } from 'react';
+import { Dialog, Transition } from "@headlessui/react";
+import { X12 } from "@mysten/icons";
+import { Heading } from "@mysten/ui";
+import { Fragment, type ReactNode } from "react";
 
-export interface ModalProps {
+export type ModalProps = {
 	open: boolean;
 	onClose: () => void;
 	children: ReactNode;
-}
+};
 
 export function CloseButton({ onClick }: { onClick: () => void }) {
 	return (

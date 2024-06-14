@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFormatCoin, useGetDelegatedStake } from '@mysten/core';
-import { useMemo } from 'react';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { Text, Heading } from '@mysten/ui';
-import { Sui } from '@mysten/icons';
+import { useFormatCoin, useGetDelegatedStake } from "@mysten/core";
+import { useMemo } from "react";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { Text, Heading } from "@mysten/ui";
+import { Sui } from "@mysten/icons";
 
 export function TotalStaked({ address }: { address: string }) {
 	const { data: delegatedStake } = useGetDelegatedStake({

@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiValidatorSummary } from '@mysten/sui/client';
-import { Heading } from '@mysten/ui';
+import { type SuiValidatorSummary } from "@mysten/sui/client";
+import { Heading } from "@mysten/ui";
 
-import { DelegationAmount } from './DelegationAmount';
-import { Card } from '~/ui/Card';
-import { Stats } from '~/ui/Stats';
+import { DelegationAmount } from "./DelegationAmount";
+import { Card } from "~/ui/Card";
+import { Stats } from "~/ui/Stats";
 
 type StatsCardProps = {
 	validatorData: SuiValidatorSummary;
@@ -81,7 +81,7 @@ export function ValidatorStats({
 								unavailable={epochRewards === null}
 							>
 								<DelegationAmount
-									amount={typeof epochRewards === 'number' ? epochRewards : 0n}
+									amount={typeof epochRewards === "number" ? epochRewards : 0n}
 									isStats
 								/>
 							</Stats>

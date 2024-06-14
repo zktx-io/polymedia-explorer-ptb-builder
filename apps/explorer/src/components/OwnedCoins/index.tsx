@@ -1,33 +1,33 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { getCoinSymbol } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { Info16 } from '@mysten/icons';
-import { type CoinBalance } from '@mysten/sui/client';
-import { normalizeSuiAddress } from '@mysten/sui/utils';
-import { Heading, Text, LoadingIndicator, RadioGroup, RadioGroupItem } from '@mysten/ui';
-import { useMemo, useState } from 'react';
+import { getCoinSymbol } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { Info16 } from "@mysten/icons";
+import { type CoinBalance } from "@mysten/sui/client";
+import { normalizeSuiAddress } from "@mysten/sui/utils";
+import { Heading, Text, LoadingIndicator, RadioGroup, RadioGroupItem } from "@mysten/ui";
+import { useMemo, useState } from "react";
 
-import OwnedCoinView from './OwnedCoinView';
-import { useRecognizedPackages } from '~/hooks/useRecognizedPackages';
-import { Pagination } from '~/ui/Pagination';
+import OwnedCoinView from "./OwnedCoinView";
+import { useRecognizedPackages } from "~/hooks/useRecognizedPackages";
+import { Pagination } from "~/ui/Pagination";
 
 export type CoinBalanceVerified = CoinBalance & {
 	isRecognized?: boolean;
 };
 
 enum COIN_FILTERS {
-	ALL = 'allBalances',
-	RECOGNIZED = 'recognizedBalances',
-	UNRECOGNIZED = 'unrecognizedBalances',
+	ALL = "allBalances",
+	RECOGNIZED = "recognizedBalances",
+	UNRECOGNIZED = "unrecognizedBalances",
 }
 
 export function OwnedCoins({ id }: { id: string }) {
 	const [currentSlice, setCurrentSlice] = useState(1);
 	const [limit, setLimit] = useState(20);
 	const [filterValue, setFilterValue] = useState(COIN_FILTERS.RECOGNIZED);
-	const { isPending, data, isError } = useSuiClientQuery('getAllBalances', {
+	const { isPending, data, isError } = useSuiClientQuery("getAllBalances", {
 		owner: normalizeSuiAddress(id),
 	});
 	const recognizedPackages = useRecognizedPackages();
@@ -35,7 +35,7 @@ export function OwnedCoins({ id }: { id: string }) {
 	const balances: Record<COIN_FILTERS, CoinBalanceVerified[]> = useMemo(() => {
 		const balanceData = data?.reduce(
 			(acc, coinBalance) => {
-				if (recognizedPackages.includes(coinBalance.coinType.split('::')[0])) {
+				if (recognizedPackages.includes(coinBalance.coinType.split("::")[0])) {
 					acc.recognizedBalances.push({
 						...coinBalance,
 						isRecognized: true,
@@ -53,13 +53,13 @@ export function OwnedCoins({ id }: { id: string }) {
 
 		const recognizedBalances = balanceData.recognizedBalances.sort((a, b) => {
 			// Make sure SUI always comes first
-			if (getCoinSymbol(a.coinType) === 'SUI') {
+			if (getCoinSymbol(a.coinType) === "SUI") {
 				return -1;
-			} else if (getCoinSymbol(b.coinType) === 'SUI') {
+			} else if (getCoinSymbol(b.coinType) === "SUI") {
 				return 1;
 			} else {
 				return getCoinSymbol(a.coinType).localeCompare(getCoinSymbol(b.coinType), undefined, {
-					sensitivity: 'base',
+					sensitivity: "base",
 				});
 			}
 		});
@@ -67,8 +67,8 @@ export function OwnedCoins({ id }: { id: string }) {
 		return {
 			recognizedBalances,
 			unrecognizedBalances: balanceData.unrecognizedBalances.sort((a, b) =>
-				getCoinSymbol(a.coinType)!.localeCompare(getCoinSymbol(b.coinType)!, undefined, {
-					sensitivity: 'base',
+				getCoinSymbol(a.coinType).localeCompare(getCoinSymbol(b.coinType), undefined, {
+					sensitivity: "base",
 				}),
 			),
 			allBalances: balanceData.recognizedBalances.concat(balanceData.unrecognizedBalances),
@@ -82,14 +82,14 @@ export function OwnedCoins({ id }: { id: string }) {
 				label: `${balances.unrecognizedBalances.length} UNRECOGNIZED`,
 				value: COIN_FILTERS.UNRECOGNIZED,
 			},
-			{ label: 'ALL', value: COIN_FILTERS.ALL },
+			{ label: "ALL", value: COIN_FILTERS.ALL },
 		],
 		[balances],
 	);
 
 	const displayedBalances = useMemo(() => balances[filterValue], [balances, filterValue]);
 	const hasCoinsBalance = balances.allBalances.length > 0;
-	const coinBalanceHeader = hasCoinsBalance ? `${balances.allBalances.length} Coins` : 'Coins';
+	const coinBalanceHeader = hasCoinsBalance ? `${balances.allBalances.length} Coins` : "Coins";
 
 	if (isError) {
 		return <div className="pt-2 font-sans font-semibold text-issue-dark">Failed to load Coins</div>;
@@ -176,7 +176,7 @@ export function OwnedCoins({ id }: { id: string }) {
 									/>
 									<div className="flex items-center gap-3">
 										<Text variant="body/medium" color="steel-dark">
-											{`Showing `}
+											{"Showing "}
 											{(currentSlice - 1) * limit + 1}-
 											{currentSlice * limit > displayedBalances.length
 												? displayedBalances.length

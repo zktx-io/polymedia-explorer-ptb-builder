@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { getRefGasPrice } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { Heading, Text } from '@mysten/ui';
-import { useMemo } from 'react';
+import { getRefGasPrice } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { Heading, Text } from "@mysten/ui";
+import { useMemo } from "react";
 
-import { Card } from '~/ui/Card';
-import { RingChart, RingChartLegend } from '~/ui/RingChart';
+import { Card } from "~/ui/Card";
+import { RingChart, RingChartLegend } from "~/ui/RingChart";
 
 export function ValidatorStatus() {
-	const { data } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data } = useSuiClientQuery("getLatestSuiSystemState");
 
 	const nextRefGasPrice = useMemo(
 		() => getRefGasPrice(data?.activeValidators),
@@ -23,24 +23,24 @@ export function ValidatorStatus() {
 	const chartData = [
 		{
 			value: data.activeValidators.length,
-			label: 'Active',
+			label: "Active",
 			gradient: {
 				deg: 315,
 				values: [
-					{ percent: 0, color: '#4C75A6' },
-					{ percent: 100, color: '#589AEA' },
+					{ percent: 0, color: "#4C75A6" },
+					{ percent: 100, color: "#589AEA" },
 				],
 			},
 		},
 		{
 			value: Number(data.pendingActiveValidatorsSize ?? 0),
-			label: 'New',
-			color: '#F2BD24',
+			label: "New",
+			color: "#F2BD24",
 		},
 		{
 			value: data.atRiskValidators.length,
-			label: 'At Risk',
-			color: '#FF794B',
+			label: "At Risk",
+			color: "#FF794B",
 		},
 	];
 

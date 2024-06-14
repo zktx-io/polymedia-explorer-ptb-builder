@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const RadioGroup = forwardRef<
 	ElementRef<typeof RadioGroupPrimitive.Root>,
-	Omit<ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>, 'className'> & {
-		'aria-label': string;
+	Omit<ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>, "className"> & {
+		"aria-label": string;
 	}
 >(({ ...props }, ref) => {
 	return <RadioGroupPrimitive.Root className="flex gap-0.5" {...props} ref={ref} />;

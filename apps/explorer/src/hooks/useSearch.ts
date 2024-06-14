@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { isSuiNSName, useSuiNSEnabled } from '@mysten/core';
-import { useSuiClientQuery, useSuiClient } from '@mysten/dapp-kit';
-import { type SuiClient, type SuiSystemStateSummary } from '@mysten/sui/client';
+import { isSuiNSName, useSuiNSEnabled } from "@mysten/core";
+import { useSuiClientQuery, useSuiClient } from "@mysten/dapp-kit";
+import { type SuiClient, type SuiSystemStateSummary } from "@mysten/sui/client";
 import {
 	isValidTransactionDigest,
 	isValidSuiAddress,
 	isValidSuiObjectId,
 	normalizeSuiObjectId,
-} from '@mysten/sui/utils';
-import { useQuery } from '@tanstack/react-query';
+} from "@mysten/sui/utils";
+import { useQuery } from "@tanstack/react-query";
 
 const isGenesisLibAddress = (value: string): boolean => /^(0x|0X)0{0,39}[12]$/.test(value);
 
@@ -23,7 +23,7 @@ const getResultsForTransaction = async (client: SuiClient, query: string) => {
 		{
 			id: txdata.digest,
 			label: txdata.digest,
-			type: 'transaction',
+			type: "transaction",
 		},
 	];
 };
@@ -39,7 +39,7 @@ const getResultsForObject = async (client: SuiClient, query: string) => {
 		{
 			id: data.objectId,
 			label: data.objectId,
-			type: 'object',
+			type: "object",
 		},
 	];
 };
@@ -55,7 +55,7 @@ const getResultsForCheckpoint = async (client: SuiClient, query: string) => {
 		{
 			id: digest,
 			label: digest,
-			type: 'checkpoint',
+			type: "checkpoint",
 		},
 	];
 };
@@ -68,7 +68,7 @@ const getResultsForAddress = async (client: SuiClient, query: string, suiNSEnabl
 			{
 				id: resolved,
 				label: resolved,
-				type: 'address',
+				type: "address",
 			},
 		];
 	}
@@ -93,7 +93,7 @@ const getResultsForAddress = async (client: SuiClient, query: string, suiNSEnabl
 		{
 			id: normalized,
 			label: normalized,
-			type: 'address',
+			type: "address",
 		},
 	];
 };
@@ -118,19 +118,19 @@ const getResultsForValidatorByPoolIdOrSuiAddress = async (
 		{
 			id: validator.suiAddress || validator.stakingPoolId,
 			label: normalized,
-			type: 'validator',
+			type: "validator",
 		},
 	];
 };
 
 export function useSearch(query: string) {
 	const client = useSuiClient();
-	const { data: systemStateSummery } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data: systemStateSummery } = useSuiClientQuery("getLatestSuiSystemState");
 	const suiNSEnabled = useSuiNSEnabled();
 
 	return useQuery({
 		// eslint-disable-next-line @tanstack/query/exhaustive-deps
-		queryKey: ['search', query],
+		queryKey: ["search", query],
 		queryFn: async () => {
 			const results = (
 				await Promise.allSettled([
@@ -140,7 +140,7 @@ export function useSearch(query: string) {
 					getResultsForObject(client, query),
 					getResultsForValidatorByPoolIdOrSuiAddress(systemStateSummery || null, query),
 				])
-			).filter((r) => r.status === 'fulfilled' && r.value) as PromiseFulfilledResult<Results>[];
+			).filter((r) => r.status === "fulfilled" && r.value) as PromiseFulfilledResult<Results>[];
 
 			return results.map(({ value }) => value).flat();
 		},

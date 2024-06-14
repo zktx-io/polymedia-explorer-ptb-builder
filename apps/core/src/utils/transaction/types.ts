@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { BalanceChangeSummary } from './getBalanceChangeSummary';
-import { GasSummaryType } from './getGasSummary';
-import { ObjectChangeSummary } from './getObjectChangeSummary';
+import { BalanceChangeSummary } from "./getBalanceChangeSummary";
+import { GasSummaryType } from "./getGasSummary";
+import { ObjectChangeSummary } from "./getObjectChangeSummary";
 
 export type TransactionSummary = {
 	digest?: string;
@@ -15,9 +15,9 @@ export type TransactionSummary = {
 } | null;
 
 export type SuiObjectChangeTypes =
-	| 'published'
-	| 'transferred'
-	| 'mutated'
-	| 'deleted'
-	| 'wrapped'
-	| 'created';
+	| "published"
+	| "transferred"
+	| "mutated"
+	| "deleted"
+	| "wrapped"
+	| "created";

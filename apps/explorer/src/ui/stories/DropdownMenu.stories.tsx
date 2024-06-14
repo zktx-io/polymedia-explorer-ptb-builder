@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Filter16 } from '@mysten/icons';
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { Filter16 } from "@mysten/icons";
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState } from "react";
 
-import { DropdownMenu, DropdownMenuCheckboxItem } from '../DropdownMenu';
+import { DropdownMenu, DropdownMenuCheckboxItem } from "../DropdownMenu";
 
 export default {
 	component: DropdownMenu,

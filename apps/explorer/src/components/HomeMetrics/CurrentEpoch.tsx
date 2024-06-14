@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { formatDate, formatAmountParts } from '@mysten/core';
-import { Text, Heading } from '@mysten/ui';
-import { format, isToday, isYesterday } from 'date-fns';
-import { useMemo } from 'react';
+import { formatDate, formatAmountParts } from "@mysten/core";
+import { Text, Heading } from "@mysten/ui";
+import { format, isToday, isYesterday } from "date-fns";
+import { useMemo } from "react";
 
-import { Checkpoint } from '~/components/HomeMetrics/Checkpoint';
-import { useEpochProgress } from '~/pages/epochs/utils';
-import { Card } from '~/ui/Card';
-import { ProgressBar } from '~/ui/ProgressBar';
-import { LinkWithQuery } from '~/ui/utils/LinkWithQuery';
+import { Checkpoint } from "~/components/HomeMetrics/Checkpoint";
+import { useEpochProgress } from "~/pages/epochs/utils";
+import { Card } from "~/ui/Card";
+import { ProgressBar } from "~/ui/ProgressBar";
+import { LinkWithQuery } from "~/ui/utils/LinkWithQuery";
 
 export function CurrentEpoch() {
 	const { epoch, progress, label, end, start } = useEpochProgress();
@@ -20,16 +20,16 @@ export function CurrentEpoch() {
 			return null;
 		}
 
-		let formattedDate = '';
+		let formattedDate = "";
 		const epochStartDate = new Date(start);
 		if (isToday(epochStartDate)) {
-			formattedDate = 'Today';
+			formattedDate = "Today";
 		} else if (isYesterday(epochStartDate)) {
-			formattedDate = 'Yesterday';
+			formattedDate = "Yesterday";
 		} else {
-			formattedDate = format(epochStartDate, 'PPP');
+			formattedDate = format(epochStartDate, "PPP");
 		}
-		const formattedTime = format(epochStartDate, 'p');
+		const formattedTime = format(epochStartDate, "p");
 		return `${formattedTime}, ${formattedDate}`;
 	}, [start]);
 
@@ -47,11 +47,11 @@ export function CurrentEpoch() {
 							? `End ${formatDate(end)}`
 							: formattedDateString
 							? `Started ${formattedDateString}`
-							: '--'}
+							: "--"}
 					</Text>
 					<div className="space-y-1.5">
 						<Heading variant="heading6/medium" color="steel-darker">
-							{label ?? '--'}
+							{label ?? "--"}
 						</Heading>
 						<ProgressBar animate progress={progress || 0} />
 					</div>

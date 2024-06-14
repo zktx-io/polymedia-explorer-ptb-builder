@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { IconTooltip, type IconTooltipProps } from '../Tooltip';
+import { IconTooltip, type IconTooltipProps } from "../Tooltip";
 
 export default {
 	component: IconTooltip,
@@ -17,20 +17,20 @@ export const Tooltip: StoryObj<IconTooltipProps> = {
 export const TooltipBottom: StoryObj<IconTooltipProps> = {
 	...Tooltip,
 	args: {
-		placement: 'bottom',
+		placement: "bottom",
 	},
 };
 
 export const TooltipLeft: StoryObj<IconTooltipProps> = {
 	...Tooltip,
 	args: {
-		placement: 'left',
+		placement: "left",
 	},
 };
 
 export const TooltipRight: StoryObj<IconTooltipProps> = {
 	...Tooltip,
 	args: {
-		placement: 'right',
+		placement: "right",
 	},
 };

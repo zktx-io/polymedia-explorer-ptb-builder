@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ArrowRight12 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
+import { ArrowRight12 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
 
-import { Link } from '~/ui/Link';
-import { Pagination, type PaginationResponse, type usePaginationStack } from '~/ui/Pagination';
-import { numberSuffix } from '~/utils/numberUtil';
+import { Link } from "~/ui/Link";
+import { Pagination, type PaginationResponse, type usePaginationStack } from "~/ui/Pagination";
+import { numberSuffix } from "~/utils/numberUtil";
 
-interface Props {
+type Props = {
 	label: string;
 	count?: number;
 	disablePagination?: boolean;
@@ -17,7 +17,7 @@ interface Props {
 	limit: number;
 	onLimitChange(value: number): void;
 	href: string;
-}
+};
 
 export function TableFooter({
 	data,
@@ -37,7 +37,7 @@ export function TableFooter({
 						More {label}
 					</Link>
 					<Text variant="body/medium" color="steel-dark">
-						{count ? numberSuffix(count) : '-'} {label}
+						{count ? numberSuffix(count) : "-"} {label}
 					</Text>
 				</>
 			) : (
@@ -46,7 +46,7 @@ export function TableFooter({
 
 					<div className="flex items-center gap-4">
 						<Text variant="body/medium" color="steel-dark">
-							{count ? numberSuffix(count) : '-'} {label}
+							{count ? numberSuffix(count) : "-"} {label}
 						</Text>
 
 						<select

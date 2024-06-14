@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 const backendUrl =
-	process.env.NODE_ENV === 'development' ? 'http://localhost:3003' : 'https://apps-backend.sui.io';
+	process.env.NODE_ENV === "development" ? "http://localhost:3003" : "https://apps-backend.sui.io";
 
 export function useAppsBackend() {
 	const request = useCallback(
@@ -16,7 +16,7 @@ export function useAppsBackend() {
 			const res = await fetch(formatRequestURL(`${backendUrl}/${path}`, queryParams), options);
 
 			if (!res.ok) {
-				throw new Error('Unexpected response');
+				throw new Error("Unexpected response");
 			}
 
 			return res.json();

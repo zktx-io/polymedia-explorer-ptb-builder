@@ -1,6 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
 export const calculateStakeShare = (
 	validatorStake: bigint,

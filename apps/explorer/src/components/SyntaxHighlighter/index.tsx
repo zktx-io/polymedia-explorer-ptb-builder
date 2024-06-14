@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useOnScreen } from '@mysten/core';
-import { useRef, useEffect, useState } from 'react';
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import 'prism-themes/themes/prism-one-light.css';
+import { useOnScreen } from "@mysten/core";
+import { useRef, useEffect, useState } from "react";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import "prism-themes/themes/prism-one-light.css";
 
-import type { Language } from 'prism-react-renderer';
+import type { Language } from "prism-react-renderer";
 
-interface Props {
+type Props = {
 	code: string;
 	language: Language;
-}
+};
 const MAX_LINES = 500;
 // Use scroll to load more lines of code to prevent performance issues with large code blocks
 export function SyntaxHighlighter({ code, language }: Props) {

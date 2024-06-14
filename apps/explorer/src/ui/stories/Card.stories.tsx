@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { Card, type CardProps } from '../Card';
+import { Card, type CardProps } from "../Card";
 
 export default {
 	component: Card,
@@ -15,10 +15,10 @@ export const Default: StoryObj<CardProps> = {
 
 export const Small: StoryObj<CardProps> = {
 	...Default,
-	args: { spacing: 'sm' },
+	args: { spacing: "sm" },
 };
 
 export const Large: StoryObj<CardProps> = {
 	...Default,
-	args: { spacing: 'lg' },
+	args: { spacing: "lg" },
 };

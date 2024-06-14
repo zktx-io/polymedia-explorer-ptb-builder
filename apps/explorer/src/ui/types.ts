@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type ComponentType } from 'react';
+import { type ComponentType } from "react";
 
 /**
  * A helper that can extract props from a React component type.

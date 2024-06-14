@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from "react";
 
 export function useElementDimensions(
 	elementRef: RefObject<HTMLElement>,
-	defaultHeight: number = 0,
-	defaultWidth: number = 0,
+	defaultHeight = 0,
+	defaultWidth = 0,
 ) {
 	const [height, setHeight] = useState(defaultHeight);
 	const [width, setWidth] = useState(defaultWidth);

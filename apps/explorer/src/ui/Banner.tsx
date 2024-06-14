@@ -1,94 +1,94 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { X12 } from '@mysten/icons';
-import { Text, IconButton } from '@mysten/ui';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { type ReactNode } from 'react';
+import { X12 } from "@mysten/icons";
+import { Text, IconButton } from "@mysten/ui";
+import { cva, type VariantProps } from "class-variance-authority";
+import { type ReactNode } from "react";
 
-import { ReactComponent as InfoIcon } from './icons/info.svg';
+import { ReactComponent as InfoIcon } from "./icons/info.svg";
 
 const bannerStyles = cva(
-	'inline-flex text-pBodySmall font-medium overflow-hidden gap-2 items-center flex-nowrap relative',
+	"inline-flex text-pBodySmall font-medium overflow-hidden gap-2 items-center flex-nowrap relative",
 	{
 		variants: {
 			variant: {
-				positive: 'bg-success-light text-success-dark',
-				warning: 'bg-warning-light text-warning-dark',
-				error: 'bg-issue-light text-issue-dark',
-				message: 'bg-sui-light text-hero',
-				neutralGrey: 'bg-steel text-white',
-				neutralWhite: 'bg-white/80 text-steel-darker',
+				positive: "bg-success-light text-success-dark",
+				warning: "bg-warning-light text-warning-dark",
+				error: "bg-issue-light text-issue-dark",
+				message: "bg-sui-light text-hero",
+				neutralGrey: "bg-steel text-white",
+				neutralWhite: "bg-white/80 text-steel-darker",
 			},
 			align: {
-				left: 'justify-start',
-				center: 'justify-center',
+				left: "justify-start",
+				center: "justify-center",
 			},
 			fullWidth: {
-				true: 'w-full',
+				true: "w-full",
 			},
 			spacing: {
-				sm: 'px-1.5 py-0.5',
-				md: 'px-3 py-2',
-				lg: 'p-5',
+				sm: "px-1.5 py-0.5",
+				md: "px-3 py-2",
+				lg: "p-5",
 			},
 			shadow: {
-				true: 'shadow-md',
+				true: "shadow-md",
 			},
 			border: {
-				true: '',
+				true: "",
 			},
 			rounded: {
-				none: 'rounded-none',
-				'2xl': 'rounded-2xl',
+				none: "rounded-none",
+				"2xl": "rounded-2xl",
 			},
 		},
 		defaultVariants: {
-			variant: 'message',
-			spacing: 'md',
-			rounded: '2xl',
+			variant: "message",
+			spacing: "md",
+			rounded: "2xl",
 		},
 		compoundVariants: [
 			{
-				variant: 'positive',
+				variant: "positive",
 				border: true,
-				class: 'border border-success/30',
+				class: "border border-success/30",
 			},
 			{
-				variant: 'warning',
+				variant: "warning",
 				border: true,
-				class: 'border border-warning-dark/30',
+				class: "border border-warning-dark/30",
 			},
 			{
-				variant: 'error',
+				variant: "error",
 				border: true,
-				class: 'border border-issue-dark/30',
+				class: "border border-issue-dark/30",
 			},
 			{
-				variant: 'message',
+				variant: "message",
 				border: true,
-				class: 'border border-sui/30',
+				class: "border border-sui/30",
 			},
 			{
-				variant: 'neutralGrey',
+				variant: "neutralGrey",
 				border: true,
-				class: 'border border-steel',
+				class: "border border-steel",
 			},
 			{
-				variant: 'neutralWhite',
+				variant: "neutralWhite",
 				border: true,
-				class: 'border border-gray-45',
+				class: "border border-gray-45",
 			},
 		],
 	},
 );
 
-export interface BannerProps extends VariantProps<typeof bannerStyles> {
+export type BannerProps = {
 	icon?: ReactNode | null;
 	title?: ReactNode | string;
 	children: ReactNode;
 	onDismiss?: () => void;
-}
+} & VariantProps<typeof bannerStyles>;
 
 export function Banner({
 	icon = <InfoIcon />,
@@ -113,7 +113,7 @@ export function Banner({
 				border,
 				spacing,
 				rounded,
-				class: onDismiss && 'pr-9',
+				class: onDismiss && "pr-9",
 			})}
 		>
 			{icon && <div className="flex items-center justify-center">{icon}</div>}

@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Heading } from '@mysten/ui';
-import clsx from 'clsx';
-import { Fragment } from 'react';
+import { Heading } from "@mysten/ui";
+import clsx from "clsx";
+import { Fragment } from "react";
 
 export type Gradient = {
 	deg?: number;
@@ -17,10 +17,10 @@ type RingChartData = {
 	gradient?: Gradient;
 }[];
 
-interface RingChartLegendProps {
+type RingChartLegendProps = {
 	data: RingChartData;
 	title: string;
-}
+};
 
 function getColorFromGradient({ deg, values }: Gradient) {
 	const gradientResult = [];
@@ -33,7 +33,7 @@ function getColorFromGradient({ deg, values }: Gradient) {
 
 	gradientResult.push(...valuesMap);
 
-	return `linear-gradient(${gradientResult.join(',')})`;
+	return `linear-gradient(${gradientResult.join(",")})`;
 }
 
 export function RingChartLegend({ data, title }: RingChartLegendProps) {
@@ -48,7 +48,7 @@ export function RingChartLegend({ data, title }: RingChartLegendProps) {
 					const colorDisplay = gradient ? getColorFromGradient(gradient) : color;
 
 					return (
-						<div className={clsx('flex items-center gap-1.5', value === 0 && 'hidden')} key={label}>
+						<div className={clsx("flex items-center gap-1.5", value === 0 && "hidden")} key={label}>
 							<div style={{ background: colorDisplay }} className="h-3 w-3 rounded-sm" />
 							<div
 								style={{
@@ -67,9 +67,9 @@ export function RingChartLegend({ data, title }: RingChartLegendProps) {
 	);
 }
 
-export interface RingChartProps {
+export type RingChartProps = {
 	data: RingChartData;
-}
+};
 
 export function RingChart({ data }: RingChartProps) {
 	const radius = 20;

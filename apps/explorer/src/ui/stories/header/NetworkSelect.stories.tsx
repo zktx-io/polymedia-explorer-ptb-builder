@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState } from "react";
 
-import { NetworkSelect, type NetworkSelectProps } from '~/ui/header/NetworkSelect';
+import { NetworkSelect, type NetworkSelectProps } from "~/ui/header/NetworkSelect";
 
 export default {
 	component: NetworkSelect,
@@ -18,9 +18,9 @@ export default {
 } as Meta;
 
 const NETWORKS = [
-	{ id: 'DEVNET', label: 'Devnet' },
-	{ id: 'TESTNET', label: 'Testnet' },
-	{ id: 'LOCAL', label: 'Local' },
+	{ id: "DEVNET", label: "Devnet" },
+	{ id: "TESTNET", label: "Testnet" },
+	{ id: "LOCAL", label: "Local" },
 ];
 
 export const Default: StoryObj<NetworkSelectProps> = {

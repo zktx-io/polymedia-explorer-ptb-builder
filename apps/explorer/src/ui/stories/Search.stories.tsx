@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState, useMemo } from 'react';
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState, useMemo } from "react";
 
-import { Search, type SearchProps } from '../Search';
+import { Search, type SearchProps } from "../Search";
 
 export default {
 	component: Search,
@@ -12,30 +12,30 @@ export default {
 
 const options = [
 	{
-		label: 'transaction',
+		label: "transaction",
 		results: [
-			{ id: 1, label: 'transaction 1' },
-			{ id: 2, label: 'transaction 2' },
-			{ id: 3, label: 'transaction 3' },
-			{ id: 4, label: 'transaction 4' },
+			{ id: 1, label: "transaction 1" },
+			{ id: 2, label: "transaction 2" },
+			{ id: 3, label: "transaction 3" },
+			{ id: 4, label: "transaction 4" },
 		],
 	},
 	{
-		label: 'object',
+		label: "object",
 		results: [
-			{ id: 1, label: 'object 1' },
-			{ id: 2, label: 'object 2' },
-			{ id: 3, label: 'object 3' },
-			{ id: 4, label: 'object 4' },
+			{ id: 1, label: "object 1" },
+			{ id: 2, label: "object 2" },
+			{ id: 3, label: "object 3" },
+			{ id: 4, label: "object 4" },
 		],
 	},
 	{
-		label: 'address',
+		label: "address",
 		results: [
-			{ id: 1, label: 'address 1' },
-			{ id: 2, label: 'address 2' },
-			{ id: 3, label: 'address 3' },
-			{ id: 4, label: 'address 4' },
+			{ id: 1, label: "address 1" },
+			{ id: 2, label: "address 2" },
+			{ id: 3, label: "address 3" },
+			{ id: 4, label: "address 4" },
 		],
 	},
 ];
@@ -43,9 +43,9 @@ const options = [
 export const Default: StoryObj<SearchProps> = {
 	args: {},
 	render: () => {
-		const [query, setQuery] = useState('');
+		const [query, setQuery] = useState("");
 		const filteredOptions = useMemo(() => {
-			const filtered = options.reduce((acc, curr) => {
+			const filtered = options.reduce<any>((acc, curr) => {
 				const filtered = curr.results.filter((option) =>
 					option.label.toLowerCase().includes(query.toLowerCase()),
 				);
@@ -53,7 +53,7 @@ export const Default: StoryObj<SearchProps> = {
 					acc.push({ label: curr.label, results: filtered });
 				}
 				return acc;
-			}, [] as any);
+			}, []);
 			return filtered;
 		}, [query]);
 

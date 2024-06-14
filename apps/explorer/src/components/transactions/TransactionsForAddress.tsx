@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient } from '@mysten/dapp-kit';
-import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
-import { LoadingIndicator, Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
+import { useSuiClient } from "@mysten/dapp-kit";
+import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
+import { LoadingIndicator, Text } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
 
-import { genTableDataFromTxData } from './TxCardUtils';
-import { Banner } from '~/ui/Banner';
-import { TableCard } from '~/ui/TableCard';
+import { genTableDataFromTxData } from "./TxCardUtils";
+import { Banner } from "~/ui/Banner";
+import { TableCard } from "~/ui/TableCard";
 
-interface Props {
+type Props = {
 	address: string;
-	type: 'object' | 'address';
-}
+	type: "object" | "address";
+};
 
 export function TransactionsForAddressTable({
 	data,
@@ -62,10 +62,10 @@ export function TransactionsForAddress({ address, type }: Props) {
 	const client = useSuiClient();
 
 	const { data, isPending, isError } = useQuery({
-		queryKey: ['transactions-for-address', address, type],
+		queryKey: ["transactions-for-address", address, type],
 		queryFn: async () => {
 			const filters =
-				type === 'object'
+				type === "object"
 					? [{ InputObject: address }, { ChangedObject: address }]
 					: [{ ToAddress: address }, { FromAddress: address }];
 
@@ -73,7 +73,7 @@ export function TransactionsForAddress({ address, type }: Props) {
 				filters.map((filter) =>
 					client.queryTransactionBlocks({
 						filter,
-						order: 'descending',
+						order: "descending",
 						limit: 100,
 						options: {
 							showEffects: true,

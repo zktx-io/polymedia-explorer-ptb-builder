@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { formatAmount, formatDate } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { Heading, Text, LoadingIndicator } from '@mysten/ui';
-import { ParentSize } from '@visx/responsive';
-import clsx from 'clsx';
+import { formatAmount, formatDate } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { Heading, Text, LoadingIndicator } from "@mysten/ui";
+import { ParentSize } from "@visx/responsive";
+import clsx from "clsx";
 
-import { AreaGraph } from './AreaGraph';
-import { FormattedStatsAmount } from './HomeMetrics/FormattedStatsAmount';
-import { ErrorBoundary } from './error-boundary/ErrorBoundary';
-import { Card } from '~/ui/Card';
+import { AreaGraph } from "./AreaGraph";
+import { FormattedStatsAmount } from "./HomeMetrics/FormattedStatsAmount";
+import { ErrorBoundary } from "./error-boundary/ErrorBoundary";
+import { Card } from "~/ui/Card";
 
 function TooltipContent({
 	data: { epochTotalTransactions, epochStartTimestamp, epoch },
@@ -21,7 +21,7 @@ function TooltipContent({
 		epoch: number;
 	};
 }) {
-	const dateFormatted = formatDate(new Date(epochStartTimestamp), ['day', 'month']);
+	const dateFormatted = formatDate(new Date(epochStartTimestamp), ["day", "month"]);
 	const totalFormatted = formatAmount(epochTotalTransactions);
 	return (
 		<div className="flex flex-col gap-0.5">
@@ -40,7 +40,7 @@ function TooltipContent({
 
 function useEpochTransactions() {
 	return useSuiClientQuery(
-		'getEpochMetrics',
+		"getEpochMetrics",
 		{
 			descendingOrder: true,
 			limit: 31,
@@ -61,7 +61,7 @@ function useEpochTransactions() {
 
 export function TransactionsCardGraph() {
 	const { data: totalTransactions } = useSuiClientQuery(
-		'getTotalTransactionBlocks',
+		"getTotalTransactionBlocks",
 		{},
 		{
 			gcTime: 24 * 60 * 60 * 1000,
@@ -75,7 +75,7 @@ export function TransactionsCardGraph() {
 		epochMetrics?.[epochMetrics.length - 1]?.epochTotalTransactions;
 
 	return (
-		<Card bg="white/80" spacing={!epochMetrics?.length ? 'lg' : 'lgGraph'} height="full">
+		<Card bg="white/80" spacing={!epochMetrics?.length ? "lg" : "lgGraph"} height="full">
 			<div className="flex h-full flex-col gap-4 overflow-hidden">
 				<Heading variant="heading4/semibold" color="steel-darker">
 					Transaction Blocks
@@ -97,8 +97,8 @@ export function TransactionsCardGraph() {
 				</div>
 				<div
 					className={clsx(
-						'flex min-h-[180px] flex-1 flex-col items-center justify-center rounded-xl transition-colors',
-						!epochMetrics?.length && 'bg-gray-40',
+						"flex min-h-[180px] flex-1 flex-col items-center justify-center rounded-xl transition-colors",
+						!epochMetrics?.length && "bg-gray-40",
 					)}
 				>
 					{isPending ? (

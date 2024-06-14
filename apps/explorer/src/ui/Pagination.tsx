@@ -1,26 +1,26 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { PaginationFirst24, PaginationNext24, PaginationPrev24 } from '@mysten/icons';
-import { type InfiniteData, type UseInfiniteQueryResult } from '@tanstack/react-query';
-import { useState } from 'react';
+import { PaginationFirst24, PaginationNext24, PaginationPrev24 } from "@mysten/icons";
+import { type InfiniteData, type UseInfiniteQueryResult } from "@tanstack/react-query";
+import { useState } from "react";
 
-export interface PaginationProps {
+export type PaginationProps = {
 	hasPrev: boolean;
 	hasNext: boolean;
 	onFirst(): void;
 	onPrev(): void;
 	onNext(): void;
-}
+};
 
-interface CursorPaginationProps extends PaginationProps {
+type CursorPaginationProps = {
 	currentPage: number;
-}
+} & PaginationProps;
 
-export interface PaginationResponse<Cursor = string> {
+export type PaginationResponse<Cursor = string> = {
 	nextCursor: Cursor | null;
 	hasNextPage: boolean;
-}
+};
 
 export function useCursorPagination<T>(query: UseInfiniteQueryResult<InfiniteData<T>>) {
 	const [currentPage, setCurrentPage] = useState(0);

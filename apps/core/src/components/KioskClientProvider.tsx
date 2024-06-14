@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClientContext } from '@mysten/dapp-kit';
-import { KioskClient, Network } from '@mysten/kiosk';
-import { createContext, useMemo, type ReactNode } from 'react';
+import { useSuiClientContext } from "@mysten/dapp-kit";
+import { KioskClient, Network } from "@mysten/kiosk";
+import { createContext, useMemo, type ReactNode } from "react";
 
 export const KioskClientContext = createContext<KioskClient | null>(null);
 

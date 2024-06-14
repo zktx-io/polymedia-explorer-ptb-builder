@@ -1,27 +1,27 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { matchRoutes, useLocation, useParams } from 'react-router-dom';
-import { useNetworkContext } from '~/context';
-import { Network } from '~/utils/api/DefaultRpcClient';
-import { useMemo } from 'react';
-import { useGetObject } from '../../../core';
-import { translate } from '~/pages/object-result/ObjectResultType';
+import { matchRoutes, useLocation, useParams } from "react-router-dom";
+import { useNetworkContext } from "~/context";
+import { Network } from "~/utils/api/DefaultRpcClient";
+import { useMemo } from "react";
+import { useGetObject } from "../../../core";
+import { translate } from "~/pages/object-result/ObjectResultType";
 
-const SUISCAN_URL_MAINNET = 'https://suiscan.xyz';
-const SUISCAN_URL_TESTNET = 'https://suiscan.xyz/testnet';
-const SUISCAN_URL_DEVNET = 'https://suiscan.xyz/devnet';
-const SUIVISION_URL_MAINNET = 'https://suivision.xyz';
-const SUIVISION_URL_TESTNET = 'https://testnet.suivision.xyz';
-const SUIVISION_URL_DEVNET = 'https://suivision.xyz';
+const SUISCAN_URL_MAINNET = "https://suiscan.xyz";
+const SUISCAN_URL_TESTNET = "https://suiscan.xyz/testnet";
+const SUISCAN_URL_DEVNET = "https://suiscan.xyz/devnet";
+const SUIVISION_URL_MAINNET = "https://suivision.xyz";
+const SUIVISION_URL_TESTNET = "https://testnet.suivision.xyz";
+const SUIVISION_URL_DEVNET = "https://suivision.xyz";
 
 enum Routes {
-	object = '/object/:id',
-	checkpoint = '/checkpoint/:id',
-	txblock = '/txblock/:id',
-	epoch = '/epoch/:id',
-	address = '/address/:id',
-	validator = '/validator/:id',
-	validators = '/validators',
+	object = "/object/:id",
+	checkpoint = "/checkpoint/:id",
+	txblock = "/txblock/:id",
+	epoch = "/epoch/:id",
+	address = "/address/:id",
+	validator = "/validator/:id",
+	validators = "/validators",
 }
 
 function useMatchPath() {
@@ -100,13 +100,13 @@ export function useRedirectUrl(isPackage?: boolean) {
 				};
 			case Routes.validators:
 				return {
-					suiscan: `/validators`,
-					suivision: `/validators`,
+					suiscan: "/validators",
+					suivision: "/validators",
 				};
 			default: {
 				return {
-					suiscan: '/',
-					suivision: '/',
+					suiscan: "/",
+					suivision: "/",
 				};
 			}
 		}
@@ -123,7 +123,7 @@ function useRedirectObject() {
 	const { id } = useParams();
 	const { data, isError } = useGetObject(id);
 	const resp = data && !isError ? translate(data) : null;
-	const isPackage = resp ? resp.objType === 'Move Package' : false;
+	const isPackage = resp ? resp.objType === "Move Package" : false;
 
 	return useRedirectUrl(isPackage);
 }

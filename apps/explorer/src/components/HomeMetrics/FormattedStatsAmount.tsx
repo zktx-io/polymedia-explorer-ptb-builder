@@ -1,8 +1,8 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { formatAmountParts } from '@mysten/core';
+import { formatAmountParts } from "@mysten/core";
 
-import { Stats, type StatsProps } from '~/ui/Stats';
+import { Stats, type StatsProps } from "~/ui/Stats";
 
 // Simple wrapper around stats to avoid text wrapping:
 export function StatsWrapper(props: StatsProps) {
@@ -16,7 +16,7 @@ export function StatsWrapper(props: StatsProps) {
 export function FormattedStatsAmount({
 	amount,
 	...props
-}: Omit<StatsProps, 'children'> & {
+}: Omit<StatsProps, "children"> & {
 	amount?: string | number | bigint;
 }) {
 	const [formattedAmount, postfix] = formatAmountParts(amount);

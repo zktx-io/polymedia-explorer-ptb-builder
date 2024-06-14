@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from "react";
 
 export function useMediaQuery(query: string): boolean {
 	const getMatchMedia = (query: string): MediaQueryList | null => {
 		// Prevents SSR issues
-		if (typeof window !== 'undefined') {
+		if (typeof window !== "undefined") {
 			return window.matchMedia(query);
 		}
 
@@ -27,12 +27,12 @@ export function useMediaQuery(query: string): boolean {
 		listener();
 
 		if (matchMedia) {
-			matchMedia.addEventListener('change', listener);
+			matchMedia.addEventListener("change", listener);
 		}
 
 		return () => {
 			if (matchMedia) {
-				matchMedia.removeEventListener('change', listener);
+				matchMedia.removeEventListener("change", listener);
 			}
 		};
 	}, [getMatches, query]);

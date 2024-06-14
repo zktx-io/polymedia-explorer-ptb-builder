@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiTransaction } from '@mysten/sui/client';
+import { type SuiTransaction } from "@mysten/sui/client";
 
-import { Transaction } from './Transaction';
-import { ProgrammableTxnBlockCard } from '~/components/transactions/ProgTxnBlockCard';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { Transaction } from "./Transaction";
+import { ProgrammableTxnBlockCard } from "~/components/transactions/ProgTxnBlockCard";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
-interface TransactionsCardProps {
+type TransactionsCardProps = {
 	transactions: SuiTransaction[];
-}
+};
 
 export function TransactionsCard({ transactions }: TransactionsCardProps) {
 	if (!transactions?.length) {
@@ -32,7 +32,7 @@ export function TransactionsCard({ transactions }: TransactionsCardProps) {
 		<ProgrammableTxnBlockCard
 			initialClose
 			items={expandableItems}
-			itemsLabel={transactions.length > 1 ? 'Transactions' : 'Transaction'}
+			itemsLabel={transactions.length > 1 ? "Transactions" : "Transaction"}
 			count={transactions.length}
 		/>
 	);

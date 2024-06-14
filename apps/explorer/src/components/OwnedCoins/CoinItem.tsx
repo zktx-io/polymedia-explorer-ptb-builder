@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFormatCoin } from '@mysten/core';
-import { type CoinStruct } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
+import { useFormatCoin } from "@mysten/core";
+import { type CoinStruct } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
 
-import { ObjectLink } from '~/ui/InternalLink';
+import { ObjectLink } from "~/ui/InternalLink";
 
 type CoinItemProps = {
 	coin: CoinStruct;

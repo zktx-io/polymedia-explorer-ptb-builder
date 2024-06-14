@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
-import { useImageMod } from './useImageMod';
+import { useImageMod } from "./useImageMod";
 
-type Status = 'loading' | 'failed' | 'loaded';
+type Status = "loading" | "failed" | "loaded";
 
-interface UseImageProps {
+type UseImageProps = {
 	src?: string;
 	moderate?: boolean;
-}
+};
 
-export function useImage({ src = '', moderate = true }: UseImageProps) {
-	const [status, setStatus] = useState<Status>('loading');
-	const formatted = src?.replace(/^ipfs:\/\//, 'https://ipfs.io/ipfs/');
+export function useImage({ src = "", moderate = true }: UseImageProps) {
+	const [status, setStatus] = useState<Status>("loading");
+	const formatted = src?.replace(/^ipfs:\/\//, "https://ipfs.io/ipfs/");
 	const { data: moderation, isFetched } = useImageMod({
 		url: formatted,
 		enabled: moderate,
@@ -30,12 +30,12 @@ export function useImage({ src = '', moderate = true }: UseImageProps) {
 	};
 
 	const load = useCallback(() => {
-		if (!src) setStatus('failed');
+		if (!src) setStatus("failed");
 		const img = new Image();
 		img.src = formatted;
 
-		img.onload = () => (!moderate || (moderate && isFetched)) && setStatus('loaded');
-		img.onerror = () => setStatus('failed');
+		img.onload = () => (!moderate || (moderate && isFetched)) && setStatus("loaded");
+		img.onerror = () => setStatus("failed");
 		ref.current = img;
 	}, [src, formatted, moderate, isFetched]);
 

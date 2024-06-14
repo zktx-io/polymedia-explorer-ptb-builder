@@ -1,23 +1,23 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { COIN_GECKO_SUI_URL, useSuiCoinData } from '@mysten/core';
-import { Sui } from '@mysten/icons';
-import { Text } from '@mysten/ui';
+import { COIN_GECKO_SUI_URL, useSuiCoinData } from "@mysten/core";
+import { Sui } from "@mysten/icons";
+import { Text } from "@mysten/ui";
 
-import { Card } from '~/ui/Card';
-import { ButtonOrLink } from '~/ui/utils/ButtonOrLink';
+import { Card } from "~/ui/Card";
+import { ButtonOrLink } from "~/ui/utils/ButtonOrLink";
 
 export function SuiTokenCard() {
 	const { data } = useSuiCoinData();
 	const { currentPrice } = data || {};
 
 	const formattedPrice = currentPrice
-		? currentPrice.toLocaleString('en', {
-				style: 'currency',
-				currency: 'USD',
+		? currentPrice.toLocaleString("en", {
+				style: "currency",
+				currency: "USD",
 		  })
-		: '--';
+		: "--";
 
 	return (
 		<ButtonOrLink href={COIN_GECKO_SUI_URL}>

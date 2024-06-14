@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { cva, type VariantProps } from 'class-variance-authority';
-import clsx from 'clsx';
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cva, type VariantProps } from "class-variance-authority";
+import clsx from "clsx";
 import {
 	type ComponentPropsWithoutRef,
 	type ElementRef,
@@ -11,45 +11,45 @@ import {
 	createContext,
 	useContext,
 	type ReactNode,
-} from 'react';
+} from "react";
 
-import { Tooltip } from './Tooltip';
-import { ReactComponent as InfoSvg } from './icons/info_10x10.svg';
+import { Tooltip } from "./Tooltip";
+import { ReactComponent as InfoSvg } from "./icons/info_10x10.svg";
 
-type TabSize = 'md' | 'lg' | 'sm';
+type TabSize = "md" | "lg" | "sm";
 
 const TabSizeContext = createContext<TabSize | null | undefined>(null);
 
 const tabStyles = cva(
 	[
-		'flex items-center gap-1 border-b border-transparent -mb-px',
-		'font-semibold text-steel-dark disabled:text-steel-dark disabled:pointer-events-none hover:text-steel-darker data-[state=active]:border-gray-65',
+		"flex items-center gap-1 border-b border-transparent -mb-px",
+		"font-semibold text-steel-dark disabled:text-steel-dark disabled:pointer-events-none hover:text-steel-darker data-[state=active]:border-gray-65",
 	],
 	{
 		variants: {
 			size: {
-				lg: 'text-heading4 data-[state=active]:text-steel-darker pb-2',
-				md: 'text-body data-[state=active]:text-steel-darker pb-2',
-				sm: 'text-captionSmall font-medium pb-0.5 disabled:opacity-40 data-[state=active]:text-steel-darker',
+				lg: "text-heading4 data-[state=active]:text-steel-darker pb-2",
+				md: "text-body data-[state=active]:text-steel-darker pb-2",
+				sm: "text-captionSmall font-medium pb-0.5 disabled:opacity-40 data-[state=active]:text-steel-darker",
 			},
 		},
 		defaultVariants: {
-			size: 'md',
+			size: "md",
 		},
 	},
 );
-const tabListStyles = cva(['flex items-center border-gray-45'], {
+const tabListStyles = cva(["flex items-center border-gray-45"], {
 	variants: {
 		fullWidth: {
-			true: 'flex-1',
+			true: "flex-1",
 		},
 		disableBottomBorder: {
-			true: '',
-			false: 'border-b',
+			true: "",
+			false: "border-b",
 		},
 		gap: {
-			3: 'gap-3',
-			6: 'gap-4 sm:gap-6',
+			3: "gap-3",
+			6: "gap-4 sm:gap-6",
 		},
 	},
 	defaultVariants: {
@@ -98,8 +98,8 @@ const TabsContent = forwardRef<
 	<TabsPrimitive.Content
 		ref={ref}
 		className={clsx(
-			'ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-			!noGap && 'my-4',
+			"ring-offset-background focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+			!noGap && "my-4",
 		)}
 		{...props}
 	/>
@@ -113,7 +113,7 @@ export { Tabs, TabsList, TabsTrigger, TabsContent };
  * We should instead just re-define this as a header components.
  */
 export function TabHeader({
-	size = 'lg',
+	size = "lg",
 	title,
 	children,
 	noGap,

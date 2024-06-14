@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { genTableDataFromTxData } from '~/components/transactions/TxCardUtils';
-import { useGetTransactionBlocks } from '~/hooks/useGetTransactionBlocks';
-import { Pagination, useCursorPagination } from '~/ui/Pagination';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
+import { genTableDataFromTxData } from "~/components/transactions/TxCardUtils";
+import { useGetTransactionBlocks } from "~/hooks/useGetTransactionBlocks";
+import { Pagination, useCursorPagination } from "~/ui/Pagination";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
 
 const DEFAULT_TRANSACTIONS_LIMIT = 20;
 
@@ -30,8 +30,8 @@ export function CheckpointTransactionBlocks({ id }: { id: string }) {
 				<PlaceholderTable
 					rowCount={20}
 					rowHeight="16px"
-					colHeadings={['Digest', 'Sender', 'Txns', 'Gas', 'Time']}
-					colWidths={['30%', '30%', '10%', '20%', '10%']}
+					colHeadings={["Digest", "Sender", "Txns", "Gas", "Time"]}
+					colWidths={["30%", "30%", "10%", "20%", "10%"]}
 				/>
 			) : (
 				<div>

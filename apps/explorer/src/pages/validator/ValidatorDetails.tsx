@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetValidatorsApy, useGetValidatorsEvents } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { type SuiSystemStateSummary } from '@mysten/sui/client';
-import { LoadingIndicator, Text } from '@mysten/ui';
-import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useGetValidatorsApy, useGetValidatorsEvents } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { type SuiSystemStateSummary } from "@mysten/sui/client";
+import { LoadingIndicator, Text } from "@mysten/ui";
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { ValidatorMeta } from '~/components/validator/ValidatorMeta';
-import { ValidatorStats } from '~/components/validator/ValidatorStats';
-import { Banner } from '~/ui/Banner';
-import { getValidatorMoveEvent } from '~/utils/getValidatorMoveEvent';
-import { VALIDATOR_LOW_STAKE_GRACE_PERIOD } from '~/utils/validatorConstants';
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { ValidatorMeta } from "~/components/validator/ValidatorMeta";
+import { ValidatorStats } from "~/components/validator/ValidatorStats";
+import { Banner } from "~/ui/Banner";
+import { getValidatorMoveEvent } from "~/utils/getValidatorMoveEvent";
+import { VALIDATOR_LOW_STAKE_GRACE_PERIOD } from "~/utils/validatorConstants";
 
 const getAtRiskRemainingEpochs = (
 	data: SuiSystemStateSummary | undefined,
@@ -26,7 +26,7 @@ const getAtRiskRemainingEpochs = (
 
 function ValidatorDetails() {
 	const { id } = useParams();
-	const { data, isPending } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data, isPending } = useSuiClientQuery("getLatestSuiSystemState");
 
 	const validatorData = useMemo(() => {
 		if (!data) return null;
@@ -44,7 +44,7 @@ function ValidatorDetails() {
 
 	const { data: validatorEvents, isPending: validatorsEventsLoading } = useGetValidatorsEvents({
 		limit: numberOfValidators,
-		order: 'descending',
+		order: "descending",
 	});
 
 	const validatorRewards = useMemo(() => {
@@ -102,7 +102,7 @@ function ValidatorDetails() {
 							validatorData={validatorData}
 							epoch={data.epoch}
 							epochRewards={validatorRewards}
-							apy={isApyApproxZero ? '~0' : apy}
+							apy={isApyApproxZero ? "~0" : apy}
 							tallyingScore={tallyingScore}
 						/>
 					</div>
@@ -115,7 +115,7 @@ function ValidatorDetails() {
 								title={
 									<Text uppercase variant="bodySmall/semibold">
 										at risk of being removed as a validator after {atRiskRemainingEpochs} epoch
-										{atRiskRemainingEpochs > 1 ? 's' : ''}
+										{atRiskRemainingEpochs > 1 ? "s" : ""}
 									</Text>
 								}
 							>

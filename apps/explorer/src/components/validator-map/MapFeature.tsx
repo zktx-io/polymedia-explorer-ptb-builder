@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-interface Props {
+type Props = {
 	path: string | null;
-}
+};
 
 export function MapFeature({ path }: Props) {
 	if (!path) {

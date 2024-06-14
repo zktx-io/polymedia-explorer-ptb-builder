@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import { Label } from './utils/Label';
+import { Label } from "./utils/Label";
 
-import type { ComponentProps } from 'react';
+import type { ComponentProps } from "react";
 
-export interface InputProps extends Omit<ComponentProps<'input'>, 'ref' | 'className'> {
+export type InputProps = {
 	label: string;
-}
+} & Omit<ComponentProps<"input">, "ref" | "className">;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ label, ...inputProps }, ref) => (
 	<Label label={label}>

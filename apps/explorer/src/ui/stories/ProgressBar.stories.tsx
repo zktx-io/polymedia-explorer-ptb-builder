@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { ProgressBar, type ProgressBarProps } from '../ProgressBar';
+import { ProgressBar, type ProgressBarProps } from "../ProgressBar";
 
 export default {
 	component: ProgressBar,
 	parameters: {
 		backgrounds: {
-			default: 'gray100',
-			values: [{ name: 'gray100', value: '#182435' }],
+			default: "gray100",
+			values: [{ name: "gray100", value: "#182435" }],
 		},
 	},
 } as Meta;

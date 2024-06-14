@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/ui/Tabs';
-import { Text } from '@mysten/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
+import { Text } from "@mysten/ui";
 
-import ModuleView from './ModuleView';
-import { useVerifiedSourceCode } from '~/hooks/useVerifiedSourceCode';
-import clsx from 'clsx';
+import ModuleView from "./ModuleView";
+import { useVerifiedSourceCode } from "~/hooks/useVerifiedSourceCode";
+import clsx from "clsx";
 
 type ModuleCodeTabsProps = {
 	packageId: string;
@@ -44,13 +44,13 @@ export function ModuleCodeTabs({
 				) : null}
 			</TabsList>
 			<TabsContent value="bytecode">
-				<div className={clsx('overflow-auto', { 'h-verticalListLong': isCompact })}>
+				<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
 					<ModuleView id={packageId} name={moduleName} code={moduleBytecode} />
 				</div>
 			</TabsContent>
 			{verifiedSourceCode ? (
 				<TabsContent value="source">
-					<div className={clsx('overflow-auto', { 'h-verticalListLong': isCompact })}>
+					<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
 						<ModuleView id={packageId} name={moduleName} code={verifiedSourceCode} />
 					</div>
 				</TabsContent>

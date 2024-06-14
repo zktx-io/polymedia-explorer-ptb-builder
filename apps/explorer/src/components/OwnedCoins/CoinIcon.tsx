@@ -1,24 +1,24 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCoinMetadata } from '@mysten/core';
-import { Sui, Unstaked } from '@mysten/icons';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { useCoinMetadata } from "@mysten/core";
+import { Sui, Unstaked } from "@mysten/icons";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { ImageIcon } from '~/ui/ImageIcon';
+import { ImageIcon } from "~/ui/ImageIcon";
 
-const imageStyle = cva(['flex rounded-2xl'], {
+const imageStyle = cva(["flex rounded-2xl"], {
 	variants: {
 		size: {
-			sm: 'w-6 h-6',
-			md: 'w-7.5 h-7.5',
-			lg: 'md:w-10 md:h-10 w-8 h-8',
-			xl: 'md:w-31.5 md:h-31.5 w-16 h-16 ',
+			sm: "w-6 h-6",
+			md: "w-7.5 h-7.5",
+			lg: "md:w-10 md:h-10 w-8 h-8",
+			xl: "md:w-31.5 md:h-31.5 w-16 h-16 ",
 		},
 	},
 	defaultVariants: {
-		size: 'md',
+		size: "md",
 	},
 });
 
@@ -53,9 +53,9 @@ function NonSuiCoin({ coinType }: NonSuiCoinProps) {
 	);
 }
 
-export interface CoinIconProps extends VariantProps<typeof imageStyle> {
+export type CoinIconProps = {
 	coinType: string;
-}
+} & VariantProps<typeof imageStyle>;
 
 export function CoinIcon({ coinType, ...styleProps }: CoinIconProps) {
 	return (

@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { parseObjectType } from '../../utils/objectUtils';
+import { parseObjectType } from "../../utils/objectUtils";
 
-import type { SuiObjectResponse, ObjectOwner } from '@mysten/sui/client';
+import type { SuiObjectResponse, ObjectOwner } from "@mysten/sui/client";
 
 export type DataType = {
 	id: string;
@@ -17,9 +17,7 @@ export type DataType = {
 	publisherAddress?: string;
 	contract_id?: { bytes: string };
 	data: {
-		contents: {
-			[key: string]: any;
-		};
+		contents: Record<string, any>;
 		owner?: { ObjectOwner: [] };
 		tx_digest?: string | null;
 	};
@@ -41,7 +39,7 @@ export function translate(o: SuiObjectResponse): DataType {
 			owner: o.data.owner!,
 			data: {
 				contents:
-					o.data?.content?.dataType === 'moveObject'
+					o.data?.content?.dataType === "moveObject"
 						? o.data?.content.fields
 						: o.data.content?.disassembled!,
 				tx_digest: o.data.previousTransaction,

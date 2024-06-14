@@ -1,35 +1,35 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Search24 } from '@mysten/icons';
-import { Combobox, ComboboxInput, ComboboxList } from '@mysten/ui';
-import clsx from 'clsx';
-import { useState, useCallback, useEffect } from 'react';
-import { type Direction } from 'react-resizable-panels';
+import { Search24 } from "@mysten/icons";
+import { Combobox, ComboboxInput, ComboboxList } from "@mysten/ui";
+import clsx from "clsx";
+import { useState, useCallback, useEffect } from "react";
+import { type Direction } from "react-resizable-panels";
 
-import { ModuleFunctionsInteraction } from './module-functions-interaction';
-import { useBreakpoint } from '~/hooks/useBreakpoint';
-import { SplitPanes } from '~/ui/SplitPanes';
-import { TabHeader } from '~/ui/Tabs';
-import { ListItem, VerticalList } from '~/ui/VerticalList';
-import { useSearchParamsMerged } from '~/ui/utils/LinkWithQuery';
-import { ModuleCodeTabs } from './ModuleCodeTabs';
+import { ModuleFunctionsInteraction } from "./module-functions-interaction";
+import { useBreakpoint } from "~/hooks/useBreakpoint";
+import { SplitPanes } from "~/ui/SplitPanes";
+import { TabHeader } from "~/ui/Tabs";
+import { ListItem, VerticalList } from "~/ui/VerticalList";
+import { useSearchParamsMerged } from "~/ui/utils/LinkWithQuery";
+import { ModuleCodeTabs } from "./ModuleCodeTabs";
 
 type ModuleType = [moduleName: string, code: string];
 
-interface Props {
+type Props = {
 	id: string;
 	modules: ModuleType[];
 	splitPanelOrientation: Direction;
-}
+};
 
 function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
-	const isMediumOrAbove = useBreakpoint('md');
+	const isMediumOrAbove = useBreakpoint("md");
 
 	const [searchParams, setSearchParams] = useSearchParamsMerged();
-	const [query, setQuery] = useState('');
+	const [query, setQuery] = useState("");
 
-	const moduleNameValue = searchParams.get('module');
+	const moduleNameValue = searchParams.get("module");
 	const moduleFromParams = moduleNameValue
 		? modules.find(([moduleName]) => moduleName === moduleNameValue)
 		: undefined;
@@ -68,7 +68,7 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 		);
 	};
 
-	const isCompact = splitPanelOrientation === 'horizontal' || !isMediumOrAbove;
+	const isCompact = splitPanelOrientation === "horizontal" || !isMediumOrAbove;
 	const panelContent = [
 		{
 			panel: (
@@ -85,7 +85,7 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 			panel: (
 				<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
 					<TabHeader size="md" title="Execute">
-						<div className={clsx('overflow-auto', { 'h-verticalListLong': isCompact })}>
+						<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
 							<ModuleFunctionsInteraction
 								// force recreating everything when we change modules
 								key={`${id}-${selectedModuleName}`}

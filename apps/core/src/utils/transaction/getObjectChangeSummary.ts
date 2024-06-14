@@ -9,10 +9,10 @@ import {
 	SuiObjectChangePublished,
 	SuiObjectChangeTransferred,
 	SuiObjectChangeWrapped,
-} from '@mysten/sui/client';
+} from "@mysten/sui/client";
 
-import { groupByOwner } from './groupByOwner';
-import { SuiObjectChangeTypes } from './types';
+import { groupByOwner } from "./groupByOwner";
+import { SuiObjectChangeTypes } from "./types";
 
 export type WithDisplayFields<T> = T & { display?: DisplayFieldsResponse };
 export type SuiObjectChangeWithDisplay = WithDisplayFields<SuiObjectChange>;
@@ -32,27 +32,27 @@ export const getObjectChangeSummary = (objectChanges: SuiObjectChangeWithDisplay
 	if (!objectChanges) return null;
 
 	const mutated = objectChanges.filter(
-		(change) => change.type === 'mutated',
+		(change) => change.type === "mutated",
 	) as SuiObjectChangeMutated[];
 
 	const created = objectChanges.filter(
-		(change) => change.type === 'created',
+		(change) => change.type === "created",
 	) as SuiObjectChangeCreated[];
 
 	const transferred = objectChanges.filter(
-		(change) => change.type === 'transferred',
+		(change) => change.type === "transferred",
 	) as SuiObjectChangeTransferred[];
 
 	const published = objectChanges.filter(
-		(change) => change.type === 'published',
+		(change) => change.type === "published",
 	) as SuiObjectChangePublished[];
 
 	const wrapped = objectChanges.filter(
-		(change) => change.type === 'wrapped',
+		(change) => change.type === "wrapped",
 	) as SuiObjectChangeWrapped[];
 
 	const deleted = objectChanges.filter(
-		(change) => change.type === 'deleted',
+		(change) => change.type === "deleted",
 	) as SuiObjectChangeDeleted[];
 
 	return {

@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 
-import { CopyToClipboard, type CopyToClipboardProps } from '~/ui/CopyToClipboard';
+import { CopyToClipboard, type CopyToClipboardProps } from "~/ui/CopyToClipboard";
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 export default {
 	component: CopyToClipboard,

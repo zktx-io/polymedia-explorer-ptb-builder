@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ArrowRight12 } from '@mysten/icons';
+import { ArrowRight12 } from "@mysten/icons";
 import {
 	type ColumnDef,
 	flexRender,
@@ -9,23 +9,23 @@ import {
 	getSortedRowModel,
 	type SortingState,
 	useReactTable,
-} from '@tanstack/react-table';
-import clsx from 'clsx';
-import { useMemo, useState } from 'react';
+} from "@tanstack/react-table";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
 
-export interface TableCardProps<DataType extends object> {
+export type TableCardProps<DataType extends object> = {
 	refetching?: boolean;
 	data: DataType[];
 	columns: ColumnDef<DataType>[];
 	sortTable?: boolean;
 	defaultSorting?: SortingState;
-}
+};
 
-function AscDescIcon({ sorting }: { sorting: 'asc' | 'desc' }) {
+function AscDescIcon({ sorting }: { sorting: "asc" | "desc" }) {
 	return (
 		<ArrowRight12
 			fill="currentColor"
-			className={clsx(sorting === 'asc' ? '-rotate-90' : 'rotate-90', ' text-steel-darker')}
+			className={clsx(sorting === "asc" ? "-rotate-90" : "rotate-90", " text-steel-darker")}
 		/>
 	);
 }
@@ -71,8 +71,8 @@ export function TableCard<DataType extends object>({
 	return (
 		<div
 			className={clsx(
-				'w-full overflow-x-auto border-b border-gray-45 pb-4',
-				refetching && 'opacity-50',
+				"w-full overflow-x-auto border-b border-gray-45 pb-4",
+				refetching && "opacity-50",
 			)}
 		>
 			<table className="w-full min-w-max border-collapse text-left">
@@ -91,14 +91,14 @@ export function TableCard<DataType extends object>({
 								>
 									<div
 										className={clsx(
-											'flex items-center gap-1',
-											column.columnDef.enableSorting && 'cursor-pointer text-steel-darker',
+											"flex items-center gap-1",
+											column.columnDef.enableSorting && "cursor-pointer text-steel-darker",
 										)}
 									>
 										{isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}
 
 										{column.getIsSorted() && (
-											<AscDescIcon sorting={column.getIsSorted() as 'asc' | 'desc'} />
+											<AscDescIcon sorting={column.getIsSorted() as "asc" | "desc"} />
 										)}
 									</div>
 								</th>

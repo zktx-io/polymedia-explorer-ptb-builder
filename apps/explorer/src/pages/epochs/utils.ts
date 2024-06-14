@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useTimeAgo } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
+import { useTimeAgo } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
 
-export function useEpochProgress(suffix: string = 'left') {
-	const { data } = useSuiClientQuery('getLatestSuiSystemState');
+export function useEpochProgress(suffix = "left") {
+	const { data } = useSuiClientQuery("getLatestSuiSystemState");
 	const start = data?.epochStartTimestampMs ? Number(data.epochStartTimestampMs) : undefined;
 	const duration = data?.epochDurationMs ? Number(data.epochDurationMs) : undefined;
 	const end = start !== undefined && duration !== undefined ? start + duration : undefined;
@@ -27,9 +27,9 @@ export function useEpochProgress(suffix: string = 'left') {
 
 	let label;
 	if (timeLeftMs >= 0) {
-		label = 'Ending soon';
+		label = "Ending soon";
 	} else if (timeLeftMin >= -1) {
-		label = 'About a min left';
+		label = "About a min left";
 	} else {
 		label = `${time} ${suffix}`;
 	}
@@ -65,5 +65,5 @@ export function getElapsedTime(start: number, end: number) {
 		renderTime.push(`${displaySeconds}s`);
 	}
 
-	return renderTime.join(' ');
+	return renderTime.join(" ");
 }

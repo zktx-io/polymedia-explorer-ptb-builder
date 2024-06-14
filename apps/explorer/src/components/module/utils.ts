@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SuiMoveNormalizedType } from '@mysten/sui/client';
+import type { SuiMoveNormalizedType } from "@mysten/sui/client";
 
 /**
  * Converts a SuiMoveNormalizedType to string
@@ -16,32 +16,32 @@ import type { SuiMoveNormalizedType } from '@mysten/sui/client';
 export function normalizedFunctionParameterTypeToString(
 	param: SuiMoveNormalizedType,
 	functionTypeArgNames?: string[],
-	str = '',
+	str = "",
 ): string {
-	if (typeof param === 'string') {
+	if (typeof param === "string") {
 		return str + param;
 	}
-	if ('TypeParameter' in param) {
+	if ("TypeParameter" in param) {
 		return str + (functionTypeArgNames?.[param.TypeParameter] ?? `T${param.TypeParameter}`);
 	}
-	if ('Reference' in param || 'MutableReference' in param) {
-		const p = 'Reference' in param ? param.Reference : param.MutableReference;
+	if ("Reference" in param || "MutableReference" in param) {
+		const p = "Reference" in param ? param.Reference : param.MutableReference;
 		return normalizedFunctionParameterTypeToString(p, functionTypeArgNames, str);
 	}
-	if ('Vector' in param) {
+	if ("Vector" in param) {
 		return (
 			normalizedFunctionParameterTypeToString(param.Vector, functionTypeArgNames, `${str}Vector<`) +
-			'>'
+			">"
 		);
 	}
-	if ('Struct' in param) {
+	if ("Struct" in param) {
 		const theType = param.Struct;
 		const theTypeArgs = theType.typeArguments;
 		const theTypeArgsStr = theTypeArgs
 			.map((aTypeArg) => normalizedFunctionParameterTypeToString(aTypeArg, functionTypeArgNames))
-			.join(', ');
-		return `${[theType.address, theType.module, theType.name].join('::')}${
-			theTypeArgsStr ? `<${theTypeArgsStr}>` : ''
+			.join(", ");
+		return `${[theType.address, theType.module, theType.name].join("::")}${
+			theTypeArgsStr ? `<${theTypeArgsStr}>` : ""
 		}`;
 	}
 	return str;
@@ -53,7 +53,7 @@ export function getNormalizedFunctionParameterTypeDetails(
 ) {
 	const paramTypeText = normalizedFunctionParameterTypeToString(param, functionTypeArgNames);
 	return {
-		isTxContext: paramTypeText === '0x2::tx_context::TxContext',
+		isTxContext: paramTypeText === "0x2::tx_context::TxContext",
 		paramTypeText,
 	};
 }

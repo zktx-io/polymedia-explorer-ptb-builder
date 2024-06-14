@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { type MoveCallMetric } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
-import { useMemo } from 'react';
+import { type MoveCallMetric } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
+import { useMemo } from "react";
 
-import { ObjectLink } from '~/ui/InternalLink';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
+import { ObjectLink } from "~/ui/InternalLink";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
 
-interface TopPackagesTableProps {
+type TopPackagesTableProps = {
 	data: MoveCallMetric[];
 	isLoading: boolean;
-}
+};
 
 function TxnCountHeader() {
 	return (
@@ -40,20 +40,20 @@ export function TopPackagesTable({ data, isLoading }: TopPackagesTableProps) {
 			})),
 			columns: [
 				{
-					header: 'Package ID',
-					accessorKey: 'package',
+					header: "Package ID",
+					accessorKey: "package",
 				},
 				{
-					header: 'Module',
-					accessorKey: 'module',
+					header: "Module",
+					accessorKey: "module",
 				},
 				{
-					header: 'Function',
-					accessorKey: 'function',
+					header: "Function",
+					accessorKey: "function",
 				},
 				{
 					header: TxnCountHeader,
-					accessorKey: 'count',
+					accessorKey: "count",
 				},
 			],
 		}),
@@ -63,10 +63,10 @@ export function TopPackagesTable({ data, isLoading }: TopPackagesTableProps) {
 	if (isLoading) {
 		return (
 			<PlaceholderTable
-				colHeadings={['Module', 'Function', 'Package ID', 'Count']}
+				colHeadings={["Module", "Function", "Package ID", "Count"]}
 				rowCount={10}
 				rowHeight="15px"
-				colWidths={['100px', '120px', '40px', '204px']}
+				colWidths={["100px", "120px", "40px", "204px"]}
 			/>
 		);
 	}

@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient } from '@mysten/dapp-kit';
-import { CoinMetadata } from '@mysten/sui/client';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import BigNumber from 'bignumber.js';
-import { useMemo } from 'react';
+import { useSuiClient } from "@mysten/dapp-kit";
+import { CoinMetadata } from "@mysten/sui/client";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
+import BigNumber from "bignumber.js";
+import { useMemo } from "react";
 
-import { formatAmount } from '../utils/formatAmount';
+import { formatAmount } from "../utils/formatAmount";
 
 type FormattedCoin = [
 	formattedBalance: string,
@@ -17,8 +17,8 @@ type FormattedCoin = [
 ];
 
 export enum CoinFormat {
-	ROUNDED = 'ROUNDED',
-	FULL = 'FULL',
+	ROUNDED = "ROUNDED",
+	FULL = "FULL",
 }
 
 /**
@@ -40,17 +40,17 @@ export function formatBalance(
 	return formatAmount(bn);
 }
 
-const ELLIPSIS = '\u{2026}';
+const ELLIPSIS = "\u{2026}";
 const SYMBOL_TRUNCATE_LENGTH = 5;
 const NAME_TRUNCATE_LENGTH = 10;
 
 export function useCoinMetadata(coinType?: string | null) {
 	const client = useSuiClient();
 	return useQuery({
-		queryKey: ['coin-metadata', coinType],
+		queryKey: ["coin-metadata", coinType],
 		queryFn: async () => {
 			if (!coinType) {
-				throw new Error('Fetching coin metadata should be disabled when coin type is disabled.');
+				throw new Error("Fetching coin metadata should be disabled when coin type is disabled.");
 			}
 
 			// Optimize the known case of SUI to avoid a network call:
@@ -58,10 +58,10 @@ export function useCoinMetadata(coinType?: string | null) {
 				const metadata: CoinMetadata = {
 					id: null,
 					decimals: 9,
-					description: '',
+					description: "",
 					iconUrl: null,
-					name: 'Sui',
-					symbol: 'SUI',
+					name: "Sui",
+					symbol: "SUI",
 				};
 
 				return metadata;
@@ -98,23 +98,23 @@ export function useFormatCoin(
 	coinType?: string | null,
 	format: CoinFormat = CoinFormat.ROUNDED,
 ): FormattedCoin {
-	const fallbackSymbol = useMemo(() => (coinType ? getCoinSymbol(coinType) ?? '' : ''), [coinType]);
+	const fallbackSymbol = useMemo(() => (coinType ? getCoinSymbol(coinType) ?? "" : ""), [coinType]);
 
 	const queryResult = useCoinMetadata(coinType);
 	const { isFetched, data } = queryResult;
 
 	const formatted = useMemo(() => {
-		if (typeof balance === 'undefined' || balance === null) return '';
+		if (typeof balance === "undefined" || balance === null) return "";
 
-		if (!isFetched) return '...';
+		if (!isFetched) return "...";
 
 		return formatBalance(balance, data?.decimals ?? 0, format);
 	}, [data?.decimals, isFetched, balance, format]);
 
-	return [formatted, isFetched ? data?.symbol || fallbackSymbol : '', queryResult];
+	return [formatted, isFetched ? data?.symbol || fallbackSymbol : "", queryResult];
 }
 
 /** @deprecated use coin metadata instead */
 export function getCoinSymbol(coinTypeArg: string) {
-	return coinTypeArg.substring(coinTypeArg.lastIndexOf(':') + 1);
+	return coinTypeArg.substring(coinTypeArg.lastIndexOf(":") + 1);
 }

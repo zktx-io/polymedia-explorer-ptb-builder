@@ -1,13 +1,13 @@
-import * as RadixCheckbox from '@radix-ui/react-checkbox';
+import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { CheckStroke16 } from "@mysten/icons";
 import { Text } from "@mysten/ui";
 import clsx from "clsx";
 
-interface CheckboxProps extends RadixCheckbox.CheckboxProps {
+type CheckboxProps = {
     id: string;
     label?: string;
     className?: string;
-}
+} & RadixCheckbox.CheckboxProps;
 
 export function Checkbox({ id, label, className, ...props }: CheckboxProps) {
     return (
@@ -29,6 +29,6 @@ export function Checkbox({ id, label, className, ...props }: CheckboxProps) {
                 </label>
             )}
         </div>
-    )
+    );
 }
 

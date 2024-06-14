@@ -1,28 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient } from '@mysten/dapp-kit';
-import { ArrowRight12 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useSuiClient } from "@mysten/dapp-kit";
+import { ArrowRight12 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
 
-import { genTableDataFromTxData } from '../transactions/TxCardUtils';
-import { useGetTransactionBlocks } from '~/hooks/useGetTransactionBlocks';
-import { Link } from '~/ui/Link';
-import { Pagination, useCursorPagination } from '~/ui/Pagination';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
-import { numberSuffix } from '~/utils/numberUtil';
+import { genTableDataFromTxData } from "../transactions/TxCardUtils";
+import { useGetTransactionBlocks } from "~/hooks/useGetTransactionBlocks";
+import { Link } from "~/ui/Link";
+import { Pagination, useCursorPagination } from "~/ui/Pagination";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
+import { numberSuffix } from "~/utils/numberUtil";
 
 const DEFAULT_TRANSACTIONS_LIMIT = 20;
 
-interface Props {
+type Props = {
 	disablePagination?: boolean;
 	refetchInterval?: number;
 	initialLimit?: number;
-	transactionKindFilter?: 'ProgrammableTransaction';
-}
+	transactionKindFilter?: "ProgrammableTransaction";
+};
 
 export function TransactionsActivityTable({
 	disablePagination,
@@ -33,7 +33,7 @@ export function TransactionsActivityTable({
 	const [limit, setLimit] = useState(initialLimit);
 	const client = useSuiClient();
 	const { data: count } = useQuery({
-		queryKey: ['transactions', 'count'],
+		queryKey: ["transactions", "count"],
 		queryFn: () => client.getTotalTransactionBlocks(),
 		gcTime: 24 * 60 * 60 * 1000,
 		staleTime: Infinity,
@@ -64,8 +64,8 @@ export function TransactionsActivityTable({
 					<PlaceholderTable
 						rowCount={limit}
 						rowHeight="16px"
-						colHeadings={['Digest', 'Sender', 'Txns', 'Gas', 'Time']}
-						colWidths={['30%', '30%', '10%', '20%', '10%']}
+						colHeadings={["Digest", "Sender", "Txns", "Gas", "Time"]}
+						colWidths={["30%", "30%", "10%", "20%", "10%"]}
 					/>
 				) : (
 					<div>
@@ -84,8 +84,8 @@ export function TransactionsActivityTable({
 
 					<div className="flex items-center space-x-3">
 						<Text variant="body/medium" color="steel-dark">
-							{count ? numberSuffix(Number(count)) : '-'}
-							{` Total`}
+							{count ? numberSuffix(Number(count)) : "-"}
+							{" Total"}
 						</Text>
 						{!disablePagination && (
 							<select

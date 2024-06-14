@@ -1,24 +1,24 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ChevronRight12 } from '@mysten/icons';
-import { type SuiEvent } from '@mysten/sui/client';
-import { parseStructTag, formatAddress } from '@mysten/sui/utils';
-import { Text } from '@mysten/ui';
-import * as Collapsible from '@radix-ui/react-collapsible';
-import clsx from 'clsx';
-import { useState } from 'react';
+import { ChevronRight12 } from "@mysten/icons";
+import { type SuiEvent } from "@mysten/sui/client";
+import { parseStructTag, formatAddress } from "@mysten/sui/utils";
+import { Text } from "@mysten/ui";
+import * as Collapsible from "@radix-ui/react-collapsible";
+import clsx from "clsx";
+import { useState } from "react";
 
-import { SyntaxHighlighter } from '~/components/SyntaxHighlighter';
-import { CopyToClipboard } from '~/ui/CopyToClipboard';
-import { DescriptionItem } from '~/ui/DescriptionList';
-import { Divider } from '~/ui/Divider';
-import { ObjectLink } from '~/ui/InternalLink';
+import { SyntaxHighlighter } from "~/components/SyntaxHighlighter";
+import { CopyToClipboard } from "~/ui/CopyToClipboard";
+import { DescriptionItem } from "~/ui/DescriptionList";
+import { Divider } from "~/ui/Divider";
+import { ObjectLink } from "~/ui/InternalLink";
 
 function Event({ event, divider }: { event: SuiEvent; divider: boolean }) {
 	const [open, setOpen] = useState(false);
 	const { address, module, name } = parseStructTag(event.type);
-	const objectLinkLabel = [formatAddress(address), module, name].join('::');
+	const objectLinkLabel = [formatAddress(address), module, name].join("::");
 
 	return (
 		<div>
@@ -44,10 +44,10 @@ function Event({ event, divider }: { event: SuiEvent; divider: boolean }) {
 					<>
 						<Collapsible.Trigger className="flex cursor-pointer items-center gap-1.5">
 							<Text variant="body/semibold" color="steel-dark">
-								{open ? 'Hide' : 'View'} Event Data
+								{open ? "Hide" : "View"} Event Data
 							</Text>
 
-							<ChevronRight12 className={clsx('h-3 w-3 text-steel-dark', open && 'rotate-90')} />
+							<ChevronRight12 className={clsx("h-3 w-3 text-steel-dark", open && "rotate-90")} />
 						</Collapsible.Trigger>
 
 						<Collapsible.Content className="rounded-lg border border-transparent bg-white p-5">
@@ -66,9 +66,9 @@ function Event({ event, divider }: { event: SuiEvent; divider: boolean }) {
 	);
 }
 
-interface EventsProps {
+type EventsProps = {
 	events: SuiEvent[];
-}
+};
 
 export function Events({ events }: EventsProps) {
 	return (

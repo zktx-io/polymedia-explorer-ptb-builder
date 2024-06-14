@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ArrowUpRight12 } from '@mysten/icons';
-import { type SuiValidatorSummary } from '@mysten/sui/client';
-import { Heading, Text } from '@mysten/ui';
+import { ArrowUpRight12 } from "@mysten/icons";
+import { type SuiValidatorSummary } from "@mysten/sui/client";
+import { Heading, Text } from "@mysten/ui";
 
-import { CopyToClipboard } from '~/ui/CopyToClipboard';
-import { DescriptionList, DescriptionItem } from '~/ui/DescriptionList';
-import { ImageIcon } from '~/ui/ImageIcon';
-import { AddressLink } from '~/ui/InternalLink';
+import { CopyToClipboard } from "~/ui/CopyToClipboard";
+import { DescriptionList, DescriptionItem } from "~/ui/DescriptionList";
+import { ImageIcon } from "~/ui/ImageIcon";
+import { AddressLink } from "~/ui/InternalLink";
 
 type ValidatorMetaProps = {
 	validatorData: SuiValidatorSummary;
@@ -36,7 +36,7 @@ export function ValidatorMeta({ validatorData }: ValidatorMetaProps) {
 							rel="noreferrer noopener"
 							className="mt-2.5 inline-flex items-center gap-1.5 text-body font-medium text-sui-dark no-underline"
 						>
-							{projectUrl.replace(/\/$/, '')}
+							{projectUrl.replace(/\/$/, "")}
 							<ArrowUpRight12 className="text-steel" />
 						</a>
 					)}
@@ -46,7 +46,7 @@ export function ValidatorMeta({ validatorData }: ValidatorMetaProps) {
 				<DescriptionList>
 					<DescriptionItem title="Description" align="start">
 						<Text variant="pBody/medium" color="gray-90">
-							{description || '--'}
+							{description || "--"}
 						</Text>
 					</DescriptionItem>
 					<DescriptionItem title="Location" align="start">

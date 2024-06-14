@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ChevronLeft12, ChevronUp12 } from '@mysten/icons';
-import { cva, type VariantProps } from 'class-variance-authority';
-import clsx from 'clsx';
-import { type ReactNode, useRef, useState } from 'react';
+import { ChevronLeft12, ChevronUp12 } from "@mysten/icons";
+import { cva, type VariantProps } from "class-variance-authority";
+import clsx from "clsx";
+import { type ReactNode, useRef, useState } from "react";
 import {
 	type Direction,
 	type ImperativePanelHandle,
@@ -13,72 +13,72 @@ import {
 	type PanelGroupProps,
 	type PanelProps,
 	PanelResizeHandle,
-} from 'react-resizable-panels';
+} from "react-resizable-panels";
 
 export enum LOCAL_STORAGE_SPLIT_PANE_KEYS {
-	TRANSACTION_VIEW = 'splitPanes/transaction-view',
-	ADDRESS_VIEW_HORIZONTAL = 'splitPanes/address-view-horizontal',
-	ADDRESS_VIEW_VERTICAL = 'splitPanes/address-view-vertical',
+	TRANSACTION_VIEW = "splitPanes/transaction-view",
+	ADDRESS_VIEW_HORIZONTAL = "splitPanes/address-view-horizontal",
+	ADDRESS_VIEW_VERTICAL = "splitPanes/address-view-vertical",
 }
 
-const panelResizeHandleStyles = cva(['group/container z-10'], {
+const panelResizeHandleStyles = cva(["group/container z-10"], {
 	variants: {
 		isHorizontal: {
-			true: '',
-			false: '',
+			true: "",
+			false: "",
 		},
 		size: {
-			none: '',
-			md: '',
-			lg: '',
+			none: "",
+			md: "",
+			lg: "",
 		},
 	},
 	defaultVariants: {
 		isHorizontal: false,
-		size: 'md',
+		size: "md",
 	},
 	compoundVariants: [
 		{
 			isHorizontal: true,
-			size: 'none',
-			className: 'px-3 -mx-3',
+			size: "none",
+			className: "px-3 -mx-3",
 		},
 		{
 			isHorizontal: false,
-			size: 'none',
-			className: 'py-3 -my-3',
+			size: "none",
+			className: "py-3 -my-3",
 		},
 		{
 			isHorizontal: true,
-			size: 'md',
-			className: 'px-3',
+			size: "md",
+			className: "px-3",
 		},
 		{
 			isHorizontal: false,
-			size: 'md',
-			className: 'py-3',
+			size: "md",
+			className: "py-3",
 		},
 		{
 			isHorizontal: true,
-			size: 'lg',
-			className: 'px-5',
+			size: "lg",
+			className: "px-5",
 		},
 		{
 			isHorizontal: false,
-			size: 'lg',
-			className: 'py-5',
+			size: "lg",
+			className: "py-5",
 		},
 	],
 });
 
 type PanelResizeHandleStylesProps = VariantProps<typeof panelResizeHandleStyles>;
 
-interface ResizeHandleProps extends PanelResizeHandleStylesProps {
+type ResizeHandleProps = {
 	togglePanelCollapse: () => void;
 	isCollapsed: boolean;
 	collapsibleButton?: boolean;
 	noHoverHidden?: boolean;
-}
+} & PanelResizeHandleStylesProps;
 
 function ResizeHandle({
 	isHorizontal,
@@ -99,9 +99,9 @@ function ResizeHandle({
 		>
 			<div
 				className={clsx(
-					'relative bg-gray-45 group-hover/container:bg-hero',
-					isHorizontal ? 'h-full w-px' : 'h-px',
-					noHoverHidden && !isCollapsed && 'bg-transparent',
+					"relative bg-gray-45 group-hover/container:bg-hero",
+					isHorizontal ? "h-full w-px" : "h-px",
+					noHoverHidden && !isCollapsed && "bg-transparent",
 				)}
 			>
 				{collapsibleButton && (
@@ -110,20 +110,20 @@ function ResizeHandle({
 						onClick={togglePanelCollapse}
 						data-is-dragging={isDragging}
 						className={clsx([
-							'group/button',
-							'flex h-6 w-6 cursor-pointer items-center justify-center rounded-full',
-							'border-2 border-gray-45 bg-white text-gray-70 group-hover/container:border-hero-dark',
-							'hover:bg-hero-dark hover:text-white',
+							"group/button",
+							"flex h-6 w-6 cursor-pointer items-center justify-center rounded-full",
+							"border-2 border-gray-45 bg-white text-gray-70 group-hover/container:border-hero-dark",
+							"hover:bg-hero-dark hover:text-white",
 							isHorizontal
-								? 'absolute left-1/2 top-10 -translate-x-2/4'
-								: 'absolute left-10 top-1/2 -translate-y-2/4',
-							noHoverHidden && !isCollapsed && 'hidden group-hover/container:flex',
+								? "absolute left-1/2 top-10 -translate-x-2/4"
+								: "absolute left-10 top-1/2 -translate-y-2/4",
+							noHoverHidden && !isCollapsed && "hidden group-hover/container:flex",
 						])}
 					>
 						<ChevronButton
 							className={clsx(
-								'h-4 w-4 text-gray-45 group-hover/button:!text-white group-hover/container:text-hero-dark',
-								isCollapsed && 'rotate-180',
+								"h-4 w-4 text-gray-45 group-hover/button:!text-white group-hover/container:text-hero-dark",
+								isCollapsed && "rotate-180",
 							)}
 						/>
 					</button>
@@ -133,15 +133,15 @@ function ResizeHandle({
 	);
 }
 
-interface SplitPanelProps extends PanelProps {
+type SplitPanelProps = {
 	panel: ReactNode;
 	direction: Direction;
 	renderResizeHandle: boolean;
 	collapsibleButton?: boolean;
 	noHoverHidden?: boolean;
-	dividerSize?: PanelResizeHandleStylesProps['size'];
+	dividerSize?: PanelResizeHandleStylesProps["size"];
 	onCollapse?: (isCollapsed: boolean) => void;
-}
+} & PanelProps;
 
 function SplitPanel({
 	panel,
@@ -182,7 +182,7 @@ function SplitPanel({
 					size={dividerSize}
 					noHoverHidden={noHoverHidden}
 					isCollapsed={isCollapsed}
-					isHorizontal={direction === 'horizontal'}
+					isHorizontal={direction === "horizontal"}
 					togglePanelCollapse={togglePanelCollapse}
 					collapsibleButton={collapsibleButton}
 				/>
@@ -191,11 +191,11 @@ function SplitPanel({
 	);
 }
 
-export interface SplitPanesProps extends PanelGroupProps {
-	splitPanels: Omit<SplitPanelProps, 'renderResizeHandle' | 'direction'>[];
-	dividerSize?: PanelResizeHandleStylesProps['size'];
+export type SplitPanesProps = {
+	splitPanels: Omit<SplitPanelProps, "renderResizeHandle" | "direction">[];
+	dividerSize?: PanelResizeHandleStylesProps["size"];
 	onCollapse?: (isCollapsed: boolean) => void;
-}
+} & PanelGroupProps;
 
 export function SplitPanes({ splitPanels, dividerSize, onCollapse, ...props }: SplitPanesProps) {
 	const { direction } = props;

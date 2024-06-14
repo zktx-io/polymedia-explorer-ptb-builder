@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState } from "react";
 
-import { ListboxSelect, type ListboxSelectPros } from '../ListboxSelect';
+import { ListboxSelect, type ListboxSelectPros } from "../ListboxSelect";
 
 export default {
 	component: ListboxSelect,
@@ -12,7 +12,7 @@ export default {
 
 export const Default: StoryObj<ListboxSelectPros> = {
 	render: (props) => {
-		const [value, onChange] = useState('Option 1');
+		const [value, onChange] = useState("Option 1");
 		return (
 			<div className="flex justify-center">
 				<ListboxSelect {...props} value={value} onSelect={onChange} />
@@ -20,6 +20,6 @@ export const Default: StoryObj<ListboxSelectPros> = {
 		);
 	},
 	args: {
-		options: ['Option 1', 'Option 2', 'Option 3', 'Long option'],
+		options: ["Option 1", "Option 2", "Option 3", "Long option"],
 	},
 };

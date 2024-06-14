@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type EpochMetricsPage } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
+import { type EpochMetricsPage } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
 
-import { SuiAmount } from '../Table/SuiAmount';
-import { TxTimeType } from '../tx-time/TxTimeType';
-import { HighlightedTableCol } from '~/components/Table/HighlightedTableCol';
-import { CheckpointSequenceLink, EpochLink } from '~/ui/InternalLink';
-import { getEpochStorageFundFlow } from '~/utils/getStorageFundFlow';
+import { SuiAmount } from "../Table/SuiAmount";
+import { TxTimeType } from "../tx-time/TxTimeType";
+import { HighlightedTableCol } from "~/components/Table/HighlightedTableCol";
+import { CheckpointSequenceLink, EpochLink } from "~/ui/InternalLink";
+import { getEpochStorageFundFlow } from "~/utils/getStorageFundFlow";
 
 // Generate table data from the epochs data
 export const genTableDataFromEpochsData = (results: EpochMetricsPage) => ({
@@ -23,9 +23,9 @@ export const genTableDataFromEpochsData = (results: EpochMetricsPage) => ({
 		checkpointSet: (
 			<div>
 				<CheckpointSequenceLink sequence={epoch.firstCheckpointId.toString()} />
-				{` - `}
+				{" - "}
 				<CheckpointSequenceLink
-					sequence={epoch.endOfEpochInfo?.lastCheckpointId.toString() ?? ''}
+					sequence={epoch.endOfEpochInfo?.lastCheckpointId.toString() ?? ""}
 				/>
 			</div>
 		),
@@ -38,28 +38,28 @@ export const genTableDataFromEpochsData = (results: EpochMetricsPage) => ({
 	})),
 	columns: [
 		{
-			header: 'Epoch',
-			accessorKey: 'epoch',
+			header: "Epoch",
+			accessorKey: "epoch",
 		},
 		{
-			header: 'Transaction Blocks',
-			accessorKey: 'transactions',
+			header: "Transaction Blocks",
+			accessorKey: "transactions",
 		},
 		{
-			header: 'Stake Rewards',
-			accessorKey: 'stakeRewards',
+			header: "Stake Rewards",
+			accessorKey: "stakeRewards",
 		},
 		{
-			header: 'Checkpoint Set',
-			accessorKey: 'checkpointSet',
+			header: "Checkpoint Set",
+			accessorKey: "checkpointSet",
 		},
 		{
-			header: 'Storage Net Inflow',
-			accessorKey: 'storageNetInflow',
+			header: "Storage Net Inflow",
+			accessorKey: "storageNetInflow",
 		},
 		{
-			header: 'Epoch End',
-			accessorKey: 'time',
+			header: "Epoch End",
+			accessorKey: "time",
 		},
 	],
 });

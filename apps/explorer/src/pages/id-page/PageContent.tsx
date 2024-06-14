@@ -1,25 +1,25 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetObject } from '@mysten/core';
-import { Banner } from '~/ui/Banner';
-import { Divider } from '~/ui/Divider';
-import { FieldsContent } from '~/pages/object-result/views/TokenView';
-import { TabHeader } from '~/ui/Tabs';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { TransactionsForAddressTable } from '~/components/transactions/TransactionsForAddress';
-import TransactionBlocksForAddress from '~/components/TransactionBlocksForAddress';
-import { useBreakpoint } from '~/hooks/useBreakpoint';
-import { OwnedCoins } from '~/components/OwnedCoins';
-import { OwnedObjects } from '~/components/OwnedObjects';
-import { LOCAL_STORAGE_SPLIT_PANE_KEYS, SplitPanes } from '~/ui/SplitPanes';
-import { useSuiClient } from '@mysten/dapp-kit';
-import { useQuery } from '@tanstack/react-query';
+import { useGetObject } from "@mysten/core";
+import { Banner } from "~/ui/Banner";
+import { Divider } from "~/ui/Divider";
+import { FieldsContent } from "~/pages/object-result/views/TokenView";
+import { TabHeader } from "~/ui/Tabs";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { TransactionsForAddressTable } from "~/components/transactions/TransactionsForAddress";
+import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
+import { useBreakpoint } from "~/hooks/useBreakpoint";
+import { OwnedCoins } from "~/components/OwnedCoins";
+import { OwnedObjects } from "~/components/OwnedObjects";
+import { LOCAL_STORAGE_SPLIT_PANE_KEYS, SplitPanes } from "~/ui/SplitPanes";
+import { useSuiClient } from "@mysten/dapp-kit";
+import { useQuery } from "@tanstack/react-query";
 
 const LEFT_RIGHT_PANEL_MIN_SIZE = 30;
 
 function OwnedObjectsSection({ address }: { address: string }) {
-	const isMediumOrAbove = useBreakpoint('md');
+	const isMediumOrAbove = useBreakpoint("md");
 
 	const leftPane = {
 		panel: (
@@ -74,7 +74,7 @@ function TransactionsSection({ address, isObject }: { address: string; isObject:
 		isPending,
 		isError,
 	} = useQuery({
-		queryKey: ['transactions-for-address', address],
+		queryKey: ["transactions-for-address", address],
 		queryFn: () =>
 			client.queryTransactionBlocks({
 				filter: {
@@ -83,7 +83,7 @@ function TransactionsSection({ address, isObject }: { address: string; isObject:
 						to: address,
 					},
 				},
-				order: 'descending',
+				order: "descending",
 				limit: 100,
 				options: {
 					showEffects: true,

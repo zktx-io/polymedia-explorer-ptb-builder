@@ -1,21 +1,21 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ObjectChangesByOwner, SuiObjectChangeWithDisplay } from './getObjectChangeSummary';
-import { getOwnerType } from './getOwnerType';
+import { ObjectChangesByOwner, SuiObjectChangeWithDisplay } from "./getObjectChangeSummary";
+import { getOwnerType } from "./getOwnerType";
 
 const getOwner = (change: SuiObjectChangeWithDisplay) => {
 	// published changes don't have an owner
-	if ('owner' in change && typeof change.owner === 'object') {
-		if ('AddressOwner' in change.owner) return change.owner.AddressOwner;
-		if ('ObjectOwner' in change.owner) return change.owner.ObjectOwner;
-		if ('Shared' in change.owner) return change.objectId;
+	if ("owner" in change && typeof change.owner === "object") {
+		if ("AddressOwner" in change.owner) return change.owner.AddressOwner;
+		if ("ObjectOwner" in change.owner) return change.owner.ObjectOwner;
+		if ("Shared" in change.owner) return change.objectId;
 	}
-	return '';
+	return "";
 };
 
 export const groupByOwner = (changes: SuiObjectChangeWithDisplay[]) =>
-	changes.reduce((acc, change) => {
+	changes.reduce<ObjectChangesByOwner>((acc, change) => {
 		const owner = getOwner(change);
 		if (!acc[owner])
 			acc[owner] = {
@@ -31,4 +31,4 @@ export const groupByOwner = (changes: SuiObjectChangeWithDisplay[]) =>
 		}
 
 		return acc;
-	}, {} as ObjectChangesByOwner);
+	}, {});

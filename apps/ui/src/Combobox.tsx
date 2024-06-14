@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Command } from 'cmdk';
+import { Command } from "cmdk";
 import {
 	createContext,
 	useCallback,
@@ -12,11 +12,11 @@ import {
 	type ComponentProps,
 	type ReactNode,
 	type RefObject,
-} from 'react';
+} from "react";
 
-import { useOnClickOutside } from './hooks/useOnClickOutside';
-import { LoadingIndicator } from './LoadingIndicator';
-import { Text } from './Text';
+import { useOnClickOutside } from "./hooks/useOnClickOutside";
+import { LoadingIndicator } from "./LoadingIndicator";
+import { Text } from "./Text";
 
 export type ComboboxItem = {
 	value: string;
@@ -58,7 +58,7 @@ const ComboboxContext = createContext<{
 function useComboboxContext() {
 	const ctx = useContext(ComboboxContext);
 	if (!ctx) {
-		throw new Error('Missing Context');
+		throw new Error("Missing Context");
 	}
 	return ctx;
 }
@@ -107,7 +107,7 @@ export function ComboboxList<T extends ComboboxItem = ComboboxItem>({
 				<Command.Item className="text-left ml-1.5 pb-2" disabled>
 					<Text variant="caption/semibold" color="gray-75" uppercase>
 						{options.length}
-						{options.length === 1 ? ' Result' : ' Results'}
+						{options.length === 1 ? " Result" : " Results"}
 					</Text>
 				</Command.Item>
 			)}
@@ -125,7 +125,7 @@ export function ComboboxList<T extends ComboboxItem = ComboboxItem>({
 						item={item}
 						onSelect={() => {
 							onSelect(item);
-							onValueChange('');
+							onValueChange("");
 							setVisible(false);
 							inputRef.current?.blur();
 						}}
@@ -155,16 +155,16 @@ export function Combobox({ value, onValueChange, children }: Props) {
 
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') {
+			if (e.key === "Escape") {
 				setVisible(false);
 				inputRef.current?.blur();
 			}
 		};
 
-		document.addEventListener('keydown', handler);
+		document.addEventListener("keydown", handler);
 
 		return () => {
-			document.removeEventListener('keydown', handler);
+			document.removeEventListener("keydown", handler);
 		};
 	}, []);
 

@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClientContext } from '@mysten/dapp-kit';
-import { useQuery } from '@tanstack/react-query';
-import { Network } from '~/utils/api/DefaultRpcClient';
+import { useSuiClientContext } from "@mysten/dapp-kit";
+import { useQuery } from "@tanstack/react-query";
+import { Network } from "~/utils/api/DefaultRpcClient";
 
 type UseVerifiedSourceCodeArgs = {
 	packageId: string;
@@ -29,7 +29,7 @@ export function useVerifiedSourceCode({ packageId, moduleName }: UseVerifiedSour
 	const isEnabled = false;
 
 	return useQuery({
-		queryKey: ['verified-source-code', packageId, moduleName, network],
+		queryKey: ["verified-source-code", packageId, moduleName, network],
 		queryFn: async () => {
 			const response = await fetch(
 				`https://source.mystenlabs.com/api?network=${network.toLowerCase()}&address=${packageId}&module=${moduleName}`,

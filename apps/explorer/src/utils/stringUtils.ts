@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-const IPFS_START_STRING = 'https://ipfs.io/ipfs/';
+const IPFS_START_STRING = "https://ipfs.io/ipfs/";
 
 export function hexToAscii(hex: string) {
-	if (!hex || typeof hex != 'string') return;
-	hex = hex.replace(/^0x/, '');
+	if (!hex || typeof hex != "string") return;
+	hex = hex.replace(/^0x/, "");
 
-	var str = '';
-	for (var n = 0; n < hex.length; n += 2)
+	let str = "";
+	for (let n = 0; n < hex.length; n += 2)
 		str += String.fromCharCode(parseInt(hex.substring(n, 2), 16));
 
 	return str;
 }
 
-export const trimStdLibPrefix = (str: string): string => str.replace(/^0x2::/, '');
+export const trimStdLibPrefix = (str: string): string => str.replace(/^0x2::/, "");
 
 export const findIPFSvalue = (url: string): string | undefined => url.match(/^ipfs:\/\/(.*)/)?.[1];
 
@@ -31,7 +31,7 @@ export async function extractFileType(displayString: string, signal: AbortSignal
 	const result = await fetch(transformURL(displayString), {
 		signal: signal,
 	})
-		.then((resp) => resp?.headers?.get('Content-Type')?.split('/').reverse()?.[0])
+		.then((resp) => resp?.headers?.get("Content-Type")?.split("/").reverse()?.[0])
 		.catch((err) => console.error(err));
 
 	// Return the Content-Type if found:
@@ -39,20 +39,20 @@ export async function extractFileType(displayString: string, signal: AbortSignal
 		return result;
 	}
 	// When Content-Type cannot be accessed (e.g. because of CORS), rely on file extension
-	const extension = displayString?.split('.').reverse()?.[0] || '';
-	if (['jpg', 'jpeg', 'png'].includes(extension)) {
+	const extension = displayString?.split(".").reverse()?.[0] || "";
+	if (["jpg", "jpeg", "png"].includes(extension)) {
 		return extension;
 	} else {
-		return 'Image';
+		return "Image";
 	}
 }
 
 export async function genFileTypeMsg(displayString: string, signal: AbortSignal) {
 	return extractFileType(displayString, signal)
-		.then((result) => (result === 'Image' ? result : result.toUpperCase()))
+		.then((result) => (result === "Image" ? result : result.toUpperCase()))
 		.then((result) => `1 ${result} File`)
 		.catch((err) => {
 			console.error(err);
-			return `1 Image File`;
+			return "1 Image File";
 		});
 }

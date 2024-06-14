@@ -1,11 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button } from '@mysten/ui';
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { Button } from "@mysten/ui";
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState } from "react";
 
-import { PlayPause, type PlayPauseProps } from '../PlayPause';
+import { PlayPause, type PlayPauseProps } from "../PlayPause";
 
 export default {
 	component: PlayPause,

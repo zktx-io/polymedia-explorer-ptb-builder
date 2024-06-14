@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient } from '@mysten/dapp-kit';
-import { PaginatedCoins } from '@mysten/sui/client';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuiClient } from "@mysten/dapp-kit";
+import { PaginatedCoins } from "@mysten/sui/client";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const MAX_COINS_PER_REQUEST = 10;
 
@@ -14,7 +14,7 @@ export function useGetCoins(
 ) {
 	const client = useSuiClient();
 	return useInfiniteQuery<PaginatedCoins>({
-		queryKey: ['get-coins', address, coinType, maxCoinsPerRequest],
+		queryKey: ["get-coins", address, coinType, maxCoinsPerRequest],
 		initialPageParam: null,
 		getNextPageParam: ({ hasNextPage, nextCursor }) => (hasNextPage ? nextCursor : null),
 		queryFn: ({ pageParam }) =>

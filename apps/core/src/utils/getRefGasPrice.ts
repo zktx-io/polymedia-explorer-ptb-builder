@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SuiValidatorSummary } from '@mysten/sui/client';
+import { SuiValidatorSummary } from "@mysten/sui/client";
 
-import { calculateStakeShare } from './calculateStakeShare';
+import { calculateStakeShare } from "./calculateStakeShare";
 
 const REF_THRESHOLD = 66.67;
 
@@ -39,7 +39,7 @@ export function getRefGasPrice(validators?: SuiValidatorSummary[]) {
 	);
 
 	let sumOfStakes = 0;
-	let result = '0';
+	let result = "0";
 
 	for (let i = 0; i < sortedByGasPrice.length; i++) {
 		const validator = sortedByGasPrice[i];

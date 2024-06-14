@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { type Meta, type StoryObj } from "@storybook/react";
+import { useState } from "react";
 
-import { FilterList, type FilterListProps } from '../FilterList';
+import { FilterList, type FilterListProps } from "../FilterList";
 
 export default {
 	component: FilterList,
@@ -12,13 +12,13 @@ export default {
 
 export const Default: StoryObj<FilterListProps> = {
 	render: (props) => {
-		const [value, onChange] = useState('');
+		const [value, onChange] = useState("");
 		return <FilterList {...props} value={value} onChange={onChange} />;
 	},
 	args: {
-		options: ['MINT', 'SUI'],
+		options: ["MINT", "SUI"],
 		disabled: false,
-		size: 'sm',
+		size: "sm",
 		lessSpacing: true,
 	},
 };

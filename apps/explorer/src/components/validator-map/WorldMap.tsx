@@ -1,34 +1,34 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Mercator } from '@visx/geo';
-import React, { memo } from 'react';
-import * as topojson from 'topojson-client';
+import { Mercator } from "@visx/geo";
+import React, { memo } from "react";
+import * as topojson from "topojson-client";
 
-import { MapFeature } from './MapFeature';
-import { ValidatorLocation } from './ValidatorLocation';
-import world from './topology.json';
-import { type Feature, type ValidatorMapValidator } from './types';
+import { MapFeature } from "./MapFeature";
+import { ValidatorLocation } from "./ValidatorLocation";
+import world from "./topology.json";
+import { type Feature, type ValidatorMapValidator } from "./types";
 
 // @ts-expect-error: The types of `world` here aren't aligned but they are correct
 const land = topojson.feature(world, world.objects.countries) as unknown as {
-	type: 'FeatureCollection';
+	type: "FeatureCollection";
 	features: Feature[];
 };
 
 // We hide Antarctica because there will not be validators there:
-const HIDDEN_REGIONS = ['Antarctica'];
+const HIDDEN_REGIONS = ["Antarctica"];
 const filteredLand = land.features.filter(
 	(feature) => !HIDDEN_REGIONS.includes(feature.properties.name),
 );
 
-interface Props {
+type Props = {
 	width: number;
 	height: number;
 	validators?: ValidatorMapValidator[];
 	onMouseOver(event: React.MouseEvent, countryCode?: string): void;
 	onMouseOut(): void;
-}
+};
 
 function BaseWorldMap({ onMouseOver, onMouseOut, width, height, validators }: Props) {
 	const centerX = width / 2;

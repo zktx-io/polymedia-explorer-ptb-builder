@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
@@ -20,7 +20,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T
 
 	const setValue: SetValue<T> = useCallback(
 		(value) => {
-			if (typeof window === 'undefined') {
+			if (typeof window === "undefined") {
 				console.warn(`Tried setting localStorage key "${key}" even though window is not defined`);
 			}
 

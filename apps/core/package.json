@@ -7,7 +7,7 @@
         "prettier:check": "prettier -c --ignore-unknown .",
         "prettier:fix": "prettier -w --ignore-unknown .",
         "prettier:fix:watch": "onchange '**' -i -f add -f change -j 5 -- prettier -w --ignore-unknown {{file}}",
-        "eslint:check": "eslint --max-warnings=0 .",
+        "eslint:check": "eslint src/ *.ts --report-unused-disable-directives --max-warnings 0",
         "eslint:fix": "pnpm run eslint:check --fix",
         "lint": "pnpm run eslint:check && pnpm run prettier:check",
         "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",

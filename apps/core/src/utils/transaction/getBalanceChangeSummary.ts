@@ -4,8 +4,8 @@ import {
 	type DryRunTransactionBlockResponse,
 	type ObjectOwner,
 	type SuiTransactionBlockResponse,
-} from '@mysten/sui/client';
-import { normalizeSuiObjectId, parseStructTag } from '@mysten/sui/utils';
+} from "@mysten/sui/client";
+import { normalizeSuiObjectId, parseStructTag } from "@mysten/sui/utils";
 
 export type BalanceChange = {
 	coinType: string;
@@ -19,16 +19,16 @@ export type BalanceChangeByOwner = Record<string, BalanceChange[]>;
 export type BalanceChangeSummary = BalanceChangeByOwner | null;
 
 function getOwnerAddress(owner: ObjectOwner): string {
-	if (typeof owner === 'object') {
-		if ('AddressOwner' in owner) {
+	if (typeof owner === "object") {
+		if ("AddressOwner" in owner) {
 			return owner.AddressOwner;
-		} else if ('ObjectOwner' in owner) {
+		} else if ("ObjectOwner" in owner) {
 			return owner.ObjectOwner;
-		} else if ('Shared' in owner) {
-			return 'Shared';
+		} else if ("Shared" in owner) {
+			return "Shared";
 		}
 	}
-	return '';
+	return "";
 }
 
 export const getBalanceChangeSummary = (
@@ -42,7 +42,7 @@ export const getBalanceChangeSummary = (
 		normalizeSuiObjectId(itm),
 	);
 	const balanceChangeByOwner = {};
-	return balanceChanges.reduce((acc, balanceChange) => {
+	return balanceChanges.reduce<BalanceChangeByOwner>((acc, balanceChange) => {
 		const amount = BigInt(balanceChange.amount);
 		const owner = getOwnerAddress(balanceChange.owner);
 
@@ -63,13 +63,13 @@ export const getBalanceChangeSummary = (
 
 		acc[owner] = (acc[owner] ?? []).concat(summary);
 		return acc;
-	}, balanceChangeByOwner as BalanceChangeByOwner);
+	}, balanceChangeByOwner);
 };
 
 export const getRecognizedUnRecognizedTokenChanges = (changes: BalanceChange[]) => {
 	const recognizedTokenChanges = [];
 	const unRecognizedTokenChanges = [];
-	for (let change of changes) {
+	for (const change of changes) {
 		if (change.unRecognizedToken) {
 			unRecognizedTokenChanges.push(change);
 		} else {

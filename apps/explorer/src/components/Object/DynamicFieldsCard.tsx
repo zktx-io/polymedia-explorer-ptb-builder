@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetDynamicFields, useOnScreen } from '@mysten/core';
-import { type DynamicFieldInfo } from '@mysten/sui/client';
-import { LoadingIndicator } from '@mysten/ui';
-import { useRef, useEffect, useState, useMemo } from 'react';
+import { useGetDynamicFields, useOnScreen } from "@mysten/core";
+import { type DynamicFieldInfo } from "@mysten/sui/client";
+import { LoadingIndicator } from "@mysten/ui";
+import { useRef, useEffect, useState, useMemo } from "react";
 
-import { UnderlyingObjectCard } from './UnderlyingObjectCard';
-import { FieldsCard, FieldCollapsible, FieldsContainer } from '~/components/Object/FieldsUtils';
-import { ObjectLink } from '~/ui/InternalLink';
+import { UnderlyingObjectCard } from "./UnderlyingObjectCard";
+import { FieldsCard, FieldCollapsible, FieldsContainer } from "~/components/Object/FieldsUtils";
+import { ObjectLink } from "~/ui/InternalLink";
 
 function DynamicFieldRow({
 	id,
@@ -31,7 +31,7 @@ function DynamicFieldRow({
 			name={
 				<div className="flex items-center gap-1 truncate break-words text-body font-medium leading-relaxed text-steel-dark">
 					<div className="block w-full truncate break-words">
-						{typeof result.name?.value === 'object' ? (
+						{typeof result.name?.value === "object" ? (
 							<>Struct {result.name.type}</>
 						) : result.name?.value ? (
 							String(result.name.value)

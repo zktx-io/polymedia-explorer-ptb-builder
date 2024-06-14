@@ -1,38 +1,38 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFormatCoin } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { LoadingIndicator } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useFormatCoin } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { LoadingIndicator } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
-import { EpochProgress } from './stats/EpochProgress';
-import { EpochStats } from './stats/EpochStats';
-import { ValidatorStatus } from './stats/ValidatorStatus';
-import { validatorsTableData } from '../validators/Validators';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { CheckpointsTable } from '~/components/checkpoints/CheckpointsTable';
-import { useEnhancedRpcClient } from '~/hooks/useEnhancedRpc';
-import { Banner } from '~/ui/Banner';
-import { Stats, type StatsProps } from '~/ui/Stats';
-import { TableCard } from '~/ui/TableCard';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/ui/Tabs';
-import { getEpochStorageFundFlow } from '~/utils/getStorageFundFlow';
+import { EpochProgress } from "./stats/EpochProgress";
+import { EpochStats } from "./stats/EpochStats";
+import { ValidatorStatus } from "./stats/ValidatorStatus";
+import { validatorsTableData } from "../validators/Validators";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { CheckpointsTable } from "~/components/checkpoints/CheckpointsTable";
+import { useEnhancedRpcClient } from "~/hooks/useEnhancedRpc";
+import { Banner } from "~/ui/Banner";
+import { Stats, type StatsProps } from "~/ui/Stats";
+import { TableCard } from "~/ui/TableCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
+import { getEpochStorageFundFlow } from "~/utils/getStorageFundFlow";
 
 function SuiStats({
 	amount,
 	...props
-}: Omit<StatsProps, 'children'> & {
+}: Omit<StatsProps, "children"> & {
 	amount: bigint | number | string | undefined | null;
 }) {
 	const [formattedAmount, symbol] = useFormatCoin(amount, SUI_TYPE_ARG);
 
 	return (
 		<Stats postfix={formattedAmount && symbol} {...props}>
-			{formattedAmount || '--'}
+			{formattedAmount || "--"}
 		</Stats>
 	);
 }
@@ -40,13 +40,13 @@ function SuiStats({
 export default function EpochDetail() {
 	const { id } = useParams();
 	const enhancedRpc = useEnhancedRpcClient();
-	const { data: systemState } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data: systemState } = useSuiClientQuery("getLatestSuiSystemState");
 	const { data, isPending, isError } = useQuery({
-		queryKey: ['epoch', id],
+		queryKey: ["epoch", id],
 		queryFn: async () =>
 			enhancedRpc.getEpochs({
 				// todo: endpoint returns no data for epoch 0
-				cursor: id === '0' ? undefined : (Number(id!) - 1).toString(),
+				cursor: id === "0" ? undefined : (Number(id!) - 1).toString(),
 				limit: 1,
 			}),
 	});

@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { SplitPanes, type SplitPanesProps } from '../SplitPanes';
+import { SplitPanes, type SplitPanesProps } from "../SplitPanes";
 
 export default {
 	component: SplitPanes,
@@ -12,8 +12,8 @@ export default {
 const splitPanels = [
 	{
 		panel: (
-			<div key={1} style={{ whiteSpace: 'nowrap' }} className="h-full w-[1000px] bg-success-light">
-				{'long text here '.repeat(5)}
+			<div key={1} style={{ whiteSpace: "nowrap" }} className="h-full w-[1000px] bg-success-light">
+				{"long text here ".repeat(5)}
 			</div>
 		),
 		defaultSize: 10,
@@ -49,21 +49,21 @@ const SplitPanesStory: StoryObj<SplitPanesProps> = {
 export const HorizontalSplitPanes: StoryObj<SplitPanesProps> = {
 	...SplitPanesStory,
 	args: {
-		direction: 'horizontal',
+		direction: "horizontal",
 	},
 };
 
 export const VerticalSplitPanes: StoryObj<SplitPanesProps> = {
 	...SplitPanesStory,
 	args: {
-		direction: 'vertical',
+		direction: "vertical",
 	},
 };
 
 export const SplitPanesWithStateSaveOnRefresh: StoryObj<SplitPanesProps> = {
 	...SplitPanesStory,
 	args: {
-		direction: 'horizontal',
-		autoSaveId: 'split-panes',
+		direction: "horizontal",
+		autoSaveId: "split-panes",
 	},
 };

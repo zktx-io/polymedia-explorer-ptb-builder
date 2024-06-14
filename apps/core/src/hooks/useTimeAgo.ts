@@ -1,32 +1,32 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 
 const TIME_LABEL = {
 	year: {
-		full: 'year',
-		short: 'y',
+		full: "year",
+		short: "y",
 	},
 	month: {
-		full: 'month',
-		short: 'm',
+		full: "month",
+		short: "m",
 	},
 	day: {
-		full: 'day',
-		short: 'd',
+		full: "day",
+		short: "d",
 	},
 	hour: {
-		full: 'hour',
-		short: 'h',
+		full: "hour",
+		short: "h",
 	},
 	min: {
-		full: 'min',
-		short: 'm',
+		full: "min",
+		short: "m",
 	},
 	sec: {
-		full: 'sec',
-		short: 's',
+		full: "sec",
+		short: "s",
 	},
 };
 
@@ -77,13 +77,13 @@ export const timeAgo = (
 	epochMilliSecs: number | null | undefined,
 	timeNow?: number | null,
 	shortenTimeLabel?: boolean,
-	endLabel = `< 1 sec`,
+	endLabel = "< 1 sec",
 	maxTimeUnit = TimeUnit.ONE_DAY,
 ): string => {
-	if (!epochMilliSecs) return '';
+	if (!epochMilliSecs) return "";
 
 	timeNow = timeNow ? timeNow : Date.now();
-	const dateKeyType = shortenTimeLabel ? 'short' : 'full';
+	const dateKeyType = shortenTimeLabel ? "short" : "full";
 
 	let timeUnit: [string, number][];
 	let timeCol = Math.abs(timeNow - epochMilliSecs);
@@ -106,10 +106,10 @@ export const timeAgo = (
 	}
 
 	const convertAmount = (amount: number, label: string) => {
-		const spacing = shortenTimeLabel ? '' : ' ';
-		if (amount > 1) return `${amount}${spacing}${label}${!shortenTimeLabel ? 's' : ''}`;
+		const spacing = shortenTimeLabel ? "" : " ";
+		if (amount > 1) return `${amount}${spacing}${label}${!shortenTimeLabel ? "s" : ""}`;
 		if (amount === 1) return `${amount}${spacing}${label}`;
-		return '';
+		return "";
 	};
 
 	const resultArr = timeUnit.map(([label, denom]) => {
@@ -118,27 +118,27 @@ export const timeAgo = (
 		return convertAmount(whole, label);
 	});
 
-	const result = resultArr.join(' ').trim();
+	const result = resultArr.join(" ").trim();
 
 	return result ? result : endLabel;
 };
 
 // TODO - Merge with related functions
-type Format = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'weekday';
+type Format = "year" | "month" | "day" | "hour" | "minute" | "second" | "weekday";
 
 export function formatDate(date: Date | number, format?: Format[]): string {
-	const formatOption = format ?? (['month', 'day', 'hour', 'minute'] as Format[]);
+	const formatOption = format ?? (["month", "day", "hour", "minute"] as Format[]);
 	const dateTime = new Date(date);
-	if (!(dateTime instanceof Date)) return '';
+	if (!(dateTime instanceof Date)) return "";
 
 	const options = {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-		hour: 'numeric',
-		weekday: 'short',
-		minute: 'numeric',
-		second: 'numeric',
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+		hour: "numeric",
+		weekday: "short",
+		minute: "numeric",
+		second: "numeric",
 	};
 
 	const formatOptions = formatOption.reduce((accumulator, current: Format) => {
@@ -149,5 +149,5 @@ export function formatDate(date: Date | number, format?: Format[]): string {
 		return responseObj;
 	}, {});
 
-	return new Intl.DateTimeFormat('en-US', formatOptions).format(dateTime);
+	return new Intl.DateTimeFormat("en-US", formatOptions).format(dateTime);
 }

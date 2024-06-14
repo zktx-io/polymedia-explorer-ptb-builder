@@ -1,23 +1,23 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type TransactionFilter } from '@mysten/sui/client';
-import { Heading, RadioGroup, RadioGroupItem } from '@mysten/ui';
-import { useReducer, useState } from 'react';
+import { type TransactionFilter } from "@mysten/sui/client";
+import { Heading, RadioGroup, RadioGroupItem } from "@mysten/ui";
+import { useReducer, useState } from "react";
 
-import { genTableDataFromTxData } from '../transactions/TxCardUtils';
+import { genTableDataFromTxData } from "../transactions/TxCardUtils";
 import {
 	DEFAULT_TRANSACTIONS_LIMIT,
 	useGetTransactionBlocks,
-} from '~/hooks/useGetTransactionBlocks';
-import { Pagination } from '~/ui/Pagination';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
-import clsx from 'clsx';
+} from "~/hooks/useGetTransactionBlocks";
+import { Pagination } from "~/ui/Pagination";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
+import clsx from "clsx";
 
 export enum FILTER_VALUES {
-	INPUT = 'InputObject',
-	CHANGED = 'ChangedObject',
+	INPUT = "InputObject",
+	CHANGED = "ChangedObject",
 }
 
 type TransactionBlocksForAddressProps = {
@@ -43,8 +43,8 @@ type PageStateByFilterMap = {
 };
 
 const FILTER_OPTIONS = [
-	{ label: 'Input Objects', value: 'InputObject' },
-	{ label: 'Updated Objects', value: 'ChangedObject' },
+	{ label: "Input Objects", value: "InputObject" },
+	{ label: "Updated Objects", value: "ChangedObject" },
 ];
 
 const reducer = (state: PageStateByFilterMap, action: TransactionBlocksForAddressActionType) => {
@@ -107,7 +107,7 @@ function TransactionBlocksForAddress({
 
 	const currentPage = currentPageState[filterValue];
 	const cardData =
-		data && data.pages[currentPage]
+		data?.pages[currentPage]
 			? genTableDataFromTxData(data.pages[currentPage].data)
 			: undefined;
 
@@ -123,13 +123,13 @@ function TransactionBlocksForAddress({
 				<FiltersControl filterValue={filterValue} setFilterValue={setFilterValue} />
 			</div>
 
-			<div className={clsx(header && 'pt-5', 'flex flex-col space-y-5 text-left xl:pr-10')}>
+			<div className={clsx(header && "pt-5", "flex flex-col space-y-5 text-left xl:pr-10")}>
 				{isPending || isFetching || isFetchingNextPage || !cardData ? (
 					<PlaceholderTable
 						rowCount={DEFAULT_TRANSACTIONS_LIMIT}
 						rowHeight="16px"
-						colHeadings={['Digest', 'Sender', 'Txns', 'Gas', 'Time']}
-						colWidths={['30%', '30%', '10%', '20%', '10%']}
+						colHeadings={["Digest", "Sender", "Txns", "Gas", "Time"]}
+						colWidths={["30%", "30%", "10%", "20%", "10%"]}
 					/>
 				) : (
 					<div>

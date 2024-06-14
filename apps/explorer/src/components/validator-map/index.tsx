@@ -1,23 +1,23 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useAppsBackend } from '@mysten/core';
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { Heading, Text, Placeholder } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import { ParentSize } from '@visx/responsive';
-import { TooltipWithBounds, useTooltip } from '@visx/tooltip';
-import React, { type ReactNode, useCallback, useMemo } from 'react';
+import { useAppsBackend } from "@mysten/core";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { Heading, Text, Placeholder } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import { ParentSize } from "@visx/responsive";
+import { TooltipWithBounds, useTooltip } from "@visx/tooltip";
+import React, { type ReactNode, useCallback, useMemo } from "react";
 
-import { WorldMap } from './WorldMap';
-import { type ValidatorMapResponse, type ValidatorMapValidator } from './types';
-import { useNetwork } from '~/context';
-import { Card } from '~/ui/Card';
-import { Network } from '~/utils/api/DefaultRpcClient';
+import { WorldMap } from "./WorldMap";
+import { type ValidatorMapResponse, type ValidatorMapValidator } from "./types";
+import { useNetwork } from "~/context";
+import { Card } from "~/ui/Card";
+import { Network } from "~/utils/api/DefaultRpcClient";
 
 type ValidatorsMap = Record<string, ValidatorMapValidator>;
 
-const numberFormatter = new Intl.NumberFormat('en');
+const numberFormatter = new Intl.NumberFormat("en");
 
 function NodeStat({ title, children }: { title: string; children: ReactNode }) {
 	return (
@@ -32,24 +32,24 @@ function NodeStat({ title, children }: { title: string; children: ReactNode }) {
 	);
 }
 
-interface Props {
+type Props = {
 	minHeight: string | number;
-}
+};
 
 // NOTE: This component is lazy imported, so it needs to be default exported:
 export default function ValidatorMap({ minHeight }: Props) {
 	const [network] = useNetwork();
 	const { data: systemState, isError: systemStateError } =
-		useSuiClientQuery('getLatestSuiSystemState');
+		useSuiClientQuery("getLatestSuiSystemState");
 
 	const { request } = useAppsBackend();
 
 	const { data, isPending, isError } = useQuery({
-		queryKey: ['validator-map'],
+		queryKey: ["validator-map"],
 		queryFn: () =>
-			request<ValidatorMapResponse>('validator-map', {
+			request<ValidatorMapResponse>("validator-map", {
 				network: network.toLowerCase(),
-				version: '2',
+				version: "2",
 			}),
 	});
 
@@ -125,7 +125,7 @@ export default function ValidatorMap({ minHeight }: Props) {
 							{isPending && <Placeholder width="60px" height="0.8em" />}
 						</Text>
 						<Text variant="body/bold" color="steel-darker">
-							{(!isError && countryCount && numberFormatter.format(countryCount)) || '--'}
+							{(!isError && countryCount && numberFormatter.format(countryCount)) || "--"}
 						</Text>
 					</div>
 
@@ -137,14 +137,14 @@ export default function ValidatorMap({ minHeight }: Props) {
 								(!systemStateError &&
 									systemState &&
 									numberFormatter.format(systemState.activeValidators.length)) ||
-									'--'
+									"--"
 							}
 						</NodeStat>
 
 						{network === Network.MAINNET && (
 							<NodeStat title="Nodes">
 								{isPending && <Placeholder width="60px" height="0.8em" />}
-								{(data?.nodeCount && numberFormatter.format(data?.nodeCount)) || '--'}
+								{(data?.nodeCount && numberFormatter.format(data?.nodeCount)) || "--"}
 							</NodeStat>
 						)}
 					</div>
@@ -178,7 +178,7 @@ export default function ValidatorMap({ minHeight }: Props) {
 							<div className="flex flex-col justify-start font-semibold">
 								<div>{validatorMap[tooltipData].name}</div>
 								<Text variant="pSubtitleSmall/normal" color="gray-60">
-									{validatorMap[tooltipData].ipInfo?.city},{' '}
+									{validatorMap[tooltipData].ipInfo?.city},{" "}
 									{validatorMap[tooltipData].ipInfo?.country}
 								</Text>
 							</div>

@@ -1,16 +1,16 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
-import { type ValidatorMapValidator } from './types';
+import { type ValidatorMapValidator } from "./types";
 
-interface Props {
+type Props = {
 	validator: ValidatorMapValidator;
 	projection: (loc: [number, number]) => [number, number] | null;
 	onMouseOver(event: React.MouseEvent, countryCode?: string): void;
 	onMouseOut(): void;
-}
+};
 
 // NOTE: This should be tweaked based on the average number of nodes in a location:
 const VALIDATOR_MULTIPLIER = 20;
@@ -30,7 +30,7 @@ export function ValidatorLocation({ validator, projection, onMouseOut, onMouseOv
 
 	const position = projection(
 		validator.ipInfo.loc
-			.split(',')
+			.split(",")
 			.reverse()
 			.map((geo) => parseFloat(geo)) as [number, number],
 	);

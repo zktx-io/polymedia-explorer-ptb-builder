@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiObjectResponse } from '@mysten/sui/client';
-import { formatAddress } from '@mysten/sui/utils';
-import { Placeholder, Text } from '@mysten/ui';
-import { type ReactNode } from 'react';
+import { type SuiObjectResponse } from "@mysten/sui/client";
+import { formatAddress } from "@mysten/sui/utils";
+import { Placeholder, Text } from "@mysten/ui";
+import { type ReactNode } from "react";
 
-import { OwnedObjectsText } from '~/components/OwnedObjects/OwnedObjectsText';
-import { useResolveVideo } from '~/hooks/useResolveVideo';
-import { ObjectLink } from '~/ui/InternalLink';
-import { ObjectVideoImage } from '~/ui/ObjectVideoImage';
-import { parseObjectType } from '~/utils/objectUtils';
-import { trimStdLibPrefix } from '~/utils/stringUtils';
+import { OwnedObjectsText } from "~/components/OwnedObjects/OwnedObjectsText";
+import { useResolveVideo } from "~/hooks/useResolveVideo";
+import { ObjectLink } from "~/ui/InternalLink";
+import { ObjectVideoImage } from "~/ui/ObjectVideoImage";
+import { parseObjectType } from "~/utils/objectUtils";
+import { trimStdLibPrefix } from "~/utils/stringUtils";
 
 function ListViewItem({
 	assetCell,
@@ -52,7 +52,7 @@ function ListViewItem({
 function ListViewItemContainer({ obj }: { obj: SuiObjectResponse }) {
 	const video = useResolveVideo(obj);
 	const displayMeta = obj.data?.display?.data;
-	const name = displayMeta?.name ?? displayMeta?.description ?? '';
+	const name = displayMeta?.name ?? displayMeta?.description ?? "";
 	const type = trimStdLibPrefix(parseObjectType(obj));
 	const objectId = obj.data?.objectId;
 
@@ -66,13 +66,13 @@ function ListViewItemContainer({ obj }: { obj: SuiObjectResponse }) {
 						disablePreview
 						title={name}
 						subtitle={type}
-						src={displayMeta?.image_url || ''}
+						src={displayMeta?.image_url || ""}
 						video={video}
 						variant="xs"
 					/>
 					<div className="flex flex-col overflow-hidden">
 						<OwnedObjectsText color="steel-darker" font="semibold">
-							{name || '--'}
+							{name || "--"}
 						</OwnedObjectsText>
 						<div className="block md:hidden">
 							<Text variant="pSubtitle/normal" color="steel-dark" truncate>
@@ -96,10 +96,10 @@ function ListViewItemContainer({ obj }: { obj: SuiObjectResponse }) {
 	);
 }
 
-interface ListViewProps {
+type ListViewProps = {
 	data?: SuiObjectResponse[];
 	loading?: boolean;
-}
+};
 
 export function ListView({ data, loading }: ListViewProps) {
 	return (

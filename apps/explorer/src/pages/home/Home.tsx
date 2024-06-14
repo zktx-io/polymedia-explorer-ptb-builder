@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
+import clsx from "clsx";
 
-import { AccountsCardGraph } from '~/components/AccountCardGraph';
-import { Activity } from '~/components/Activity';
-import { CurrentEpoch, OnTheNetwork } from '~/components/HomeMetrics';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { TransactionsCardGraph } from '~/components/TransactionsCardGraph';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { TopPackagesCard } from '~/components/top-packages/TopPackagesCard';
-import { TopValidatorsCard } from '~/components/top-validators-card/TopValidatorsCard';
-import { TabHeader } from '~/ui/Tabs';
+import { AccountsCardGraph } from "~/components/AccountCardGraph";
+import { Activity } from "~/components/Activity";
+import { CurrentEpoch, OnTheNetwork } from "~/components/HomeMetrics";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { TransactionsCardGraph } from "~/components/TransactionsCardGraph";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { TopPackagesCard } from "~/components/top-packages/TopPackagesCard";
+import { TopValidatorsCard } from "~/components/top-validators-card/TopValidatorsCard";
+import { TabHeader } from "~/ui/Tabs";
 
 // const ValidatorMap = lazy(() => import('../../components/validator-map'));
 
@@ -25,12 +25,12 @@ function Home() {
 				content: (
 					<div
 						data-testid="home-page"
-						className={clsx('home-page-grid-container-top', isSuiTokenCardEnabled && 'with-token')}
+						className={clsx("home-page-grid-container-top", isSuiTokenCardEnabled && "with-token")}
 					>
-						<div style={{ gridArea: 'network' }} className="overflow-hidden">
+						<div style={{ gridArea: "network" }} className="overflow-hidden">
 							<OnTheNetwork />
 						</div>
-						<div style={{ gridArea: 'epoch' }}>
+						<div style={{ gridArea: "epoch" }}>
 							<CurrentEpoch />
 						</div>
 						{/*
@@ -40,27 +40,27 @@ function Home() {
 							</div>
 						) : null}
 						*/}
-						<div style={{ gridArea: 'transactions' }}>
+						<div style={{ gridArea: "transactions" }}>
 							<TransactionsCardGraph />
 						</div>
-						<div style={{ gridArea: 'accounts' }}>
+						<div style={{ gridArea: "accounts" }}>
 							<AccountsCardGraph />
 						</div>
 					</div>
 				),
-				size: 'lg',
+				size: "lg",
 			}}
 			content={
 				<div className="home-page-grid-container-bottom">
-					<div style={{ gridArea: 'activity' }}>
+					<div style={{ gridArea: "activity" }}>
 						<ErrorBoundary>
 							<Activity initialLimit={TRANSACTIONS_LIMIT} disablePagination />
 						</ErrorBoundary>
 					</div>
-					<div style={{ gridArea: 'packages' }}>
+					<div style={{ gridArea: "packages" }}>
 						<TopPackagesCard />
 					</div>
-					<div data-testid="validators-table" style={{ gridArea: 'validators' }}
+					<div data-testid="validators-table" style={{ gridArea: "validators" }}
 					>
 						<TabHeader title="Validators">
 							<ErrorBoundary>

@@ -8,29 +8,29 @@ import {
 	type ObjectChangeSummary,
 	type SuiObjectChangeTypes,
 	useResolveSuiNSName,
-} from '@mysten/core';
-import { ChevronRight12 } from '@mysten/icons';
+} from "@mysten/core";
+import { ChevronRight12 } from "@mysten/icons";
 import {
 	type SuiObjectChangePublished,
 	type SuiObjectChange,
 	type DisplayFieldsResponse,
-} from '@mysten/sui/client';
-import { parseStructTag } from '@mysten/sui/utils';
-import { Text } from '@mysten/ui';
-import * as Collapsible from '@radix-ui/react-collapsible';
-import clsx from 'clsx';
-import { useState, type ReactNode } from 'react';
+} from "@mysten/sui/client";
+import { parseStructTag } from "@mysten/sui/utils";
+import { Text } from "@mysten/ui";
+import * as Collapsible from "@radix-ui/react-collapsible";
+import clsx from "clsx";
+import { useState, type ReactNode } from "react";
 
-import { ObjectDisplay } from './ObjectDisplay';
-import { ExpandableList, ExpandableListControl, ExpandableListItems } from '~/ui/ExpandableList';
-import { AddressLink, ObjectLink } from '~/ui/InternalLink';
-import { CollapsibleCard } from '~/ui/collapsible/CollapsibleCard';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { ObjectDisplay } from "./ObjectDisplay";
+import { ExpandableList, ExpandableListControl, ExpandableListItems } from "~/ui/ExpandableList";
+import { AddressLink, ObjectLink } from "~/ui/InternalLink";
+import { CollapsibleCard } from "~/ui/collapsible/CollapsibleCard";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
 enum ItemLabels {
-	package = 'Package',
-	module = 'Module',
-	type = 'Type',
+	package = "Package",
+	module = "Module",
+	type = "Type",
 }
 
 const DEFAULT_ITEMS_TO_SHOW = 5;
@@ -49,8 +49,8 @@ function Item({
 	return (
 		<div
 			className={clsx(
-				'flex justify-between gap-10',
-				label === ItemLabels.type ? 'items-start' : 'items-center',
+				"flex justify-between gap-10",
+				label === ItemLabels.type ? "items-start" : "items-center",
 			)}
 		>
 			<Text variant="pBody/medium" color="steel-dark">
@@ -89,7 +89,7 @@ function ObjectDetailPanel({
 							Object
 						</Text>
 
-						<ChevronRight12 className={clsx('h-3 w-3 text-steel-dark', open && 'rotate-90')} />
+						<ChevronRight12 className={clsx("h-3 w-3 text-steel-dark", open && "rotate-90")} />
 					</div>
 				</Collapsible.Trigger>
 				{headerContent}
@@ -111,7 +111,7 @@ function ObjectDetail({
 	objectId: string;
 	display?: DisplayFieldsResponse;
 }) {
-	const separator = '::';
+	const separator = "::";
 	const objectTypeSplit = objectType?.split(separator) || [];
 	const typeName = objectTypeSplit.slice(2).join(separator);
 	const { address, module, name } = parseStructTag(objectType);
@@ -147,17 +147,17 @@ function ObjectDetail({
 	);
 }
 
-interface ObjectChangeEntriesProps {
+type ObjectChangeEntriesProps = {
 	type: SuiObjectChangeTypes;
 	changeEntries: SuiObjectChange[];
 	isDisplay?: boolean;
-}
+};
 
 function ObjectChangeEntries({ changeEntries, type, isDisplay }: ObjectChangeEntriesProps) {
 	const title = ObjectChangeLabels[type];
 	let expandableItems = [];
 
-	if (type === 'published') {
+	if (type === "published") {
 		expandableItems = (changeEntries as SuiObjectChangePublished[]).map(
 			({ packageId, modules }) => (
 				<ObjectDetailPanel
@@ -180,10 +180,10 @@ function ObjectChangeEntries({ changeEntries, type, isDisplay }: ObjectChangeEnt
 		);
 	} else {
 		expandableItems = (changeEntries as SuiObjectChangeWithDisplay[]).map((change) =>
-			'objectId' in change && change.display ? (
+			"objectId" in change && change.display ? (
 				<ObjectDisplay key={change.objectId} objectId={change.objectId} display={change.display} />
 			) : (
-				'objectId' in change && (
+				"objectId" in change && (
 					<ObjectDetail
 						key={change.objectId}
 						objectId={change.objectId}
@@ -200,7 +200,7 @@ function ObjectChangeEntries({ changeEntries, type, isDisplay }: ObjectChangeEnt
 			title={
 				<Text
 					variant="body/semibold"
-					color={title === ObjectChangeLabels.created ? 'success-dark' : 'steel-darker'}
+					color={title === ObjectChangeLabels.created ? "success-dark" : "steel-darker"}
 				>
 					{title}
 				</Text>
@@ -212,9 +212,9 @@ function ObjectChangeEntries({ changeEntries, type, isDisplay }: ObjectChangeEnt
 				itemsLabel="Objects"
 			>
 				<div
-					className={clsx('flex max-h-[300px] gap-2 overflow-y-auto', {
-						'flex-row': isDisplay,
-						'flex-col': !isDisplay,
+					className={clsx("flex max-h-[300px] gap-2 overflow-y-auto", {
+						"flex-row": isDisplay,
+						"flex-col": !isDisplay,
 					})}
 				>
 					<ExpandableListItems />
@@ -230,10 +230,10 @@ function ObjectChangeEntries({ changeEntries, type, isDisplay }: ObjectChangeEnt
 	);
 }
 
-interface ObjectChangeEntriesCardsProps {
+type ObjectChangeEntriesCardsProps = {
 	data: ObjectChangesByOwner;
 	type: SuiObjectChangeTypes;
-}
+};
 
 function ObjectChangeEntriesCardFooter({
 	ownerType,
@@ -250,13 +250,13 @@ function ObjectChangeEntriesCardFooter({
 				Owner
 			</Text>
 
-			{ownerType === 'AddressOwner' && (
+			{ownerType === "AddressOwner" && (
 				<AddressLink label={suinsDomainName || undefined} address={ownerAddress} />
 			)}
 
-			{ownerType === 'ObjectOwner' && <ObjectLink objectId={ownerAddress} />}
+			{ownerType === "ObjectOwner" && <ObjectLink objectId={ownerAddress} />}
 
-			{ownerType === 'Shared' && <ObjectLink objectId={ownerAddress} label="Shared" />}
+			{ownerType === "Shared" && <ObjectLink objectId={ownerAddress} label="Shared" />}
 		</div>
 	);
 }
@@ -267,7 +267,7 @@ export function ObjectChangeEntriesCards({ data, type }: ObjectChangeEntriesCard
 	return (
 		<>
 			{Object.entries(data).map(([ownerAddress, changes]) => {
-				const renderFooter = ['AddressOwner', 'ObjectOwner', 'Shared'].includes(changes.ownerType);
+				const renderFooter = ["AddressOwner", "ObjectOwner", "Shared"].includes(changes.ownerType);
 				return (
 					<CollapsibleCard
 						key={ownerAddress}
@@ -302,9 +302,9 @@ export function ObjectChangeEntriesCards({ data, type }: ObjectChangeEntriesCard
 	);
 }
 
-interface ObjectChangesProps {
+type ObjectChangesProps = {
 	objectSummary: ObjectChangeSummary;
-}
+};
 
 export function ObjectChanges({ objectSummary }: ObjectChangesProps) {
 	if (!objectSummary) return null;

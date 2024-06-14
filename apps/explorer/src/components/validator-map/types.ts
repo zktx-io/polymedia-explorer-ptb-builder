@@ -1,14 +1,14 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-export interface Feature {
-	type: 'Feature';
+export type Feature = {
+	type: "Feature";
 	id: string;
-	geometry: { coordinates: [number, number][][]; type: 'Polygon' };
+	geometry: { coordinates: [number, number][][]; type: "Polygon" };
 	properties: { name: string; countryCode: string };
-}
+};
 
-interface ValidatorIpInfo {
+type ValidatorIpInfo = {
 	ip: string;
 	hostname: string;
 	city: string;
@@ -38,16 +38,16 @@ interface ValidatorIpInfo {
 		name: string;
 	};
 	isEU: boolean;
-}
+};
 
-export interface ValidatorMapValidator {
+export type ValidatorMapValidator = {
 	ipInfo?: ValidatorIpInfo;
 	suiAddress: string;
 	name: string;
 	votingPower: string;
-}
+};
 
-export interface ValidatorMapResponse {
+export type ValidatorMapResponse = {
 	validators: ValidatorMapValidator[];
 	nodeCount?: number | null;
-}
+};

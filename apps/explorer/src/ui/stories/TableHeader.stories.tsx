@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { TableHeader, type TableHeaderProps } from '../TableHeader';
+import { TableHeader, type TableHeaderProps } from "../TableHeader";
 
 export default {
 	component: TableHeader,
@@ -11,15 +11,15 @@ export default {
 
 export const Default: StoryObj<TableHeaderProps> = {
 	args: {
-		children: 'Table Header',
-		after: 'After Content',
+		children: "Table Header",
+		after: "After Content",
 	},
 };
 
 export const WithSubtext: StoryObj<TableHeaderProps> = {
 	args: {
-		children: 'Table Header',
-		subText: 'Subtext',
-		after: 'After Content',
+		children: "Table Header",
+		subText: "Subtext",
+		after: "After Content",
 	},
 };

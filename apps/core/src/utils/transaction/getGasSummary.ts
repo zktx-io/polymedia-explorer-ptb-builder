@@ -6,7 +6,7 @@ import {
 	SuiGasData,
 	SuiTransactionBlockResponse,
 	TransactionEffects,
-} from '@mysten/sui/client';
+} from "@mysten/sui/client";
 
 type Optional<T> = {
 	[K in keyof T]?: T[K];
@@ -29,16 +29,16 @@ export function getGasSummary(
 	if (!effects) return null;
 	const totalGas = getTotalGasUsed(effects);
 
-	let sender = 'transaction' in transaction ? transaction.transaction?.data.sender : undefined;
+	const sender = "transaction" in transaction ? transaction.transaction?.data.sender : undefined;
 
-	const gasData = 'transaction' in transaction ? transaction.transaction?.data.gasData : {};
+	const gasData = "transaction" in transaction ? transaction.transaction?.data.gasData : {};
 
 	const owner =
-		'transaction' in transaction
+		"transaction" in transaction
 			? transaction.transaction?.data.gasData.owner
-			: typeof effects.gasObject.owner === 'object' && 'AddressOwner' in effects.gasObject.owner
+			: typeof effects.gasObject.owner === "object" && "AddressOwner" in effects.gasObject.owner
 			? effects.gasObject.owner.AddressOwner
-			: '';
+			: "";
 
 	return {
 		...effects.gasUsed,

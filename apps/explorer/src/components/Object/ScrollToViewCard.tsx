@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from "react";
 
-interface ScrollToViewCardProps {
+type ScrollToViewCardProps = {
 	children: ReactNode;
 	inView: boolean;
-}
+};
 
 export function ScrollToViewCard({ children, inView }: ScrollToViewCardProps) {
 	const scrollViewRef = useRef<HTMLDivElement | null>(null);
@@ -22,7 +22,7 @@ export function ScrollToViewCard({ children, inView }: ScrollToViewCardProps) {
 
 		parentNode.scrollTo({
 			top: elementOffset,
-			behavior: 'smooth',
+			behavior: "smooth",
 		});
 	}, [inView, scrollViewRef]);
 

@@ -1,12 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type ComponentProps, forwardRef } from 'react';
+import { type ComponentProps, forwardRef } from "react";
 
-import { LinkWithQuery, type LinkProps } from './LinkWithQuery';
+import { LinkWithQuery, type LinkProps } from "./LinkWithQuery";
 
-export interface ButtonOrLinkProps
-	extends Omit<Partial<LinkProps> & ComponentProps<'a'> & ComponentProps<'button'>, 'ref'> {}
+export type ButtonOrLinkProps = {} & Omit<Partial<LinkProps> & ComponentProps<"a"> & ComponentProps<"button">, "ref">;
 
 export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonOrLinkProps>(
 	({ href, to, ...props }, ref: any) => {
@@ -24,7 +23,7 @@ export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, Bu
 		}
 
 		// We set the default type to be "button" to avoid accidentally submitting forms.
-		// eslint-disable-next-line react/button-has-type
-		return <button {...props} type={props.type || 'button'} ref={ref} />;
+		 
+		return <button {...props} type={props.type || "button"} ref={ref} />;
 	},
 );

@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient } from '@mysten/dapp-kit';
-import { Text, LoadingIndicator } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useSuiClient } from "@mysten/dapp-kit";
+import { Text, LoadingIndicator } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
-import { CheckpointTransactionBlocks } from './CheckpointTransactionBlocks';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { SuiAmount } from '~/components/Table/SuiAmount';
-import { Banner } from '~/ui/Banner';
-import { DescriptionList, DescriptionItem } from '~/ui/DescriptionList';
-import { EpochLink } from '~/ui/InternalLink';
-import { PageHeader } from '~/ui/PageHeader';
-import { TabHeader, Tabs, TabsContent, TabsList, TabsTrigger } from '~/ui/Tabs';
+import { CheckpointTransactionBlocks } from "./CheckpointTransactionBlocks";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { SuiAmount } from "~/components/Table/SuiAmount";
+import { Banner } from "~/ui/Banner";
+import { DescriptionList, DescriptionItem } from "~/ui/DescriptionList";
+import { EpochLink } from "~/ui/InternalLink";
+import { PageHeader } from "~/ui/PageHeader";
+import { TabHeader, Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
 
 export default function CheckpointDetail() {
 	const { id } = useParams<{ id: string }>();
@@ -21,7 +21,7 @@ export default function CheckpointDetail() {
 
 	const client = useSuiClient();
 	const { data, isError, isPending } = useQuery({
-		queryKey: ['checkpoints', digestOrSequenceNumber],
+		queryKey: ["checkpoints", digestOrSequenceNumber],
 		queryFn: () => client.getCheckpoint({ id: String(digestOrSequenceNumber!) }),
 	});
 	return (
@@ -56,17 +56,17 @@ export default function CheckpointDetail() {
 											<Text variant="pBody/medium" color="steel-darker">
 												{data.timestampMs
 													? new Date(Number(data.timestampMs)).toLocaleString(undefined, {
-															month: 'short',
-															day: 'numeric',
-															year: 'numeric',
-															hour: 'numeric',
-															minute: '2-digit',
-															second: '2-digit',
+															month: "short",
+															day: "numeric",
+															year: "numeric",
+															hour: "numeric",
+															minute: "2-digit",
+															second: "2-digit",
 															hour12: false,
-															timeZone: 'UTC',
-															timeZoneName: 'short',
+															timeZone: "UTC",
+															timeZoneName: "short",
 													  })
-													: '--'}
+													: "--"}
 											</Text>
 										</DescriptionItem>
 									</DescriptionList>

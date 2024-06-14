@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Text } from '@mysten/ui';
-import { type Meta, type StoryObj } from '@storybook/react';
+import { Text } from "@mysten/ui";
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { ProgressCircle, type ProgressCircleProps } from '../ProgressCircle';
+import { ProgressCircle, type ProgressCircleProps } from "../ProgressCircle";
 
 export default {
 	component: ProgressCircle,

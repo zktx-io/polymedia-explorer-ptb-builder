@@ -1,26 +1,26 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClient, useSuiClientInfiniteQuery } from '@mysten/dapp-kit';
-import { ArrowRight12 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useSuiClient, useSuiClientInfiniteQuery } from "@mysten/dapp-kit";
+import { ArrowRight12 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { genTableDataFromEpochsData } from './utils';
-import { Link } from '~/ui/Link';
-import { Pagination, useCursorPagination } from '~/ui/Pagination';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
-import { numberSuffix } from '~/utils/numberUtil';
+import { genTableDataFromEpochsData } from "./utils";
+import { Link } from "~/ui/Link";
+import { Pagination, useCursorPagination } from "~/ui/Pagination";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
+import { numberSuffix } from "~/utils/numberUtil";
 
 const DEFAULT_EPOCHS_LIMIT = 20;
 
-interface Props {
+type Props = {
 	disablePagination?: boolean;
 	refetchInterval?: number;
 	initialLimit?: number;
-}
+};
 
 export function EpochsActivityTable({
 	disablePagination,
@@ -30,12 +30,12 @@ export function EpochsActivityTable({
 	const client = useSuiClient();
 
 	const { data: count } = useQuery({
-		queryKey: ['epochs', 'current'],
+		queryKey: ["epochs", "current"],
 		queryFn: async () => client.getCurrentEpoch(),
 		select: (epoch) => Number(epoch.epoch) + 1,
 	});
 
-	const epochMetricsQuery = useSuiClientInfiniteQuery('getEpochMetrics', {
+	const epochMetricsQuery = useSuiClientInfiniteQuery("getEpochMetrics", {
 		limit,
 		descendingOrder: true,
 	});
@@ -54,14 +54,14 @@ export function EpochsActivityTable({
 					rowCount={limit}
 					rowHeight="16px"
 					colHeadings={[
-						'Epoch',
-						'Transaction Blocks',
-						'Stake Rewards',
-						'Checkpoint Set',
-						'Storage Net Inflow',
-						'Epoch End',
+						"Epoch",
+						"Transaction Blocks",
+						"Stake Rewards",
+						"Checkpoint Set",
+						"Storage Net Inflow",
+						"Epoch End",
 					]}
-					colWidths={['100px', '120px', '40px', '204px', '90px', '38px']}
+					colWidths={["100px", "120px", "40px", "204px", "90px", "38px"]}
 				/>
 			) : (
 				<div>
@@ -80,8 +80,8 @@ export function EpochsActivityTable({
 
 				<div className="flex items-center space-x-3">
 					<Text variant="body/medium" color="steel-dark">
-						{count ? numberSuffix(Number(count)) : '-'}
-						{` Total`}
+						{count ? numberSuffix(Number(count)) : "-"}
+						{" Total"}
 					</Text>
 					{!disablePagination && (
 						<select

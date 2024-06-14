@@ -8,20 +8,20 @@ import {
 	type BalanceChange,
 	useResolveSuiNSName,
 	getRecognizedUnRecognizedTokenChanges,
-} from '@mysten/core';
-import { Heading, Text } from '@mysten/ui';
-import clsx from 'clsx';
-import { useMemo } from 'react';
+} from "@mysten/core";
+import { Heading, Text } from "@mysten/ui";
+import clsx from "clsx";
+import { useMemo } from "react";
 
-import { Banner } from '~/ui/Banner';
-import { Coin } from '~/ui/CoinsStack';
-import { AddressLink } from '~/ui/InternalLink';
-import { CollapsibleCard } from '~/ui/collapsible/CollapsibleCard';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { Banner } from "~/ui/Banner";
+import { Coin } from "~/ui/CoinsStack";
+import { AddressLink } from "~/ui/InternalLink";
+import { CollapsibleCard } from "~/ui/collapsible/CollapsibleCard";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
-interface BalanceChangesProps {
+type BalanceChangesProps = {
 	changes: BalanceChangeSummary;
-}
+};
 
 function BalanceChangeEntry({ change }: { change: BalanceChange }) {
 	const { amount, coinType, recipient, unRecognizedToken } = change;
@@ -55,8 +55,8 @@ function BalanceChangeEntry({ change }: { change: BalanceChange }) {
 				</div>
 
 				<div className="flex justify-end text-right">
-					<Text variant="pBody/medium" color={isPositive ? 'success-dark' : 'issue-dark'}>
-						{isPositive ? '+' : ''}
+					<Text variant="pBody/medium" color={isPositive ? "success-dark" : "issue-dark"}>
+						{isPositive ? "+" : ""}
 						{formatted} {symbol}
 					</Text>
 				</div>
@@ -114,8 +114,8 @@ function BalanceChangeCard({ changes, owner }: { changes: BalanceChange[]; owner
 				{unRecognizedTokenChanges.length > 0 && (
 					<div
 						className={clsx(
-							'flex flex-col gap-2',
-							recognizedTokenChanges?.length && 'border-t border-gray-45 pt-2',
+							"flex flex-col gap-2",
+							recognizedTokenChanges?.length && "border-t border-gray-45 pt-2",
 						)}
 					>
 						{unRecognizedTokenChanges.map((change, index) => (

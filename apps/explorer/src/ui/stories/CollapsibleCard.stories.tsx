@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type Meta, type StoryObj } from '@storybook/react';
+import { type Meta, type StoryObj } from "@storybook/react";
 
-import { CollapsibleCard, type CollapsibleCardProps } from '~/ui/collapsible/CollapsibleCard';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { CollapsibleCard, type CollapsibleCardProps } from "~/ui/collapsible/CollapsibleCard";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
 export default {
 	component: CollapsibleCard,
@@ -32,5 +32,5 @@ export const Default: StoryObj<CollapsibleCardProps> = {
 
 export const Small: StoryObj<CollapsibleCardProps> = {
 	...Default,
-	args: { size: 'sm' },
+	args: { size: "sm" },
 };

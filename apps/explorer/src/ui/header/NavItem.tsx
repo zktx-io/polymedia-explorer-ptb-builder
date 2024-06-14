@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { forwardRef, type ComponentProps, type ReactNode } from 'react';
+import { forwardRef, type ComponentProps, type ReactNode } from "react";
 
-export interface NavItemProps extends ComponentProps<'button'> {
+export type NavItemProps = {
 	beforeIcon?: ReactNode;
 	afterIcon?: ReactNode;
 	children: ReactNode;
-}
+} & ComponentProps<"button">;
 
 export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
 	({ children, beforeIcon, afterIcon, ...props }, ref) => (

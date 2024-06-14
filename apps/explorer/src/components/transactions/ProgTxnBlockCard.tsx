@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
-import { type ReactNode } from 'react';
+import clsx from "clsx";
+import { type ReactNode } from "react";
 
-import { ExpandableList, ExpandableListControl, ExpandableListItems } from '~/ui/ExpandableList';
-import { CollapsibleCard } from '~/ui/collapsible/CollapsibleCard';
+import { ExpandableList, ExpandableListControl, ExpandableListItems } from "~/ui/ExpandableList";
+import { CollapsibleCard } from "~/ui/collapsible/CollapsibleCard";
 
-interface ProgrammableTxnBlockCardProps {
+type ProgrammableTxnBlockCardProps = {
 	items: ReactNode[];
 	itemsLabel: string;
 	defaultItemsToShow?: number;
 	noExpandableList?: boolean;
 	count?: number;
 	initialClose?: boolean;
-}
+};
 
 export function ProgrammableTxnBlockCard({
 	items,
@@ -36,8 +36,8 @@ export function ProgrammableTxnBlockCard({
 			<ExpandableList items={items} defaultItemsToShow={itemsToShow} itemsLabel={itemsLabel}>
 				<div
 					className={clsx(
-						'flex flex-col gap-6 overflow-y-auto',
-						!noExpandableList && 'max-h-[300px]',
+						"flex flex-col gap-6 overflow-y-auto",
+						!noExpandableList && "max-h-[300px]",
 					)}
 				>
 					{noExpandableList ? <>{items}</> : <ExpandableListItems />}

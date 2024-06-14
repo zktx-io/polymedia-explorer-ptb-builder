@@ -1,33 +1,33 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-const descriptionItemStyles = cva(['flex flex-col gap-2 md:flex-row md:gap-10'], {
+const descriptionItemStyles = cva(["flex flex-col gap-2 md:flex-row md:gap-10"], {
 	variants: {
 		align: {
-			start: 'md:items-start',
-			center: 'md:items-center',
+			start: "md:items-start",
+			center: "md:items-center",
 		},
 	},
 	defaultVariants: {
-		align: 'center',
+		align: "center",
 	},
 });
 
 const descriptionItemLabelStyles = cva(
-	['w-full flex-shrink-0 text-pBody font-medium text-steel-darker'],
+	["w-full flex-shrink-0 text-pBody font-medium text-steel-darker"],
 	{
 		variants: {
 			labelWidth: {
-				md: 'md:w-40',
-				sm: 'md:w-28',
+				md: "md:w-40",
+				sm: "md:w-28",
 			},
 		},
 		defaultVariants: {
-			labelWidth: 'md',
+			labelWidth: "md",
 		},
 	},
 );
@@ -35,12 +35,10 @@ const descriptionItemLabelStyles = cva(
 type DescriptionItemStylesProps = VariantProps<typeof descriptionItemStyles>;
 type DescriptionItemLabelStylesProps = VariantProps<typeof descriptionItemLabelStyles>;
 
-export interface DescriptionItemProps
-	extends DescriptionItemStylesProps,
-		DescriptionItemLabelStylesProps {
+export type DescriptionItemProps = {
 	title: string | ReactNode;
 	children: ReactNode;
-}
+} & DescriptionItemStylesProps & DescriptionItemLabelStylesProps;
 
 export function DescriptionItem({ title, align, labelWidth, children }: DescriptionItemProps) {
 	return (

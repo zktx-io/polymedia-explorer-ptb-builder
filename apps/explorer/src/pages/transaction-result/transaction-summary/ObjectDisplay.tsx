@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type DisplayFieldsResponse } from '@mysten/sui/client';
-import { useState } from 'react';
+import { type DisplayFieldsResponse } from "@mysten/sui/client";
+import { useState } from "react";
 
-import { ObjectLink } from '~/ui/InternalLink';
-import { ObjectModal } from '~/ui/Modal/ObjectModal';
-import { Image } from '~/ui/image/Image';
+import { ObjectLink } from "~/ui/InternalLink";
+import { ObjectModal } from "~/ui/Modal/ObjectModal";
+import { Image } from "~/ui/image/Image";
 
 export function ObjectDisplay({
 	objectId,
@@ -23,16 +23,16 @@ export function ObjectDisplay({
 			<ObjectModal
 				open={open}
 				onClose={() => handleOpen(false)}
-				title={name ?? description ?? ''}
-				subtitle={description ?? ''}
-				src={imageUrl ?? ''}
-				alt={description ?? ''}
+				title={name ?? description ?? ""}
+				subtitle={description ?? ""}
+				src={imageUrl ?? ""}
+				alt={description ?? ""}
 			/>
 			<div className="relative w-32 cursor-pointer whitespace-nowrap">
 				<Image
 					size="lg"
 					rounded="2xl"
-					src={imageUrl ?? ''}
+					src={imageUrl ?? ""}
 					alt={description}
 					onClick={() => handleOpen(true)}
 				/>

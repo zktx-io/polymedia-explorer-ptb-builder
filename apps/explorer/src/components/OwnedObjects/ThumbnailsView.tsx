@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiObjectResponse } from '@mysten/sui/client';
-import { formatAddress } from '@mysten/sui/utils';
-import { Placeholder, Text } from '@mysten/ui';
+import { type SuiObjectResponse } from "@mysten/sui/client";
+import { formatAddress } from "@mysten/sui/utils";
+import { Placeholder, Text } from "@mysten/ui";
 
-import { useResolveVideo } from '~/hooks/useResolveVideo';
-import { ObjectLink } from '~/ui/InternalLink';
-import { ObjectVideoImage } from '~/ui/ObjectVideoImage';
-import { parseObjectType } from '~/utils/objectUtils';
-import { trimStdLibPrefix } from '~/utils/stringUtils';
+import { useResolveVideo } from "~/hooks/useResolveVideo";
+import { ObjectLink } from "~/ui/InternalLink";
+import { ObjectVideoImage } from "~/ui/ObjectVideoImage";
+import { parseObjectType } from "~/utils/objectUtils";
+import { trimStdLibPrefix } from "~/utils/stringUtils";
 
 function Thumbnail({ obj }: { obj: SuiObjectResponse }) {
 	const video = useResolveVideo(obj);
 	const displayMeta = obj.data?.display?.data;
-	const src = displayMeta?.image_url || '';
+	const src = displayMeta?.image_url || "";
 	const name = displayMeta?.name ?? displayMeta?.description;
 	const type = trimStdLibPrefix(parseObjectType(obj));
 	const id = obj.data?.objectId;
@@ -30,7 +30,7 @@ function Thumbnail({ obj }: { obj: SuiObjectResponse }) {
 						<ObjectVideoImage
 							fadeIn
 							disablePreview
-							title={name || '--'}
+							title={name || "--"}
 							subtitle={type}
 							src={src}
 							video={video}
@@ -60,11 +60,11 @@ function ThumbnailsOnlyLoading({ limit }: { limit: number }) {
 	);
 }
 
-interface ThumbnailsViewViewProps {
+type ThumbnailsViewViewProps = {
 	limit: number;
 	data?: SuiObjectResponse[];
 	loading?: boolean;
-}
+};
 
 export function ThumbnailsView({ data, loading, limit }: ThumbnailsViewViewProps) {
 	return (

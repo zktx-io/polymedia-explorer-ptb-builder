@@ -1,21 +1,21 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useTransactionSummary } from '@mysten/core';
+import { useTransactionSummary } from "@mysten/core";
 import {
 	type ProgrammableTransaction,
 	type SuiTransactionBlockResponse,
-} from '@mysten/sui/client';
+} from "@mysten/sui/client";
 
-import { TransactionDetailCard } from './transaction-summary/TransactionDetailCard';
-import { GasBreakdown } from '~/components/GasBreakdown';
-import { useRecognizedPackages } from '~/hooks/useRecognizedPackages';
-import { InputsCard } from '~/pages/transaction-result/programmable-transaction-view/InputsCard';
-import { TransactionsCard } from '~/pages/transaction-result/programmable-transaction-view/TransactionsCard';
+import { TransactionDetailCard } from "./transaction-summary/TransactionDetailCard";
+import { GasBreakdown } from "~/components/GasBreakdown";
+import { useRecognizedPackages } from "~/hooks/useRecognizedPackages";
+import { InputsCard } from "~/pages/transaction-result/programmable-transaction-view/InputsCard";
+import { TransactionsCard } from "~/pages/transaction-result/programmable-transaction-view/TransactionsCard";
 
-interface Props {
+type Props = {
 	transaction: SuiTransactionBlockResponse;
-}
+};
 
 export function TransactionData({ transaction }: Props) {
 	const recognizedPackagesList = useRecognizedPackages();
@@ -26,7 +26,7 @@ export function TransactionData({ transaction }: Props) {
 
 	const transactionKindName = transaction.transaction?.data.transaction.kind;
 
-	const isProgrammableTransaction = transactionKindName === 'ProgrammableTransaction';
+	const isProgrammableTransaction = transactionKindName === "ProgrammableTransaction";
 
 	const programmableTxn = transaction.transaction!.data.transaction as ProgrammableTransaction;
 

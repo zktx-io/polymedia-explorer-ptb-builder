@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useTransactionSummary } from '@mysten/core';
-import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
+import { useTransactionSummary } from "@mysten/core";
+import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
 
-import { BalanceChanges } from './BalanceChanges';
-import { ObjectChanges } from './ObjectChanges';
-import { UpgradedSystemPackages } from './UpgradedSystemPackages';
-import { useRecognizedPackages } from '~/hooks/useRecognizedPackages';
+import { BalanceChanges } from "./BalanceChanges";
+import { ObjectChanges } from "./ObjectChanges";
+import { UpgradedSystemPackages } from "./UpgradedSystemPackages";
+import { useRecognizedPackages } from "~/hooks/useRecognizedPackages";
 
-interface TransactionSummaryProps {
+type TransactionSummaryProps = {
 	transaction: SuiTransactionBlockResponse;
-}
+};
 
 export function TransactionSummary({ transaction }: TransactionSummaryProps) {
 	const recognizedPackagesList = useRecognizedPackages();
@@ -28,7 +28,7 @@ export function TransactionSummary({ transaction }: TransactionSummaryProps) {
 
 	return (
 		<div className="flex flex-wrap gap-4 md:gap-8">
-			{balanceChanges && transactionKindName === 'ProgrammableTransaction' && (
+			{balanceChanges && transactionKindName === "ProgrammableTransaction" && (
 				<BalanceChanges changes={balanceChanges} />
 			)}
 			{upgradedSystemPackages && <UpgradedSystemPackages data={upgradedSystemPackages} />}

@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import { useAppsBackend } from './useAppsBackend';
+import { useAppsBackend } from "./useAppsBackend";
 
 // TODO: We should consider using tRPC or something for apps-backend
 type CoinData = {
@@ -15,13 +15,13 @@ type CoinData = {
 	totalSupply: number;
 };
 
-export const COIN_GECKO_SUI_URL = 'https://www.coingecko.com/en/coins/sui';
+export const COIN_GECKO_SUI_URL = "https://www.coingecko.com/en/coins/sui";
 
 export function useSuiCoinData() {
 	const { request } = useAppsBackend();
 	return useQuery({
-		queryKey: ['sui-coin-data'],
-		queryFn: () => request<CoinData>('coins/sui', {}),
+		queryKey: ["sui-coin-data"],
+		queryFn: () => request<CoinData>("coins/sui", {}),
 		gcTime: 24 * 60 * 60 * 1000,
 		staleTime: Infinity,
 	});

@@ -1,15 +1,15 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
-import { useParams } from 'react-router-dom';
+import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
+import { useParams } from "react-router-dom";
 
-import { TransactionView } from './TransactionView';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { useGetTransaction } from '~/hooks/useGetTransaction';
-import { Banner } from '~/ui/Banner';
-import { PageHeader } from '~/ui/PageHeader';
-import { StatusIcon } from '~/ui/StatusIcon';
+import { TransactionView } from "./TransactionView";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { useGetTransaction } from "~/hooks/useGetTransaction";
+import { Banner } from "~/ui/Banner";
+import { PageHeader } from "~/ui/PageHeader";
+import { StatusIcon } from "~/ui/StatusIcon";
 
 function TransactionResultPageHeader({
 	transaction,
@@ -21,10 +21,10 @@ function TransactionResultPageHeader({
 	loading?: boolean;
 }) {
 	const txnKindName = transaction?.transaction?.data.transaction?.kind;
-	const txnDigest = transaction?.digest ?? '';
+	const txnDigest = transaction?.digest ?? "";
 	const txnStatus = transaction?.effects?.status.status;
 
-	const isProgrammableTransaction = txnKindName === 'ProgrammableTransaction';
+	const isProgrammableTransaction = txnKindName === "ProgrammableTransaction";
 
 	return (
 		<PageHeader
@@ -33,7 +33,7 @@ function TransactionResultPageHeader({
 			title={txnDigest}
 			subtitle={!isProgrammableTransaction ? txnKindName : undefined}
 			error={error}
-			before={<StatusIcon success={txnStatus === 'success'} />}
+			before={<StatusIcon success={txnStatus === "success"} />}
 		/>
 	);
 }
@@ -45,10 +45,10 @@ export default function TransactionResult() {
 		isError: getTxnErrorBool,
 		data,
 		error: getTxnError,
-	} = useGetTransaction(id as string);
+	} = useGetTransaction(id!);
 	const txnExecutionError = data?.effects?.status.error;
 
-	const txnErrorText = txnExecutionError || (getTxnError as Error)?.message;
+	const txnErrorText = txnExecutionError || (getTxnError)?.message;
 
 	return (
 		<PageLayout
@@ -61,7 +61,7 @@ export default function TransactionResult() {
 						loading={isPending}
 					/>
 				),
-				size: 'md',
+				size: "md",
 			}}
 			isError={!!txnErrorText}
 			content={

@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
-import { type ReactNode } from 'react';
+import clsx from "clsx";
+import { type ReactNode } from "react";
 
-import { Card } from '~/ui/Card';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { Card } from "~/ui/Card";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
-interface FieldCollapsibleProps {
+type FieldCollapsibleProps = {
 	name: string | ReactNode;
 	noMarginBottom: boolean;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	children: ReactNode;
-}
+};
 
 export function FieldCollapsible({
 	name,
@@ -23,7 +23,7 @@ export function FieldCollapsible({
 	onOpenChange,
 }: FieldCollapsibleProps) {
 	return (
-		<div className={clsx(!noMarginBottom && open && 'mb-10', !noMarginBottom && !open && 'mb-4')}>
+		<div className={clsx(!noMarginBottom && open && "mb-10", !noMarginBottom && !open && "mb-4")}>
 			<CollapsibleSection defaultOpen={open} title={name} open={open} onOpenChange={onOpenChange}>
 				{children}
 			</CollapsibleSection>

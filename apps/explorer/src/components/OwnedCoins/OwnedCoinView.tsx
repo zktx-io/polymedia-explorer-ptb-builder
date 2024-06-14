@@ -1,19 +1,19 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFormatCoin } from '@mysten/core';
-import { ArrowShowAndHideRight12, Warning16 } from '@mysten/icons';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { Text } from '@mysten/ui';
-import * as Collapsible from '@radix-ui/react-collapsible';
-import clsx from 'clsx';
-import { useState } from 'react';
+import { useFormatCoin } from "@mysten/core";
+import { ArrowShowAndHideRight12, Warning16 } from "@mysten/icons";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { Text } from "@mysten/ui";
+import * as Collapsible from "@radix-ui/react-collapsible";
+import clsx from "clsx";
+import { useState } from "react";
 
-import { type CoinBalanceVerified } from '.';
-import { CoinIcon } from './CoinIcon';
-import CoinsPanel from './OwnedCoinsPanel';
-import { Banner } from '~/ui/Banner';
-import { Tooltip } from '~/ui/Tooltip';
+import { type CoinBalanceVerified } from ".";
+import { CoinIcon } from "./CoinIcon";
+import CoinsPanel from "./OwnedCoinsPanel";
+import { Banner } from "~/ui/Banner";
+import { Tooltip } from "~/ui/Tooltip";
 
 type OwnedCoinViewProps = {
 	coin: CoinBalanceVerified;
@@ -30,14 +30,14 @@ export default function OwnedCoinView({ coin, id }: OwnedCoinViewProps) {
 			<Collapsible.Trigger
 				data-testid="ownedcoinlabel"
 				className={clsx(
-					'mt-1 flex w-full items-center rounded-lg bg-opacity-5 p-2 text-left hover:bg-hero-darkest hover:bg-opacity-5',
-					open ? 'rounded-b-none bg-hero-darkest pt-3' : 'rounded-b-lg',
+					"mt-1 flex w-full items-center rounded-lg bg-opacity-5 p-2 text-left hover:bg-hero-darkest hover:bg-opacity-5",
+					open ? "rounded-b-none bg-hero-darkest pt-3" : "rounded-b-lg",
 				)}
 			>
 				<div className="flex w-[45%] items-center gap-1 truncate">
 					<ArrowShowAndHideRight12
 						width={12}
-						className={clsx('text-gray-60', open && 'rotate-90 transform')}
+						className={clsx("text-gray-60", open && "rotate-90 transform")}
 					/>
 
 					<div className="flex items-center gap-3 truncate">
@@ -61,14 +61,14 @@ export default function OwnedCoinView({ coin, id }: OwnedCoinViewProps) {
 				</div>
 
 				<div className="flex w-[25%] pl-2">
-					<Text color={coin.isRecognized ? 'steel-darker' : 'gray-60'} variant="body/medium">
+					<Text color={coin.isRecognized ? "steel-darker" : "gray-60"} variant="body/medium">
 						{coin.coinObjectCount}
 					</Text>
 				</div>
 
 				<div className="flex w-[30%] items-center gap-1 truncate pl-1">
 					<Text
-						color={coin.isRecognized ? 'steel-darker' : 'gray-60'}
+						color={coin.isRecognized ? "steel-darker" : "gray-60"}
 						variant="bodySmall/medium"
 						truncate
 					>

@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Text } from '@mysten/ui';
-import { type ReactNode } from 'react';
+import { Text } from "@mysten/ui";
+import { type ReactNode } from "react";
 
-import { ExpandableList } from '../ExpandableList';
-import { type InputProps } from '../Input';
+import { ExpandableList } from "../ExpandableList";
+import { type InputProps } from "../Input";
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 export default {
 	component: ExpandableList,

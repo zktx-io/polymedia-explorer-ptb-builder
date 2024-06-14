@@ -1,23 +1,23 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SuiClient, SuiHTTPTransport, getFullnodeUrl } from '@mysten/sui/client';
+import { SuiClient, SuiHTTPTransport, getFullnodeUrl } from "@mysten/sui/client";
 
 export enum Network {
-	LOCAL = 'LOCAL',
-	DEVNET = 'DEVNET',
-	TESTNET = 'TESTNET',
-	MAINNET = 'MAINNET',
+	LOCAL = "LOCAL",
+	DEVNET = "DEVNET",
+	TESTNET = "TESTNET",
+	MAINNET = "MAINNET",
 }
 
 export const NetworkConfigs: Record<Network, { url: string }> = {
-	[Network.LOCAL]: { url: getFullnodeUrl('localnet') },
-	[Network.DEVNET]: { url: getFullnodeUrl('devnet') },
-	[Network.TESTNET]: { url: getFullnodeUrl('testnet') },
-	[Network.MAINNET]: { url: getFullnodeUrl('mainnet') },
+	[Network.LOCAL]: { url: getFullnodeUrl("localnet") },
+	[Network.DEVNET]: { url: getFullnodeUrl("devnet") },
+	[Network.TESTNET]: { url: getFullnodeUrl("testnet") },
+	[Network.MAINNET]: { url: getFullnodeUrl("mainnet") },
 };
 
-const defaultClientMap: Map<Network | string, SuiClient> = new Map();
+const defaultClientMap = new Map<Network | string, SuiClient>();
 
 // NOTE: This class should not be used directly in React components, prefer to use the useSuiClient() hook instead
 export const createSuiClient = (network: Network | string) => {

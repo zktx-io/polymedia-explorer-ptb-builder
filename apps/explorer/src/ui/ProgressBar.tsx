@@ -1,8 +1,8 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
-import { motion, type Variants } from 'framer-motion';
+import clsx from "clsx";
+import { motion, type Variants } from "framer-motion";
 
 const ANIMATION_START = 0.25;
 const ANIMATION_START_THRESHOLD = 20;
@@ -21,10 +21,10 @@ const getProgressBarVariant = (progress: number): Variants => ({
 	},
 });
 
-export interface ProgressBarProps {
+export type ProgressBarProps = {
 	progress: number;
 	animate?: boolean;
-}
+};
 
 export function ProgressBar({ progress, animate }: ProgressBarProps) {
 	const isAnimated = animate && progress > ANIMATION_START_THRESHOLD;
@@ -34,8 +34,8 @@ export function ProgressBar({ progress, animate }: ProgressBarProps) {
 			<motion.div
 				variants={getProgressBarVariant(progress)}
 				className={clsx(
-					'rounded-full py-1',
-					isAnimated ? 'bg-success' : 'bg-gradient-to-r from-success via-success/50 to-success',
+					"rounded-full py-1",
+					isAnimated ? "bg-success" : "bg-gradient-to-r from-success via-success/50 to-success",
 				)}
 				initial="initial"
 				animate="animate"

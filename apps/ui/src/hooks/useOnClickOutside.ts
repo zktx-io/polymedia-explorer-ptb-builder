@@ -1,8 +1,8 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect } from 'react';
-import type { RefObject } from 'react';
+import { useEffect } from "react";
+import type { RefObject } from "react";
 
 type Event = MouseEvent | TouchEvent;
 
@@ -20,12 +20,12 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 			handler(event); // Call the handler only if the click is outside of the element passed.
 		};
 
-		document.addEventListener('click', listener, true);
-		document.addEventListener('touchstart', listener, true);
+		document.addEventListener("click", listener, true);
+		document.addEventListener("touchstart", listener, true);
 
 		return () => {
-			document.removeEventListener('click', listener, true);
-			document.removeEventListener('touchstart', listener, true);
+			document.removeEventListener("click", listener, true);
+			document.removeEventListener("touchstart", listener, true);
 		};
 	}, [ref, handler]); // Reload only if ref or handler changes
 }

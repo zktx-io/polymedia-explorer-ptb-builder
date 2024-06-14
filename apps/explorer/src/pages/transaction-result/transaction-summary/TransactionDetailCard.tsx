@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { formatDate, useResolveSuiNSName } from '@mysten/core';
-import { Heading, Text } from '@mysten/ui';
-import { type ReactNode } from 'react';
+import { formatDate, useResolveSuiNSName } from "@mysten/core";
+import { Heading, Text } from "@mysten/ui";
+import { type ReactNode } from "react";
 
-import { useBreakpoint } from '~/hooks/useBreakpoint';
-import { AddressLink, CheckpointSequenceLink, EpochLink } from '~/ui/InternalLink';
-import { CollapsibleCard } from '~/ui/collapsible/CollapsibleCard';
-import { CollapsibleSection } from '~/ui/collapsible/CollapsibleSection';
+import { useBreakpoint } from "~/hooks/useBreakpoint";
+import { AddressLink, CheckpointSequenceLink, EpochLink } from "~/ui/InternalLink";
+import { CollapsibleCard } from "~/ui/collapsible/CollapsibleCard";
+import { CollapsibleSection } from "~/ui/collapsible/CollapsibleSection";
 
 export function TransactionDetail({ label, value }: { label: string; value: ReactNode | string }) {
 	return (
@@ -22,12 +22,12 @@ export function TransactionDetail({ label, value }: { label: string; value: Reac
 	);
 }
 
-interface TransactionDetailsProps {
+type TransactionDetailsProps = {
 	sender?: string;
 	checkpoint?: string | null;
 	executedEpoch?: string;
 	timestamp?: string | null;
-}
+};
 
 export function TransactionDetailCard({
 	sender,
@@ -35,11 +35,11 @@ export function TransactionDetailCard({
 	executedEpoch,
 	timestamp,
 }: TransactionDetailsProps) {
-	const md = useBreakpoint('md');
+	const md = useBreakpoint("md");
 	const { data: domainName } = useResolveSuiNSName(sender);
 
 	return (
-		<CollapsibleCard size={md ? 'md' : 'sm'}>
+		<CollapsibleCard size={md ? "md" : "sm"}>
 			<CollapsibleSection>
 				<div className="flex flex-col gap-6">
 					{timestamp && (

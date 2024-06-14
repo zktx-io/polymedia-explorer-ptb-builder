@@ -1,28 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Flag16, Info12 } from '@mysten/icons';
-import { Heading, Placeholder, Text } from '@mysten/ui';
+import { Flag16, Info12 } from "@mysten/icons";
+import { Heading, Placeholder, Text } from "@mysten/ui";
 
-import { ReactComponent as CallIcon } from './icons/transactions/call.svg';
-import { Banner } from '~/ui/Banner';
-import { CopyToClipboard } from '~/ui/CopyToClipboard';
+import { ReactComponent as CallIcon } from "./icons/transactions/call.svg";
+import { Banner } from "~/ui/Banner";
+import { CopyToClipboard } from "~/ui/CopyToClipboard";
 
-export type PageHeaderType = 'Transaction' | 'Checkpoint' | 'Address' | 'Object' | 'Package';
+export type PageHeaderType = "Transaction" | "Checkpoint" | "Address" | "Object" | "Package";
 
-export interface PageHeaderProps {
+export type PageHeaderProps = {
 	title: string;
 	subtitle?: string | null;
 	type: PageHeaderType;
-	status?: 'success' | 'failure';
+	status?: "success" | "failure";
 	before?: React.ReactNode;
 	after?: React.ReactNode;
 	error?: string;
 	loading?: boolean;
-}
+};
 
 const TYPE_TO_COPY: Partial<Record<PageHeaderType, string>> = {
-	Transaction: 'Transaction Block',
+	Transaction: "Transaction Block",
 };
 
 const TYPE_TO_ICON: Record<PageHeaderType, typeof CallIcon | null> = {

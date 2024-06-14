@@ -1,53 +1,53 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiMoveNormalizedType } from '@mysten/sui/client';
-import { normalizeSuiAddress } from '@mysten/sui/utils';
-import cl from 'clsx';
-import Highlight, { defaultProps, Prism } from 'prism-react-renderer';
-import 'prism-themes/themes/prism-one-light.css';
-import { useMemo } from 'react';
+import { type SuiMoveNormalizedType } from "@mysten/sui/client";
+import { normalizeSuiAddress } from "@mysten/sui/utils";
+import cl from "clsx";
+import Highlight, { defaultProps, Prism } from "prism-react-renderer";
+import "prism-themes/themes/prism-one-light.css";
+import { useMemo } from "react";
 
-import { useNormalizedMoveModule } from '~/hooks/useNormalizedMoveModule';
-import { LinkWithQuery } from '~/ui/utils/LinkWithQuery';
+import { useNormalizedMoveModule } from "~/hooks/useNormalizedMoveModule";
+import { LinkWithQuery } from "~/ui/utils/LinkWithQuery";
 
-import type { Language } from 'prism-react-renderer';
+import type { Language } from "prism-react-renderer";
 
-import styles from './ModuleView.module.css';
+import styles from "./ModuleView.module.css";
 
 // Include Rust language support.
 // TODO: Write a custom prismjs syntax for Move Bytecode.
 // @ts-expect-error: Defining global prism object:
 globalThis.Prism = Prism;
 // @ts-expect-error: This file is untyped:
-import('prismjs/components/prism-rust').catch(() => {});
+import("prismjs/components/prism-rust").catch(() => {});
 
-interface Props {
+type Props = {
 	id?: string;
 	name: string;
 	code: string;
-}
+};
 
-interface TypeReference {
+type TypeReference = {
 	address: string;
 	module: string;
 	name: string;
 	typeArguments: SuiMoveNormalizedType[];
-}
+};
 
 /** Takes a normalized move type and returns the address information contained within it */
 function unwrapTypeReference(type: SuiMoveNormalizedType): null | TypeReference {
-	if (typeof type === 'object') {
-		if ('Struct' in type) {
+	if (typeof type === "object") {
+		if ("Struct" in type) {
 			return type.Struct;
 		}
-		if ('Reference' in type) {
+		if ("Reference" in type) {
 			return unwrapTypeReference(type.Reference);
 		}
-		if ('MutableReference' in type) {
+		if ("MutableReference" in type) {
 			return unwrapTypeReference(type.MutableReference);
 		}
-		if ('Vector' in type) {
+		if ("Vector" in type) {
 			return unwrapTypeReference(type.Vector);
 		}
 	}
@@ -80,7 +80,7 @@ function ModuleView({ id, name, code }: Props) {
 	return (
 		<section className={styles.modulewrapper}>
 			<div className={cl(styles.code, styles.codeview)}>
-				<Highlight {...defaultProps} code={code} language={'rust' as Language} theme={undefined}>
+				<Highlight {...defaultProps} code={code} language={"rust" as Language} theme={undefined}>
 					{({ className, style, tokens, getLineProps, getTokenProps }) => (
 						<pre className={className} style={style}>
 							{tokens.map((line, i) => (
@@ -94,7 +94,7 @@ function ModuleView({ id, name, code }: Props) {
 										const { key: tokenKey, ...restTokenProps } = tokenProps;
 
 										if (
-											(token.types.includes('class-name') || token.types.includes('constant')) &&
+											(token.types.includes("class-name") || token.types.includes("constant")) &&
 											reference
 										) {
 											const href = `/object/${reference.address}?module=${reference.module}`;
@@ -107,7 +107,7 @@ function ModuleView({ id, name, code }: Props) {
 												target={
 												normalizeSuiAddress(reference.address) === normalizeSuiAddress(id!)
 													? undefined
-													: '_blank'
+													: "_blank"
 												}
 											/>
 											);

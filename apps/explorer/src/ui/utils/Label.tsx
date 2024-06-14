@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { ComponentProps } from 'react';
+import type { ComponentProps } from "react";
 
-export interface LabelProps extends Omit<ComponentProps<'label'>, 'ref' | 'className'> {
+export type LabelProps = {
 	label: string;
-}
+} & Omit<ComponentProps<"label">, "ref" | "className">;
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
 	({ label, children, ...labelProps }, ref) => (

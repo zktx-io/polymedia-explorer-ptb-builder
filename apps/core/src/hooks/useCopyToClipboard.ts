@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 export function useCopyToClipboard(onSuccessCallback?: () => void) {
 	return useCallback(

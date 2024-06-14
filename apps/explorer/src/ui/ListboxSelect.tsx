@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { Listbox, Transition } from '@headlessui/react';
-import { Check12, ChevronDown16 } from '@mysten/icons';
-import { Text } from '@mysten/ui';
-import { Fragment } from 'react';
+import { Listbox, Transition } from "@headlessui/react";
+import { Check12, ChevronDown16 } from "@mysten/icons";
+import { Text } from "@mysten/ui";
+import { Fragment } from "react";
 
 export type ListboxSelectPros<T extends string = string> = {
 	value: T;
@@ -44,7 +44,7 @@ export function ListboxSelect<T extends string>({
 										<span className="flex-1">
 											<Text
 												variant="caption/medium"
-												color={selected ? 'steel-darker' : 'steel-dark'}
+												color={selected ? "steel-darker" : "steel-dark"}
 												truncate
 											>
 												{aValue}

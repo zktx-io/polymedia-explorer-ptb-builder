@@ -1,13 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 
-import { LinkWithQuery } from '~/ui/utils/LinkWithQuery';
-import { PolymediaLogo } from '../PolymediaLogo';
-import NetworkSelect from '../network/Network';
-import Search from '../search/Search';
+import { LinkWithQuery } from "~/ui/utils/LinkWithQuery";
+import { PolymediaLogo } from "../PolymediaLogo";
+import NetworkSelect from "../network/Network";
+import Search from "../search/Search";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(window.scrollY > 0);
@@ -15,17 +15,17 @@ function Header() {
 		const callback = () => {
 			setIsScrolled(window.scrollY > 0);
 		};
-		document.addEventListener('scroll', callback, { passive: true });
+		document.addEventListener("scroll", callback, { passive: true });
 		return () => {
-			document.removeEventListener('scroll', callback);
+			document.removeEventListener("scroll", callback);
 		};
 	}, []);
 
 	return (
 		<header
 			className={clsx(
-				'flex h-header justify-center overflow-visible bg-white/40 backdrop-blur-xl transition-shadow',
-				isScrolled && 'shadow-effect-ui-regular',
+				"flex h-header justify-center overflow-visible bg-white/40 backdrop-blur-xl transition-shadow",
+				isScrolled && "shadow-effect-ui-regular",
 			)}
 		>
 			<div className="flex h-full max-w-[1440px] flex-1 items-center gap-5 px-5 2xl:p-0">

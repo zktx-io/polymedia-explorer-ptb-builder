@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Fragment } from 'react';
-import { resolveValue, Toaster, type ToastType } from 'react-hot-toast';
-import { Outlet, ScrollRestoration } from 'react-router-dom';
+import { SuiClientProvider, WalletProvider } from "@mysten/dapp-kit";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Fragment } from "react";
+import { resolveValue, Toaster, type ToastType } from "react-hot-toast";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
-import { NetworkContext, useNetwork } from '~/context';
-import { Banner, type BannerProps } from '~/ui/Banner';
-import { type Network, NetworkConfigs, createSuiClient } from '~/utils/api/DefaultRpcClient';
-import { KioskClientProvider } from '@mysten/core/src/components/KioskClientProvider';
+import { NetworkContext, useNetwork } from "~/context";
+import { Banner, type BannerProps } from "~/ui/Banner";
+import { type Network, NetworkConfigs, createSuiClient } from "~/utils/api/DefaultRpcClient";
+import { KioskClientProvider } from "@mysten/core/src/components/KioskClientProvider";
 
-const toastVariants: Partial<Record<ToastType, BannerProps['variant']>> = {
-	success: 'positive',
-	error: 'error',
+const toastVariants: Partial<Record<ToastType, BannerProps["variant"]>> = {
+	success: "positive",
+	error: "error",
 };
 
 export function Layout() {

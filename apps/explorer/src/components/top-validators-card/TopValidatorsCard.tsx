@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { ArrowRight12 } from '@mysten/icons';
-import { type SuiValidatorSummary } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
-import { useMemo } from 'react';
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { ArrowRight12 } from "@mysten/icons";
+import { type SuiValidatorSummary } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
+import { useMemo } from "react";
 
-import { StakeColumn } from './StakeColumn';
-import { HighlightedTableCol } from '~/components/Table/HighlightedTableCol';
-import { Banner } from '~/ui/Banner';
-import { ImageIcon } from '~/ui/ImageIcon';
-import { AddressLink, ValidatorLink } from '~/ui/InternalLink';
-import { Link } from '~/ui/Link';
-import { PlaceholderTable } from '~/ui/PlaceholderTable';
-import { TableCard } from '~/ui/TableCard';
+import { StakeColumn } from "./StakeColumn";
+import { HighlightedTableCol } from "~/components/Table/HighlightedTableCol";
+import { Banner } from "~/ui/Banner";
+import { ImageIcon } from "~/ui/ImageIcon";
+import { AddressLink, ValidatorLink } from "~/ui/InternalLink";
+import { Link } from "~/ui/Link";
+import { PlaceholderTable } from "~/ui/PlaceholderTable";
+import { TableCard } from "~/ui/TableCard";
 
 const NUMBER_OF_VALIDATORS = 10;
 
@@ -69,16 +69,16 @@ const validatorsTable = (
 		})),
 		columns: [
 			{
-				header: 'Name',
-				accessorKey: 'name',
+				header: "Name",
+				accessorKey: "name",
 			},
 			{
-				header: 'Address',
-				accessorKey: 'address',
+				header: "Address",
+				accessorKey: "address",
 			},
 			{
-				header: 'Stake',
-				accessorKey: 'stake',
+				header: "Stake",
+				accessorKey: "stake",
 			},
 		],
 	};
@@ -90,7 +90,7 @@ type TopValidatorsCardProps = {
 };
 
 export function TopValidatorsCard({ limit, showIcon }: TopValidatorsCardProps) {
-	const { data, isPending, isSuccess, isError } = useSuiClientQuery('getLatestSuiSystemState');
+	const { data, isPending, isSuccess, isError } = useSuiClientQuery("getLatestSuiSystemState");
 
 	const tableData = useMemo(
 		() => (data ? validatorsTable(data.activeValidators, limit, showIcon) : null),
@@ -111,8 +111,8 @@ export function TopValidatorsCard({ limit, showIcon }: TopValidatorsCardProps) {
 				<PlaceholderTable
 					rowCount={limit || NUMBER_OF_VALIDATORS}
 					rowHeight="13px"
-					colHeadings={['Name', 'Address', 'Stake']}
-					colWidths={['220px', '220px', '220px']}
+					colHeadings={["Name", "Address", "Stake"]}
+					colWidths={["220px", "220px", "220px"]}
 				/>
 			)}
 
@@ -127,8 +127,8 @@ export function TopValidatorsCard({ limit, showIcon }: TopValidatorsCardProps) {
 							</div>
 						</Link>
 						<Text variant="body/medium" color="steel-dark">
-							{data ? data.activeValidators.length : '-'}
-							{` Total`}
+							{data ? data.activeValidators.length : "-"}
+							{" Total"}
 						</Text>
 					</div>
 				</>

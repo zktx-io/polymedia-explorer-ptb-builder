@@ -1,6 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { SVGProps } from 'react';
+import { SVGProps } from "react";
 
 const SvgChevronDown24 = (props: SVGProps<SVGSVGElement>) => (
 	<svg

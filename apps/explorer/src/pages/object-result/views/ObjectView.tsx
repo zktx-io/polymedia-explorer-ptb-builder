@@ -1,37 +1,37 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { CoinFormat, useFormatCoin, useResolveSuiNSName } from '@mysten/core';
-import { ArrowUpRight16, Info16 } from '@mysten/icons';
-import { type ObjectOwner, type SuiObjectResponse } from '@mysten/sui/client';
+import { CoinFormat, useFormatCoin, useResolveSuiNSName } from "@mysten/core";
+import { ArrowUpRight16, Info16 } from "@mysten/icons";
+import { type ObjectOwner, type SuiObjectResponse } from "@mysten/sui/client";
 import {
 	formatAddress,
 	normalizeStructTag,
 	parseStructTag,
 	SUI_TYPE_ARG,
-} from '@mysten/sui/utils';
-import { Heading, Text } from '@mysten/ui';
-import { useQuery } from '@tanstack/react-query';
-import clsx from 'clsx';
-import { type ReactNode, useEffect, useState } from 'react';
+} from "@mysten/sui/utils";
+import { Heading, Text } from "@mysten/ui";
+import { useQuery } from "@tanstack/react-query";
+import clsx from "clsx";
+import { type ReactNode, useEffect, useState } from "react";
 
-import { useResolveVideo } from '~/hooks/useResolveVideo';
-import { Card } from '~/ui/Card';
-import { Description } from '~/ui/Description';
-import { Divider } from '~/ui/Divider';
-import { AddressLink, ObjectLink, TransactionLink } from '~/ui/InternalLink';
-import { Link } from '~/ui/Link';
-import { ObjectVideoImage } from '~/ui/ObjectVideoImage';
-import { extractName, getDisplayUrl, parseImageURL, parseObjectType } from '~/utils/objectUtils';
-import { genFileTypeMsg, trimStdLibPrefix } from '~/utils/stringUtils';
-import { Tooltip } from '~/ui/Tooltip';
+import { useResolveVideo } from "~/hooks/useResolveVideo";
+import { Card } from "~/ui/Card";
+import { Description } from "~/ui/Description";
+import { Divider } from "~/ui/Divider";
+import { AddressLink, ObjectLink, TransactionLink } from "~/ui/InternalLink";
+import { Link } from "~/ui/Link";
+import { ObjectVideoImage } from "~/ui/ObjectVideoImage";
+import { extractName, getDisplayUrl, parseImageURL, parseObjectType } from "~/utils/objectUtils";
+import { genFileTypeMsg, trimStdLibPrefix } from "~/utils/stringUtils";
+import { Tooltip } from "~/ui/Tooltip";
 
-interface HeroVideoImageProps {
+type HeroVideoImageProps = {
 	title: string;
 	subtitle: string;
 	src: string;
 	video?: string | null;
-}
+};
 
 function HeroVideoImage({ title, subtitle, src, video }: HeroVideoImageProps) {
 	const [open, setOpen] = useState(false);
@@ -72,7 +72,7 @@ function LinkWebsite({ value }: { value: string }) {
 		return null;
 	}
 
-	if (typeof urlData === 'string') {
+	if (typeof urlData === "string") {
 		return <Text variant="pBodySmall/medium">{urlData}</Text>;
 	}
 
@@ -97,7 +97,7 @@ function DescriptionCard({
 	const { address, module, typeParams, ...rest } = parseStructTag(objectType);
 
 	const formattedTypeParams = typeParams.map((typeParam) => {
-		if (typeof typeParam === 'string') {
+		if (typeof typeParam === "string") {
 			return typeParam;
 		} else {
 			return {
@@ -185,9 +185,7 @@ function OwnerCard({
 	storageRebate,
 }: {
 	objOwner?: ObjectOwner | null;
-	display?: {
-		[key: string]: string;
-	} | null;
+	display?: Record<string, string> | null;
 	storageRebate?: string | null;
 }) {
 	const [storageRebateFormatted] = useFormatCoin(storageRebate, SUI_TYPE_ARG, CoinFormat.FULL);
@@ -200,15 +198,15 @@ function OwnerCard({
 		<ObjectViewCard>
 			{objOwner && (
 				<Description title="Owner">
-					{objOwner === 'Immutable' ? (
+					{objOwner === "Immutable" ? (
 						<Text variant="pBodySmall/medium" color="gray-90">
 							Immutable
 						</Text>
-					) : 'Shared' in objOwner ? (
+					) : "Shared" in objOwner ? (
 						<Text variant="pBodySmall/medium" color="gray-90">
 							Shared
 						</Text>
-					) : 'ObjectOwner' in objOwner ? (
+					) : "ObjectOwner" in objOwner ? (
 						<ObjectLink objectId={objOwner.ObjectOwner} />
 					) : (
 						<AddressOwner address={objOwner.AddressOwner} />
@@ -245,9 +243,9 @@ function OwnerCard({
 	);
 }
 
-interface ObjectViewProps {
+type ObjectViewProps = {
 	data: SuiObjectResponse;
-}
+};
 
 export function ObjectView({ data }: ObjectViewProps) {
 	const [fileType, setFileType] = useState<undefined | string>(undefined);
@@ -262,7 +260,7 @@ export function ObjectView({ data }: ObjectViewProps) {
 	const lastTransactionBlockDigest = data.data?.previousTransaction;
 
 	const heroImageTitle = name || display?.description || trimStdLibPrefix(objectType);
-	const heroImageSubtitle = video ? 'Video' : fileType ?? '';
+	const heroImageSubtitle = video ? "Video" : fileType ?? "";
 	const heroImageProps = {
 		title: heroImageTitle,
 		subtitle: heroImageSubtitle,
@@ -271,8 +269,8 @@ export function ObjectView({ data }: ObjectViewProps) {
 	};
 
 	const { data: imageData } = useQuery({
-		queryKey: ['image-file-type', imgUrl],
-		queryFn: ({ signal }) => genFileTypeMsg(imgUrl, signal!),
+		queryKey: ["image-file-type", imgUrl],
+		queryFn: ({ signal }) => genFileTypeMsg(imgUrl, signal),
 	});
 
 	useEffect(() => {
@@ -282,15 +280,15 @@ export function ObjectView({ data }: ObjectViewProps) {
 	}, [imageData]);
 
 	return (
-		<div className={clsx('address-grid-container-top', !imgUrl && 'no-image')}>
-			{imgUrl !== '' && (
-				<div style={{ gridArea: 'heroImage' }}>
+		<div className={clsx("address-grid-container-top", !imgUrl && "no-image")}>
+			{imgUrl !== "" && (
+				<div style={{ gridArea: "heroImage" }}>
 					<HeroVideoImage {...heroImageProps} />
 				</div>
 			)}
 
 			{objectId && (
-				<div style={{ gridArea: 'description' }}>
+				<div style={{ gridArea: "description" }}>
 					<DescriptionCard
 						name={name}
 						objectType={objectType}
@@ -301,12 +299,12 @@ export function ObjectView({ data }: ObjectViewProps) {
 			)}
 
 			{lastTransactionBlockDigest && (
-				<div style={{ gridArea: 'version' }}>
+				<div style={{ gridArea: "version" }}>
 					<VersionCard version={data.data?.version} digest={lastTransactionBlockDigest} />
 				</div>
 			)}
 
-			<div style={{ gridArea: 'owner' }}>
+			<div style={{ gridArea: "owner" }}>
 				<OwnerCard objOwner={objOwner} display={display} storageRebate={storageRebate} />
 			</div>
 		</div>

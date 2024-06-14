@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
-import type { SuiMoveAbilitySet } from '@mysten/sui/client';
+import type { SuiMoveAbilitySet } from "@mysten/sui/client";
 
 export function useFunctionTypeArguments(typeArguments: SuiMoveAbilitySet[]) {
 	return useMemo(
@@ -11,7 +11,7 @@ export function useFunctionTypeArguments(typeArguments: SuiMoveAbilitySet[]) {
 			typeArguments.map(
 				(aTypeArgument, index) =>
 					`T${index}${
-						aTypeArgument.abilities.length ? `: ${aTypeArgument.abilities.join(' + ')}` : ''
+						aTypeArgument.abilities.length ? `: ${aTypeArgument.abilities.join(" + ")}` : ""
 					}`,
 			),
 		[typeArguments],

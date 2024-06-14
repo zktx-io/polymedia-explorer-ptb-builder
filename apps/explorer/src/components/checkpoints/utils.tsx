@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type CheckpointPage } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
+import { type CheckpointPage } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
 
-import { TxTimeType } from '../tx-time/TxTimeType';
-import { HighlightedTableCol } from '~/components/Table/HighlightedTableCol';
-import { CheckpointLink, CheckpointSequenceLink } from '~/ui/InternalLink';
+import { TxTimeType } from "../tx-time/TxTimeType";
+import { HighlightedTableCol } from "~/components/Table/HighlightedTableCol";
+import { CheckpointLink, CheckpointSequenceLink } from "~/ui/InternalLink";
 
 // Generate table data from the checkpoints data
 export const genTableDataFromCheckpointsData = (data: CheckpointPage) => ({
@@ -26,20 +26,20 @@ export const genTableDataFromCheckpointsData = (data: CheckpointPage) => ({
 	})),
 	columns: [
 		{
-			header: () => 'Digest',
-			accessorKey: 'digest',
+			header: () => "Digest",
+			accessorKey: "digest",
 		},
 		{
-			header: () => 'Sequence Number',
-			accessorKey: 'sequenceNumber',
+			header: () => "Sequence Number",
+			accessorKey: "sequenceNumber",
 		},
 		{
-			header: () => 'Time',
-			accessorKey: 'time',
+			header: () => "Time",
+			accessorKey: "time",
 		},
 		{
-			header: () => 'Transaction Block Count',
-			accessorKey: 'transactionBlockCount',
+			header: () => "Transaction Block Count",
+			accessorKey: "transactionBlockCount",
 		},
 	],
 });

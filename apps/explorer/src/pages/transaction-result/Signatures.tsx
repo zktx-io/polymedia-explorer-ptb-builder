@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiTransactionBlockResponse } from '@mysten/sui/client';
+import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
 import {
 	parseSerializedSignature,
 	type SignatureScheme,
 	type PublicKey,
-} from '@mysten/sui/cryptography';
-import { parsePartialSignatures } from '@mysten/sui/multisig';
-import { toB64, normalizeSuiAddress } from '@mysten/sui/utils';
-import { publicKeyFromRawBytes } from '@mysten/sui/verify';
-import { Text } from '@mysten/ui';
+} from "@mysten/sui/cryptography";
+import { parsePartialSignatures } from "@mysten/sui/multisig";
+import { toB64, normalizeSuiAddress } from "@mysten/sui/utils";
+import { publicKeyFromRawBytes } from "@mysten/sui/verify";
+import { Text } from "@mysten/ui";
 
-import { DescriptionItem, DescriptionList } from '~/ui/DescriptionList';
-import { AddressLink } from '~/ui/InternalLink';
-import { TabHeader } from '~/ui/Tabs';
+import { DescriptionItem, DescriptionList } from "~/ui/DescriptionList";
+import { AddressLink } from "~/ui/InternalLink";
+import { TabHeader } from "~/ui/Tabs";
 
 type SignaturePubkeyPair = {
 	signatureScheme: SignatureScheme;
@@ -40,10 +40,10 @@ function SignaturePanel({
 				<DescriptionItem title="Address" align="start" labelWidth="sm">
 					<AddressLink
 						noTruncate
-						address={'address' in data ? data.address : data.publicKey.toSuiAddress()}
+						address={"address" in data ? data.address : data.publicKey.toSuiAddress()}
 					/>
 				</DescriptionItem>
-				{'publicKey' in data ? (
+				{"publicKey" in data ? (
 					<DescriptionItem title="Sui Public Key" align="start" labelWidth="sm">
 						<Text variant="pBody/medium" color="steel-darker">
 							{data.publicKey.toSuiPublicKey()}
@@ -63,7 +63,7 @@ function SignaturePanel({
 function getSignatureFromAddress(signatures: SignaturePubkeyPair[], suiAddress: string) {
 	return signatures.find(
 		(signature) =>
-			('address' in signature ? signature.address : signature.publicKey.toSuiAddress()) ===
+			("address" in signature ? signature.address : signature.publicKey.toSuiAddress()) ===
 			normalizeSuiAddress(suiAddress),
 	);
 }
@@ -74,13 +74,13 @@ function getSignaturesExcludingAddress(
 ): SignaturePubkeyPair[] {
 	return signatures.filter(
 		(signature) =>
-			('address' in signature ? signature.address : signature.publicKey.toSuiAddress()) !==
+			("address" in signature ? signature.address : signature.publicKey.toSuiAddress()) !==
 			normalizeSuiAddress(suiAddress),
 	);
 }
-interface Props {
+type Props = {
 	transaction: SuiTransactionBlockResponse;
-}
+};
 
 export function Signatures({ transaction }: Props) {
 	const sender = transaction.transaction?.data.sender;
@@ -94,10 +94,10 @@ export function Signatures({ transaction }: Props) {
 	const deserializedTransactionSignatures = transactionSignatures
 		.map((signature) => {
 			const parsed = parseSerializedSignature(signature);
-			if (parsed.signatureScheme === 'MultiSig') {
+			if (parsed.signatureScheme === "MultiSig") {
 				return parsePartialSignatures(parsed.multisig);
 			}
-			if (parsed.signatureScheme === 'ZkLogin') {
+			if (parsed.signatureScheme === "ZkLogin") {
 				return {
 					signatureScheme: parsed.signatureScheme,
 					address: parsed.zkLogin.address,

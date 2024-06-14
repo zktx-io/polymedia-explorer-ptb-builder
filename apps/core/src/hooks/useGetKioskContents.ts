@@ -1,17 +1,17 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useSuiClientContext } from '@mysten/dapp-kit';
-import { KIOSK_ITEM, KioskClient, KioskItem, KioskOwnerCap } from '@mysten/kiosk';
-import { SuiClient } from '@mysten/sui/client';
-import { useQuery } from '@tanstack/react-query';
+import { useSuiClientContext } from "@mysten/dapp-kit";
+import { KIOSK_ITEM, KioskClient, KioskItem, KioskOwnerCap } from "@mysten/kiosk";
+import { SuiClient } from "@mysten/sui/client";
+import { useQuery } from "@tanstack/react-query";
 
-import { getKioskIdFromOwnerCap, ORIGINBYTE_KIOSK_OWNER_TOKEN } from '../utils/kiosk';
-import { useKioskClient } from './useKioskClient';
+import { getKioskIdFromOwnerCap, ORIGINBYTE_KIOSK_OWNER_TOKEN } from "../utils/kiosk";
+import { useKioskClient } from "./useKioskClient";
 
 export enum KioskTypes {
-	SUI = 'sui',
-	ORIGINBYTE = 'originByte',
+	SUI = "sui",
+	ORIGINBYTE = "originByte",
 }
 
 export type Kiosk = {
@@ -103,7 +103,7 @@ export function useGetKioskContents(address?: string | null, disableOriginByteKi
 	const kioskClient = useKioskClient();
 	return useQuery({
 		// eslint-disable-next-line @tanstack/query/exhaustive-deps
-		queryKey: ['get-kiosk-contents', address, disableOriginByteKiosk, network, kioskClient.network],
+		queryKey: ["get-kiosk-contents", address, disableOriginByteKiosk, network, kioskClient.network],
 		queryFn: async () => {
 			const suiKiosks = await getSuiKioskContents(address!, kioskClient);
 			const obKiosks = await getOriginByteKioskContents(address!, suiClient);

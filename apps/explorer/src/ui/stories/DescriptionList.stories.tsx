@@ -1,12 +1,12 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Text } from '@mysten/ui';
-import { type Meta, type StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
+import { Text } from "@mysten/ui";
+import { type Meta, type StoryObj } from "@storybook/react";
+import { MemoryRouter } from "react-router-dom";
 
-import { DescriptionList, DescriptionItem, type DescriptionListProps } from '../DescriptionList';
-import { Link } from '~/ui/Link';
+import { DescriptionList, DescriptionItem, type DescriptionListProps } from "../DescriptionList";
+import { Link } from "~/ui/Link";
 
 export default {
 	component: DescriptionList,

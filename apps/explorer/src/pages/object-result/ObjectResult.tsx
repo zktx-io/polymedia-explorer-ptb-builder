@@ -1,26 +1,26 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetObject } from '@mysten/core';
-import { ObjectDetailsHeader } from '@mysten/icons';
-import { LoadingIndicator } from '@mysten/ui';
-import clsx from 'clsx';
-import { useParams } from 'react-router-dom';
+import { useGetObject } from "@mysten/core";
+import { ObjectDetailsHeader } from "@mysten/icons";
+import { LoadingIndicator } from "@mysten/ui";
+import clsx from "clsx";
+import { useParams } from "react-router-dom";
 
-import { translate, type DataType } from './ObjectResultType';
-import PkgView from './views/PkgView';
-import { TokenView } from './views/TokenView';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { ObjectView } from '~/pages/object-result/views/ObjectView';
-import { Banner } from '~/ui/Banner';
-import { PageHeader } from '~/ui/PageHeader';
+import { translate, type DataType } from "./ObjectResultType";
+import PkgView from "./views/PkgView";
+import { TokenView } from "./views/TokenView";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { ObjectView } from "~/pages/object-result/views/ObjectView";
+import { Banner } from "~/ui/Banner";
+import { PageHeader } from "~/ui/PageHeader";
 
-const PACKAGE_TYPE_NAME = 'Move Package';
+const PACKAGE_TYPE_NAME = "Move Package";
 
 export function ObjectResult() {
 	const { id: objID } = useParams();
-	const { data, isPending, isError, isFetched } = useGetObject(objID!);
+	const { data, isPending, isError, isFetched } = useGetObject(objID);
 
 	if (isPending) {
 		return (
@@ -46,12 +46,12 @@ export function ObjectResult() {
 				isPackage
 					? undefined
 					: {
-							size: 'md',
+							size: "md",
 							content: (
 								<div>
 									<PageHeader
 										type="Object"
-										title={resp?.id ?? ''}
+										title={resp?.id ?? ""}
 										before={<ObjectDetailsHeader className="h-6 w-6" />}
 									/>
 
@@ -76,7 +76,7 @@ export function ObjectResult() {
 						<div className="mb-10">
 							{isPackage && <PageHeader type="Package" title={resp.id} />}
 							<ErrorBoundary>
-								<div className={clsx(isPackage && 'mt-10')}>
+								<div className={clsx(isPackage && "mt-10")}>
 									{isPackage ? <PkgView data={resp} /> : <TokenView data={data} />}
 								</div>
 							</ErrorBoundary>

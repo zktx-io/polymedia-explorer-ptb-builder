@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { Search16 } from '@mysten/icons';
-import { Text, Combobox, ComboboxInput, ComboboxList } from '@mysten/ui';
+import { Search16 } from "@mysten/icons";
+import { Text, Combobox, ComboboxInput, ComboboxList } from "@mysten/ui";
 
 export type SearchResult = {
 	id: string;
@@ -9,14 +9,14 @@ export type SearchResult = {
 	type: string;
 };
 
-export interface SearchProps {
+export type SearchProps = {
 	onChange: (value: string) => void;
 	onSelectResult?: (result: SearchResult) => void;
 	placeholder?: string;
 	isLoading: boolean;
 	options?: SearchResult[];
 	queryValue: string;
-}
+};
 
 export function Search({
 	onChange,

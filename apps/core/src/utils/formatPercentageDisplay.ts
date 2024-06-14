@@ -4,8 +4,8 @@
 // For unavailable %, return '--' else return the APY number
 export function formatPercentageDisplay(
 	value: number | null,
-	nullDisplay = '--',
+	nullDisplay = "--",
 	isApyApprox = false,
 ) {
-	return value === null ? nullDisplay : `${isApyApprox ? '~' : ''}${value}%`;
+	return value === null ? nullDisplay : `${isApyApprox ? "~" : ""}${value}%`;
 }

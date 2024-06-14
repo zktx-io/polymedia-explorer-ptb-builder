@@ -1,10 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
-import { SuiTransactionBlockResponse } from '@mysten/sui/client';
-import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import { useMemo } from 'react';
+import { SuiTransactionBlockResponse } from "@mysten/sui/client";
+import { SUI_TYPE_ARG } from "@mysten/sui/utils";
+import { useMemo } from "react";
 
-import { getTotalGasUsed } from '../utils/transaction';
+import { getTotalGasUsed } from "../utils/transaction";
 
 export function useGetTransferAmount(txnData: SuiTransactionBlockResponse) {
 	const { balanceChanges } = txnData;
@@ -16,13 +16,13 @@ export function useGetTransferAmount(txnData: SuiTransactionBlockResponse) {
 				? balanceChanges?.map(({ coinType, owner, amount }) => ({
 						coinType,
 						address:
-							owner === 'Immutable'
-								? 'Immutable'
-								: 'AddressOwner' in owner
+							owner === "Immutable"
+								? "Immutable"
+								: "AddressOwner" in owner
 								? owner.AddressOwner
-								: 'ObjectOwner' in owner
+								: "ObjectOwner" in owner
 								? owner.ObjectOwner
-								: '',
+								: "",
 						amount:
 							coinType === SUI_TYPE_ARG && BigInt(amount) < 0n
 								? BigInt(amount) + BigInt(gas ?? 0n)

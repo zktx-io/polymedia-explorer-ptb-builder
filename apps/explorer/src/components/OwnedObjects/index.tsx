@@ -1,31 +1,31 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGetKioskContents, useGetOwnedObjects, useLocalStorage } from '@mysten/core';
-import { ThumbnailsOnly16, ViewList16, ViewSmallThumbnails16 } from '@mysten/icons';
-import { Heading, IconButton, RadioGroup, RadioGroupItem, Text } from '@mysten/ui';
-import clsx from 'clsx';
-import { useEffect, useMemo, useState } from 'react';
+import { useGetKioskContents, useGetOwnedObjects, useLocalStorage } from "@mysten/core";
+import { ThumbnailsOnly16, ViewList16, ViewSmallThumbnails16 } from "@mysten/icons";
+import { Heading, IconButton, RadioGroup, RadioGroupItem, Text } from "@mysten/ui";
+import clsx from "clsx";
+import { useEffect, useMemo, useState } from "react";
 
-import { ListView } from '~/components/OwnedObjects/ListView';
-import { SmallThumbnailsView } from '~/components/OwnedObjects/SmallThumbnailsView';
-import { ThumbnailsView } from '~/components/OwnedObjects/ThumbnailsView';
-import { OBJECT_VIEW_MODES } from '~/components/OwnedObjects/utils';
-import { Pagination, useCursorPagination } from '~/ui/Pagination';
+import { ListView } from "~/components/OwnedObjects/ListView";
+import { SmallThumbnailsView } from "~/components/OwnedObjects/SmallThumbnailsView";
+import { ThumbnailsView } from "~/components/OwnedObjects/ThumbnailsView";
+import { OBJECT_VIEW_MODES } from "~/components/OwnedObjects/utils";
+import { Pagination, useCursorPagination } from "~/ui/Pagination";
 
 const PAGE_SIZES = [10, 20, 30, 40, 50];
 const SHOW_PAGINATION_MAX_ITEMS = 9;
-const OWNED_OBJECTS_LOCAL_STORAGE_VIEW_MODE = 'owned-objects/viewMode';
-const OWNED_OBJECTS_LOCAL_STORAGE_FILTER = 'owned-objects/filter';
+const OWNED_OBJECTS_LOCAL_STORAGE_VIEW_MODE = "owned-objects/viewMode";
+const OWNED_OBJECTS_LOCAL_STORAGE_FILTER = "owned-objects/filter";
 
 enum FILTER_VALUES {
-	ALL = 'all',
-	KIOSKS = 'kiosks',
+	ALL = "all",
+	KIOSKS = "kiosks",
 }
 
 const FILTER_OPTIONS = [
-	{ label: 'NFTS', value: FILTER_VALUES.ALL },
-	{ label: 'KIOSKS', value: FILTER_VALUES.KIOSKS },
+	{ label: "NFTS", value: FILTER_VALUES.ALL },
+	{ label: "KIOSKS", value: FILTER_VALUES.KIOSKS },
 ];
 
 const VIEW_MODES = [
@@ -71,7 +71,7 @@ export function OwnedObjects({ id }: { id: string }) {
 	const ownedObjects = useGetOwnedObjects(
 		id,
 		{
-			MatchNone: [{ StructType: '0x2::coin::Coin' }],
+			MatchNone: [{ StructType: "0x2::coin::Coin" }],
 		},
 		limit,
 	);
@@ -138,8 +138,8 @@ export function OwnedObjects({ id }: { id: string }) {
 	}
 
 	return (
-		<div className={clsx(!noAssets && 'h-coinsAndAssetsContainer md:h-full')}>
-			<div className={clsx('flex h-full overflow-hidden md:pl-10', !showPagination && 'pb-2')}>
+		<div className={clsx(!noAssets && "h-coinsAndAssetsContainer md:h-full")}>
+			<div className={clsx("flex h-full overflow-hidden md:pl-10", !showPagination && "pb-2")}>
 				<div className="relative flex h-full w-full flex-col gap-4">
 					<div className="flex w-full flex-col items-start gap-3 border-b border-gray-45 max-sm:pb-3 sm:h-14 sm:min-h-14 sm:flex-row sm:items-center">
 						<Heading color="steel-darker" variant="heading4/semibold">
@@ -155,14 +155,14 @@ export function OwnedObjects({ id }: { id: string }) {
 											<div
 												key={mode.value}
 												className={clsx(
-													'flex h-6 w-6 items-center justify-center',
-													selected ? 'text-white' : 'text-steel',
+													"flex h-6 w-6 items-center justify-center",
+													selected ? "text-white" : "text-steel",
 												)}
 											>
 												<IconButton
 													className={clsx(
-														'flex h-full w-full items-center justify-center rounded',
-														selected ? 'bg-steel' : 'bg-white',
+														"flex h-full w-full items-center justify-center rounded",
+														selected ? "bg-steel" : "bg-white",
 													)}
 													aria-label="view-filter"
 													onClick={() => {

@@ -4,18 +4,18 @@
 // TODO: This component really shouldn't use the `Tabs` component, it should just use radix,
 // and should define it's own styles since the concerns here are pretty different.
 
-import { type ComponentProps } from 'react';
+import { type ComponentProps } from "react";
 
-import { TabsList, Tabs, TabsTrigger } from './Tabs';
+import { TabsList, Tabs, TabsTrigger } from "./Tabs";
 
-export interface FilterListProps<T extends string = string> {
+export type FilterListProps<T extends string = string> = {
 	options: readonly T[];
 	value: T;
 	disabled?: boolean;
-	size?: ComponentProps<typeof Tabs>['size'];
+	size?: ComponentProps<typeof Tabs>["size"];
 	lessSpacing?: boolean;
 	onChange(value: T): void;
-}
+};
 
 export function FilterList<T extends string>({
 	options,

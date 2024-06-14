@@ -1,30 +1,30 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Search24 } from '@mysten/icons';
-import { type SuiMoveNormalizedStruct, type SuiObjectResponse } from '@mysten/sui/client';
-import { Text, LoadingIndicator, Combobox, ComboboxInput, ComboboxList } from '@mysten/ui';
-import clsx from 'clsx';
-import { useCallback, useEffect, useState } from 'react';
+import { Search24 } from "@mysten/icons";
+import { type SuiMoveNormalizedStruct, type SuiObjectResponse } from "@mysten/sui/client";
+import { Text, LoadingIndicator, Combobox, ComboboxInput, ComboboxList } from "@mysten/ui";
+import clsx from "clsx";
+import { useCallback, useEffect, useState } from "react";
 
-import { FieldItem } from './FieldItem';
-import { ScrollToViewCard } from './ScrollToViewCard';
-import { getFieldTypeValue } from './utils';
-import { FieldsCard, FieldCollapsible, FieldsContainer } from '~/components/Object/FieldsUtils';
-import { Banner } from '~/ui/Banner';
-import { Description } from '~/ui/Description';
+import { FieldItem } from "./FieldItem";
+import { ScrollToViewCard } from "./ScrollToViewCard";
+import { getFieldTypeValue } from "./utils";
+import { FieldsCard, FieldCollapsible, FieldsContainer } from "~/components/Object/FieldsUtils";
+import { Banner } from "~/ui/Banner";
+import { Description } from "~/ui/Description";
 
 const DEFAULT_OPEN_FIELDS = 3;
 const DEFAULT_FIELDS_COUNT_TO_SHOW_SEARCH = 10;
 
-interface ObjectFieldsProps {
+type ObjectFieldsProps = {
 	id: string;
 	normalizedStructData?: SuiMoveNormalizedStruct;
 	suiObjectResponseData?: SuiObjectResponse;
 	loading: boolean;
 	error: boolean;
 	objectType?: string;
-}
+};
 
 export function ObjectFieldsCard({
 	id,
@@ -34,21 +34,19 @@ export function ObjectFieldsCard({
 	error,
 	objectType,
 }: ObjectFieldsProps) {
-	const [query, setQuery] = useState('');
-	const [activeFieldName, setActiveFieldName] = useState('');
-	const [openFieldsName, setOpenFieldsName] = useState<{
-		[name: string]: boolean;
-	}>({});
+	const [query, setQuery] = useState("");
+	const [activeFieldName, setActiveFieldName] = useState("");
+	const [openFieldsName, setOpenFieldsName] = useState<Record<string, boolean>>({});
 
 	useEffect(() => {
 		if (normalizedStructData?.fields) {
 			setOpenFieldsName(
-				normalizedStructData.fields.reduce(
+				normalizedStructData.fields.reduce<Record<string, boolean>>(
 					(acc, { name }, index) => {
 						acc[name] = index < DEFAULT_OPEN_FIELDS;
 						return acc;
 					},
-					{} as { [name: string]: boolean },
+					{},
 				),
 			);
 		}
@@ -88,7 +86,7 @@ export function ObjectFieldsCard({
 	}
 
 	const fieldsData =
-		suiObjectResponseData?.data?.content?.dataType === 'moveObject'
+		suiObjectResponseData?.data?.content?.dataType === "moveObject"
 			? (suiObjectResponseData?.data?.content?.fields as Record<string, string | number | object>)
 			: null;
 
@@ -98,7 +96,7 @@ export function ObjectFieldsCard({
 	}
 
 	const filteredFieldNames =
-		query === ''
+		query === ""
 			? normalizedStructData?.fields
 			: normalizedStructData?.fields.filter(({ name }) =>
 					name.toLowerCase().includes(query.toLowerCase()),
@@ -132,8 +130,8 @@ export function ObjectFieldsCard({
 				)}
 				<div
 					className={clsx(
-						'flex max-h-44 flex-col overflow-y-auto pr-2 md:max-h-96',
-						renderSearchBar && 'mt-4',
+						"flex max-h-44 flex-col overflow-y-auto pr-2 md:max-h-96",
+						renderSearchBar && "mt-4",
 					)}
 				>
 					{normalizedStructData?.fields?.map(({ name, type }) => (

@@ -1,20 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import {
 	isSuiNSName,
 	useGetObject,
 	useResolveSuiNSAddress,
 	useResolveSuiNSName,
-} from '@mysten/core';
-import { PageLayout } from '~/components/Layout/PageLayout';
-import { PageHeader } from '~/ui/PageHeader';
-import { ObjectDetailsHeader } from '@mysten/icons';
-import { TotalStaked } from '~/pages/address-result/TotalStaked';
-import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
-import { ObjectView } from '~/pages/object-result/views/ObjectView';
-import { PageContent } from '~/pages/id-page/PageContent';
+} from "@mysten/core";
+import { PageLayout } from "~/components/Layout/PageLayout";
+import { PageHeader } from "~/ui/PageHeader";
+import { ObjectDetailsHeader } from "@mysten/icons";
+import { TotalStaked } from "~/pages/address-result/TotalStaked";
+import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
+import { ObjectView } from "~/pages/object-result/views/ObjectView";
+import { PageContent } from "~/pages/id-page/PageContent";
 
 function Header({
 	address,
@@ -26,7 +26,7 @@ function Header({
 	error?: Error | null;
 }) {
 	const { data: domainName, isLoading, error: resolveSuinsError } = useResolveSuiNSName(address);
-	const { data, isPending, error: getObjectError } = useGetObject(address!);
+	const { data, isPending, error: getObjectError } = useGetObject(address);
 	const isObject = !!data?.data;
 	const errorText = getObjectError?.message ?? resolveSuinsError?.message ?? error?.message;
 
@@ -35,7 +35,7 @@ function Header({
 			<PageHeader
 				error={errorText}
 				loading={loading || isLoading || isPending}
-				type={isObject ? 'Object' : 'Address'}
+				type={isObject ? "Object" : "Address"}
 				title={address}
 				subtitle={domainName}
 				before={<ObjectDetailsHeader className="h-6 w-6" />}
@@ -67,7 +67,7 @@ function PageLayoutContainer({ address }: { address: string }) {
 			loading={isLoading}
 			isError={!!suinsAddressError}
 			gradient={{
-				size: 'md',
+				size: "md",
 				content: <Header address={address} />,
 			}}
 			content={<PageContent address={data || address} error={suinsAddressError} />}

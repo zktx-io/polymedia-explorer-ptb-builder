@@ -1,9 +1,9 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Divider, type DividerProps } from '~/ui/Divider';
+import { Divider, type DividerProps } from "~/ui/Divider";
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 export default {
 	component: Divider,

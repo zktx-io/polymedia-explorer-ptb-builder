@@ -1,28 +1,28 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { type SuiMoveNormalizedType } from '@mysten/sui/client';
-import { Text } from '@mysten/ui';
+import { type SuiMoveNormalizedType } from "@mysten/sui/client";
+import { Text } from "@mysten/ui";
 
-import { getFieldTypeValue } from './utils';
-import { SyntaxHighlighter } from '~/components/SyntaxHighlighter';
-import { AddressLink, ObjectLink } from '~/ui/InternalLink';
-import { Link } from '~/ui/Link';
+import { getFieldTypeValue } from "./utils";
+import { SyntaxHighlighter } from "~/components/SyntaxHighlighter";
+import { AddressLink, ObjectLink } from "~/ui/InternalLink";
+import { Link } from "~/ui/Link";
 
-interface FieldItemProps {
+type FieldItemProps = {
 	value: string | number | object | boolean;
-	type: SuiMoveNormalizedType | '';
+	type: SuiMoveNormalizedType | "";
 	objectType: string;
 	truncate?: boolean;
-}
+};
 
-const TYPE_ADDRESS = 'Address';
-const TYPE_URL = '0x2::url::Url';
-const TYPE_OBJECT_ID = ['0x2::object::UID', '0x2::object::ID'];
+const TYPE_ADDRESS = "Address";
+const TYPE_URL = "0x2::url::Url";
+const TYPE_OBJECT_ID = ["0x2::object::UID", "0x2::object::ID"];
 
 export function FieldItem({ value, type, truncate = false, objectType }: FieldItemProps) {
 	// for object types, use SyntaxHighlighter
-	if (typeof value === 'object') {
+	if (typeof value === "object") {
 		return <SyntaxHighlighter code={JSON.stringify(value, null, 2)} language="json" />;
 	}
 
@@ -36,7 +36,7 @@ export function FieldItem({ value, type, truncate = false, objectType }: FieldIt
 		);
 	}
 
-	if (normalizedType === 'string' && TYPE_OBJECT_ID.includes(normalizedType)) {
+	if (normalizedType === "string" && TYPE_OBJECT_ID.includes(normalizedType)) {
 		return (
 			<div className="break-all">
 				<ObjectLink objectId={value.toString()} noTruncate={!truncate} />
