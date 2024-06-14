@@ -1,24 +1,22 @@
 {
+    "extends": "../../tsconfig.json",
+    "include": [
+        "src",
+        "*.ts",
+    ],
+    "exclude": [
+        "dist",
+        "node_modules",
+    ],
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
-		"baseUrl": ".",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
 		"jsx": "react-jsx",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"noEmit": true,
-		"noFallthroughCasesInSwitch": true,
+        "moduleResolution": "bundler",
+        "noEmit": true,
 		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
+		"allowJs": true,
+		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./src/*"]
 		}
 	},
-	"include": ["src", "tests"]
 }
