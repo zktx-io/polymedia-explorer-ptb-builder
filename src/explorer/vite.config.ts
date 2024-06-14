@@ -30,4 +30,10 @@ export default defineConfig({
             "~": new URL("./src", import.meta.url).pathname,
         },
     },
+    preview: {
+        port: 3000,
+    },
+    server: {
+        port: 3000,
+    },
 });
