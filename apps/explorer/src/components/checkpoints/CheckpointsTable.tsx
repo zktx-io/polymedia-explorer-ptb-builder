@@ -45,6 +45,8 @@ export function CheckpointsTable({
 			} else if (!isError && checkpoints.data) {
 				// Special case for ongoing epoch
 				return Number(checkpoints.data.pages[0].data[0].sequenceNumber) - Number(maxCursor);
+			} else {
+				return 0;
 			}
 		} else {
 			return Number(countQuery.data ?? 0);

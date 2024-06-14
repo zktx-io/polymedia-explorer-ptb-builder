@@ -5,7 +5,7 @@ import { useGetValidatorsApy, useGetValidatorsEvents } from '@mysten/core';
 import { useSuiClientQuery } from '@mysten/dapp-kit';
 import { type SuiSystemStateSummary } from '@mysten/sui/client';
 import { LoadingIndicator, Text } from '@mysten/ui';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PageLayout } from '~/components/Layout/PageLayout';

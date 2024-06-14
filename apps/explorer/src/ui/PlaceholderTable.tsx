@@ -22,7 +22,7 @@ export function PlaceholderTable({
 	const rowEntry = useMemo(
 		() =>
 			Object.fromEntries(
-				colHeadings.map((header, index) => [
+				colHeadings.map((_header, index) => [
 					`a${index}`,
 					<Placeholder key={index} width={colWidths[index]} height={rowHeight} />,
 				]),

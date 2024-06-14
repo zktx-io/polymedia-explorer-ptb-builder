@@ -77,6 +77,8 @@ export function CopyToClipboard({
 			}, TIMEOUT_TIMER);
 
 			return () => clearTimeout(timeout);
+		} else {
+			return undefined;
 		}
 	}, [copied]);
 

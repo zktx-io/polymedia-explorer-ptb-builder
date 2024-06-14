@@ -1,7 +1,6 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SocialDiscord24, SocialLinkedin24, SocialTwitter24 } from '@mysten/icons';
 import { type ReactNode } from 'react';
 
 type FooterItem = {
@@ -10,9 +9,9 @@ type FooterItem = {
 };
 export type FooterItems = FooterItem[];
 
-function FooterIcon({ children }: { children: ReactNode }) {
-	return <div className="flex items-center text-steel-darker">{children}</div>;
-}
+// function FooterIcon({ children }: { children: ReactNode }) {
+// 	return <div className="flex items-center text-steel-darker">{children}</div>;
+// }
 
 export const footerLinks = [
 	{

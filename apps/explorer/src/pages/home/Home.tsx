@@ -11,7 +11,6 @@ import { TransactionsCardGraph } from '~/components/TransactionsCardGraph';
 import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
 import { TopPackagesCard } from '~/components/top-packages/TopPackagesCard';
 import { TopValidatorsCard } from '~/components/top-validators-card/TopValidatorsCard';
-import { useNetwork } from '~/context';
 import { TabHeader } from '~/ui/Tabs';
 
 // const ValidatorMap = lazy(() => import('../../components/validator-map'));
@@ -19,7 +18,6 @@ import { TabHeader } from '~/ui/Tabs';
 const TRANSACTIONS_LIMIT = 25;
 
 function Home() {
-	const [network] = useNetwork();
 	const isSuiTokenCardEnabled = false;
 	return (
 		<PageLayout

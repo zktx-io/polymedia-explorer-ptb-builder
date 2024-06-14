@@ -77,7 +77,7 @@ export function SmallThumbnailsView({ data, loading, limit }: Props) {
 	return (
 		<div className="flex flex-row flex-wrap overflow-auto">
 			{loading && <SmallThumbnailsViewLoading limit={limit} />}
-			{data?.map((obj, index) => {
+			{data?.map((obj, _index) => {
 				const id = obj.data?.objectId;
 
 				return (

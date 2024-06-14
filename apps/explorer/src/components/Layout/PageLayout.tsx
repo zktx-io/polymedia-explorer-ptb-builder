@@ -1,25 +1,25 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import {useAppsBackend, useElementDimensions, useLocalStorage} from '@mysten/core';
-import {Heading, LoadingIndicator, Text} from '@mysten/ui';
+import { useElementDimensions, useLocalStorage } from '@mysten/core';
+import { Heading, LoadingIndicator, Text } from '@mysten/ui';
 import clsx from 'clsx';
-import {type ReactNode, useEffect, useRef} from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
-import {useNetworkContext} from '~/context';
-import {Banner} from '~/ui/Banner';
-import {Network} from '~/utils/api/DefaultRpcClient';
+import { useNetworkContext } from '~/context';
+import { Banner } from '~/ui/Banner';
+import { Network } from '~/utils/api/DefaultRpcClient';
 import suiscanImg from '~/assets/explorer-suiscan.jpg';
 import suivisionImg from '~/assets/explorer-suivision.jpg';
 import suiscanImg2x from '~/assets/explorer-suiscan@2x.jpg';
 import suivisionImg2x from '~/assets/explorer-suivision@2x.jpg';
-import {ButtonOrLink} from '~/ui/utils/ButtonOrLink';
-import {Image} from '~/ui/image/Image';
-import {ArrowRight12, Sui, SuiLogoTxt} from '@mysten/icons';
-import {useRedirectExplorerUrl} from '~/hooks/useRedirectExplorerUrl';
-import {CheckboxRedirectPreference, RedirectExplorer, usePreference} from "~/components/CheckboxRedirectPreference";
+import { ButtonOrLink } from '~/ui/utils/ButtonOrLink';
+import { Image } from '~/ui/image/Image';
+import { ArrowRight12, Sui, SuiLogoTxt } from '@mysten/icons';
+import { useRedirectExplorerUrl } from '~/hooks/useRedirectExplorerUrl';
+import { CheckboxRedirectPreference, RedirectExplorer, usePreference } from "~/components/CheckboxRedirectPreference";
 
 export type PageLayoutProps = {
 	gradient?: {

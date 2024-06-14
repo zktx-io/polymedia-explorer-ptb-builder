@@ -11,7 +11,7 @@ import {
 import { useSuiClientQuery } from '@mysten/dapp-kit';
 import { type SuiEvent, type SuiValidatorSummary } from '@mysten/sui/client';
 import { Heading, Text } from '@mysten/ui';
-import { lazy, Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { PageLayout } from '~/components/Layout/PageLayout';
 import { ErrorBoundary } from '~/components/error-boundary/ErrorBoundary';
@@ -29,7 +29,7 @@ import { Tooltip } from '~/ui/Tooltip';
 import { getValidatorMoveEvent } from '~/utils/getValidatorMoveEvent';
 import { VALIDATOR_LOW_STAKE_GRACE_PERIOD } from '~/utils/validatorConstants';
 
-const ValidatorMap = lazy(() => import('../../components/validator-map'));
+// const ValidatorMap = lazy(() => import('../../components/validator-map'));
 
 export function validatorsTableData(
 	validators: SuiValidatorSummary[],

@@ -58,6 +58,8 @@ export function useImageMod({ url = '', enabled = true }: { url?: string; enable
 				return request<ImageModeration>('image', {
 					url,
 				});
+			} else {
+				return placeholderData;
 			}
 		},
 		placeholderData,
