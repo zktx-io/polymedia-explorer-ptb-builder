@@ -5,14 +5,13 @@ import { type ComponentProps, forwardRef } from "react";
 
 import { LinkWithQuery, type LinkProps } from "./LinkWithQuery";
 
-export type ButtonOrLinkProps = {} & Omit<Partial<LinkProps> & ComponentProps<"a"> & ComponentProps<"button">, "ref">;
+export type ButtonOrLinkProps = Omit<Partial<LinkProps> & ComponentProps<"a"> & ComponentProps<"button">, "ref">;
 
 export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonOrLinkProps>(
 	({ href, to, ...props }, ref: any) => {
 		// External link:
 		if (href) {
 			return (
-				// eslint-disable-next-line jsx-a11y/anchor-has-content
 				<a ref={ref} target="_blank" rel="noreferrer noopener" href={href} {...props} />
 			);
 		}
@@ -23,7 +22,7 @@ export const ButtonOrLink = forwardRef<HTMLAnchorElement | HTMLButtonElement, Bu
 		}
 
 		// We set the default type to be "button" to avoid accidentally submitting forms.
-		 
+
 		return <button {...props} type={props.type || "button"} ref={ref} />;
 	},
 );

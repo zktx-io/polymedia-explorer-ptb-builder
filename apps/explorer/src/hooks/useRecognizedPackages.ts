@@ -13,7 +13,7 @@ export function useRecognizedPackages() {
 
 	/* Note: remove leading zeros, otherwise coins won't get recognized. */
 
-	if (network === Network.MAINNET) {
+	if (network === String(Network.MAINNET)) {
 		return [
 			...DEFAULT_RECOGNIZED_PACKAGES,
 			/* AFSUI */ "0xf325ce1300e8dac124071d3152c5c5ee6174914f8bc2161e88329cf579246efc",
@@ -39,7 +39,7 @@ export function useRecognizedPackages() {
 		];
 	}
 
-	if (network === Network.TESTNET) {
+	if (network === String(Network.TESTNET)) {
 		return [
 			...DEFAULT_RECOGNIZED_PACKAGES,
 			"0x1fe2bdb8d9dba5bb2f8f1d987fcb9ab53d0f38b8a42445ebed736d6708ca59d6", // FUD

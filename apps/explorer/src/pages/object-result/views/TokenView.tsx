@@ -117,7 +117,7 @@ export function FieldsContent({ objectId }: { objectId: string }) {
 }
 
 export function TokenView({ data }: { data: SuiObjectResponse }) {
-	const objectId = data.data?.objectId!;
+	const objectId = data.data!.objectId;
 
 	return (
 		<div className="flex flex-col flex-nowrap gap-14">

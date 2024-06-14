@@ -21,6 +21,7 @@ function getID(prefix: string) {
 	return `${prefix}_${idCounter++}`;
 }
 
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const bisectX = bisector((x: number) => x).center;
 
 function AxisLeftTick({ x, y, formattedValue }: TickRendererProps) {

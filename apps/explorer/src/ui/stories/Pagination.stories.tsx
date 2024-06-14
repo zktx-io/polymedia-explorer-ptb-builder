@@ -13,8 +13,8 @@ export const Default: StoryObj<typeof Pagination> = {
 	args: {
 		hasPrev: true,
 		hasNext: true,
-		onNext() {},
-		onPrev() {},
-		onFirst() {},
+		onNext() { /* Intentionally left blank */ },
+		onPrev() { /* Intentionally left blank */ },
+		onFirst() { /* Intentionally left blank */ },
 	},
 };

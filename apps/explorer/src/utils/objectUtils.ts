@@ -27,7 +27,7 @@ export function parseObjectType(data: SuiObjectResponse): string {
 	return data.data?.type ?? data?.data?.content?.type ?? "unknown";
 }
 
-export function getOwnerStr(owner: ObjectOwner | string): string {
+export function getOwnerStr(owner: ObjectOwner): string {
 	if (typeof owner === "object") {
 		if ("AddressOwner" in owner) return owner.AddressOwner;
 		if ("ObjectOwner" in owner) return owner.ObjectOwner;
@@ -36,7 +36,7 @@ export function getOwnerStr(owner: ObjectOwner | string): string {
 	return owner;
 }
 
-export const checkIsPropertyType = (value: any) => ["number", "string"].includes(typeof value);
+export const checkIsPropertyType = (value: unknown) => ["number", "string"].includes(typeof value);
 
 export const extractName = (display?: Record<string, string> | null) => {
 	if (!display || !("name" in display)) return undefined;

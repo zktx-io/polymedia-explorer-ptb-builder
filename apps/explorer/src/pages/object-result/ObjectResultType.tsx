@@ -41,7 +41,7 @@ export function translate(o: SuiObjectResponse): DataType {
 				contents:
 					o.data?.content?.dataType === "moveObject"
 						? o.data?.content.fields
-						: o.data.content?.disassembled!,
+						: o.data.content!.disassembled,
 				tx_digest: o.data.previousTransaction,
 			},
 			display: o.data.display?.data || undefined,

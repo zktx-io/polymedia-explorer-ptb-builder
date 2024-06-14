@@ -83,7 +83,7 @@ export function validatorsTableData(
 				accessorKey: "number",
 				cell: (props: any) => (
 					<Text variant="bodySmall/medium" color="steel-dark">
-						{props.table.getSortedRowModel().flatRows.indexOf(props.row) + 1}
+						{Number(props.table.getSortedRowModel().flatRows.indexOf(props.row)) + 1}
 					</Text>
 				),
 			},

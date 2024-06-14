@@ -32,7 +32,9 @@ async function getOriginByteKioskContents(address: string, client: SuiClient) {
 			showContent: true,
 		},
 	});
-	const ids = data.data.map((object) => getKioskIdFromOwnerCap(object));
+	const ids = data.data
+		.map((object) => getKioskIdFromOwnerCap(object))
+		.filter((id): id is string => id !== undefined);
 
 	// fetch the user's kiosks
 	const ownedKiosks = await client.multiGetObjects({

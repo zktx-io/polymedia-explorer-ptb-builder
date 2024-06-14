@@ -99,7 +99,7 @@ const getResultsForAddress = async (client: SuiClient, query: string, suiNSEnabl
 };
 
 // Query for validator by pool id or sui address.
-const getResultsForValidatorByPoolIdOrSuiAddress = async (
+const getResultsForValidatorByPoolIdOrSuiAddress = (
 	systemStateSummery: SuiSystemStateSummary | null,
 	query: string,
 ) => {
@@ -129,7 +129,6 @@ export function useSearch(query: string) {
 	const suiNSEnabled = useSuiNSEnabled();
 
 	return useQuery({
-		// eslint-disable-next-line @tanstack/query/exhaustive-deps
 		queryKey: ["search", query],
 		queryFn: async () => {
 			const results = (

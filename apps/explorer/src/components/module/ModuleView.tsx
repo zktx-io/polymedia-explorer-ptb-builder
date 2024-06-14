@@ -20,7 +20,9 @@ import styles from "./ModuleView.module.css";
 // @ts-expect-error: Defining global prism object:
 globalThis.Prism = Prism;
 // @ts-expect-error: This file is untyped:
-import("prismjs/components/prism-rust").catch(() => {});
+import("prismjs/components/prism-rust").catch(() => {
+	// intentionally ignore
+});
 
 type Props = {
 	id?: string;

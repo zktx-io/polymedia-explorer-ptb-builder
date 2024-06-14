@@ -47,7 +47,7 @@ export function useRedirectUrl(isPackage?: boolean) {
 	const hasMatch = Boolean(matchPath);
 
 	const baseUrl = useMemo(() => {
-		switch (network) {
+		switch (network as Network) {
 			case Network.DEVNET:
 				return {
 					suiscan: SUISCAN_URL_DEVNET,

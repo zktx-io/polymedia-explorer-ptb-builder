@@ -12,7 +12,7 @@ export function useEnhancedRpcClient() {
 	const [network] = useNetwork();
 	const client = useSuiClient();
 	const enhancedRpc = useMemo(() => {
-		if (network === Network.LOCAL) {
+		if (network === String(Network.LOCAL)) {
 			return new SuiClient({ url: "http://localhost:9124" });
 		}
 
