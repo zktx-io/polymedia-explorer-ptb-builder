@@ -4,6 +4,9 @@
 import { type Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
 import { fontFamily } from 'tailwindcss/defaultTheme';
+import headlessui from '@headlessui/tailwindcss';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+import forms from '@tailwindcss/forms';
 
 /** The minimum line height that text should use to avoid clipping and overflow scrolling */
 const MIN_LINE_HEIGHT = '1.13';
@@ -244,9 +247,9 @@ export default {
 		aspectRatio: true,
 	},
 	plugins: [
-		require('@headlessui/tailwindcss'),
-		require('@tailwindcss/aspect-ratio'),
-		require('@tailwindcss/forms')({
+		headlessui,
+		aspectRatio,
+		forms({
 			strategy: 'class',
 		}),
 	],
