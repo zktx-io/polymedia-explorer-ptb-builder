@@ -33,35 +33,39 @@ body,
 	.home-page-grid-container-top {
 		@apply grid grid-cols-1 gap-4;
 		grid-template-areas:
+			'polymedia'
 			'network'
-			'epoch'
-			'transactions'
-			'accounts';
+			'epoch';
+			/* 'transactions'
+			'accounts'; */
 	}
 	.home-page-grid-container-top.with-token {
 		grid-template-areas:
+			'polymedia'
 			'network'
 			'epoch'
-			'token'
-			'transactions'
-			'accounts';
+			'token';
+			/* 'transactions'
+			'accounts'; */
 	}
 
 	@screen sm {
 		.home-page-grid-container-top {
 			@apply grid-cols-2;
 			grid-template-areas:
-				'network epoch'
-				'transactions transactions'
-				'accounts accounts';
+				'polymedia polymedia'
+				'network epoch';
+				/* 'transactions transactions'
+				'accounts accounts'; */
 		}
 
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
+				'polymedia polymedia'
 				'network epoch'
-				'network token'
-				'transactions transactions'
-				'accounts accounts';
+				'network token';
+				/* 'transactions transactions'
+				'accounts accounts'; */
 		}
 	}
 
@@ -69,15 +73,17 @@ body,
 		.home-page-grid-container-top {
 			@apply grid-cols-2;
 			grid-template-areas:
-				'network epoch'
-				'transactions accounts';
+				'polymedia polymedia'
+				'network epoch';
+				/* 'transactions accounts'; */
 		}
 
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
+				'polymedia polymedia'
 				'network epoch'
-				'network token'
-				'transactions accounts';
+				'network token';
+				/* 'transactions accounts'; */
 		}
 	}
 
@@ -85,15 +91,20 @@ body,
 		.home-page-grid-container-top {
 			@apply grid-cols-[315px,1fr,1fr];
 			grid-template-areas:
-				'network transactions accounts'
-				'epoch transactions accounts';
+				'network polymedia polymedia'
+				'epoch polymedia polymedia';
+				/* 'network transactions accounts'
+				'epoch transactions accounts'; */
 		}
 
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
-				'network transactions accounts'
+				'network polymedia polymedia'
+				'epoch   polymedia polymedia'
+				'token   polymedia polymedia';
+				/* 'network transactions accounts'
 				'epoch   transactions accounts'
-				'token   transactions accounts';
+				'token   transactions accounts'; */
 		}
 	}
 

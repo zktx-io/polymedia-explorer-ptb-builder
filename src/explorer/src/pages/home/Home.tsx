@@ -3,11 +3,10 @@
 
 import clsx from "clsx";
 
-import { AccountsCardGraph } from "~/components/AccountCardGraph";
 import { Activity } from "~/components/Activity";
 import { CurrentEpoch, OnTheNetwork } from "~/components/HomeMetrics";
 import { PageLayout } from "~/components/Layout/PageLayout";
-import { TransactionsCardGraph } from "~/components/TransactionsCardGraph";
+import { PolymediaCard } from "~/components/PolymediaCard";
 import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
 import { TopPackagesCard } from "~/components/top-packages/TopPackagesCard";
 import { TopValidatorsCard } from "~/components/top-validators-card/TopValidatorsCard";
@@ -40,11 +39,14 @@ function Home() {
 							</div>
 						) : null}
 						*/}
-						<div style={{ gridArea: "transactions" }}>
+						{/* <div style={{ gridArea: "transactions" }}>
 							<TransactionsCardGraph />
-						</div>
-						<div style={{ gridArea: "accounts" }}>
+						</div> */}
+						{/* <div style={{ gridArea: "accounts" }}>
 							<AccountsCardGraph />
+						</div> */}
+						<div style={{ gridArea: "polymedia" }}>
+							<PolymediaCard />
 						</div>
 					</div>
 				),
