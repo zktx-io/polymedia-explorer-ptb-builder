@@ -3,7 +3,6 @@
 
 import { CoinFormat, formatBalance } from "@mysten/core";
 import { useSuiClientQuery } from "@mysten/dapp-kit";
-import { Heading } from "@mysten/ui";
 
 import { StatsWrapper } from "./FormattedStatsAmount";
 import { Card } from "~/ui/Card";
