@@ -8,7 +8,6 @@ import { CurrentEpoch, OnTheNetwork } from "~/components/HomeMetrics";
 import { PageLayout } from "~/components/Layout/PageLayout";
 import { PolymediaCard } from "~/components/PolymediaCard";
 import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
-import { TopPackagesCard } from "~/components/top-packages/TopPackagesCard";
 import { TopValidatorsCard } from "~/components/top-validators-card/TopValidatorsCard";
 import { TabHeader } from "~/ui/Tabs";
 
@@ -59,9 +58,9 @@ function Home() {
 							<Activity initialLimit={TRANSACTIONS_LIMIT} disablePagination />
 						</ErrorBoundary>
 					</div>
-					<div style={{ gridArea: "packages" }}>
+					{/* <div style={{ gridArea: "packages" }}>
 						<TopPackagesCard />
-					</div>
+					</div> */}
 					<div data-testid="validators-table" style={{ gridArea: "validators" }}
 					>
 						<TabHeader title="Validators">

@@ -112,8 +112,8 @@ body,
 		@apply grid grid-cols-1 gap-8;
 		grid-template-areas:
 			'activity'
-			'packages'
-			'validators';
+			'validators'
+			/* 'packages' */
 			/* 'node-map'; */
 	}
 
@@ -125,10 +125,12 @@ body,
 
 	@screen xl {
 		.home-page-grid-container-bottom {
-			@apply grid grid-cols-2 gap-x-20 gap-y-10;
+			@apply grid grid-cols-1 gap-x-20 gap-y-10;
 			grid-template-areas:
-				'activity activity'
-				'packages validators';
+				'activity'
+				'validators'
+				/* 'activity activity' */
+				/* 'packages validators'; */
 				/* 'node-map node-map'; */
 		}
 	}
