@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "license": "Apache-2.0",
     "scripts": {
-        "clean": "turbo run clean && rm -rf dist/ node_modules/ .turbo/ src/sui/build/",
+        "clean": "turbo run clean && rm -rf dist/ node_modules/ .turbo/ src/sui*/build/",
         "lint": "turbo run lint"
     },
     "devDependencies": {

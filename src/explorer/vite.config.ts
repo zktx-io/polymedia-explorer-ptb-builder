@@ -20,8 +20,6 @@ export default defineConfig({
         environment: "happy-dom",
     },
     build: {
-        // Set the output directory to match what CRA uses:
-        outDir: "build",
         sourcemap: true,
         chunkSizeWarningLimit: 2000,
     },

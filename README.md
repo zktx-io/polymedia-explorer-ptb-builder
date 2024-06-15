@@ -2,15 +2,17 @@
 
 ![Polymedia Explorer](./src/explorer/public/img/open-graph.webp)
 
-A fork of the original Sui Explorer, which has been discontinued by Mysten Labs.
+A fork of the original Sui Explorer, which was discontinued by Mysten Labs.
 
-# Installation
+## Installation
 
 ```bash
 pnpm install
 ```
 
-# top-level pnpm commands
+## pnpm commands - top level
+
+Run these commands from the root directory of the repository.
 
 ### `pnpm lint`
 
@@ -24,7 +26,9 @@ Run linting check (ESLint) and fix errors when possible.
 
 Delete `dist/`, `node_modules/`, etc.
 
-# src/explorer pnpm commands
+## pnpm commands - src/explorer
+
+Run these commands from the [./src/explorer/](./src/explorer/) directory.
 
 ### `pnpm dev`
 
@@ -32,9 +36,7 @@ Start the dev server on http://localhost:3000/
 
 ### `pnpm build`
 
-Builds the app for production to the `build` folder.
-
-It bundles React in production mode and optimizes the build for the best performance.
+Build the app for production to the `dist` folder.
 
 ### `pnpm preview`
 
@@ -42,7 +44,7 @@ Build the app for production and serve it on on http://localhost:3000/
 
 ### `pnpm typecheck`
 
-Run TypeScript compiler to perform a type check on the project
+Run the TypeScript compiler to perform a type check on the project.
 
 ### `pnpm test`
 
