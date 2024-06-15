@@ -13,8 +13,7 @@
         "preview-storybook": "pnpm dlx serve ./storybook-static",
         "preview": "vite preview",
         "storybook": "storybook dev",
-        "test": "pnpm test:unit",
-        "test:unit": "vitest run",
+        "test": "vitest run",
         "tunnel": "lt --port 3000",
         "typecheck": "tsc -b"
     },
