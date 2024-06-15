@@ -34,17 +34,17 @@ body,
 		@apply grid grid-cols-1 gap-4;
 		grid-template-areas:
 			'polymedia'
+			'epoch'
 			'network'
-			'epoch';
 			/* 'transactions'
 			'accounts'; */
 	}
 	.home-page-grid-container-top.with-token {
 		grid-template-areas:
 			'polymedia'
-			'network'
 			'epoch'
-			'token';
+			'network'
+			'token'
 			/* 'transactions'
 			'accounts'; */
 	}
@@ -54,7 +54,7 @@ body,
 			@apply grid-cols-2;
 			grid-template-areas:
 				'polymedia polymedia'
-				'network epoch';
+				'epoch network'
 				/* 'transactions transactions'
 				'accounts accounts'; */
 		}
@@ -62,8 +62,8 @@ body,
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
 				'polymedia polymedia'
-				'network epoch'
-				'network token';
+				'epoch network'
+				'network token'
 				/* 'transactions transactions'
 				'accounts accounts'; */
 		}
@@ -74,15 +74,15 @@ body,
 			@apply grid-cols-2;
 			grid-template-areas:
 				'polymedia polymedia'
-				'network epoch';
+				'epoch network'
 				/* 'transactions accounts'; */
 		}
 
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
 				'polymedia polymedia'
-				'network epoch'
-				'network token';
+				'epoch network'
+				'network token'
 				/* 'transactions accounts'; */
 		}
 	}
@@ -91,17 +91,17 @@ body,
 		.home-page-grid-container-top {
 			@apply grid-cols-[315px,1fr,1fr];
 			grid-template-areas:
+				'epoch polymedia polymedia'
 				'network polymedia polymedia'
-				'epoch polymedia polymedia';
 				/* 'network transactions accounts'
 				'epoch transactions accounts'; */
 		}
 
 		.home-page-grid-container-top.with-token {
 			grid-template-areas:
-				'network polymedia polymedia'
 				'epoch   polymedia polymedia'
-				'token   polymedia polymedia';
+				'network polymedia polymedia'
+				'token   polymedia polymedia'
 				/* 'network transactions accounts'
 				'epoch   transactions accounts'
 				'token   transactions accounts'; */
