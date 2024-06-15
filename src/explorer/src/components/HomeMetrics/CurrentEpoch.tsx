@@ -6,7 +6,6 @@ import { Text, Heading } from "@mysten/ui";
 import { format, isToday, isYesterday } from "date-fns";
 import { useMemo } from "react";
 
-import { Checkpoint } from "~/components/HomeMetrics/Checkpoint";
 import { useEpochProgress } from "~/pages/epochs/utils";
 import { Card } from "~/ui/Card";
 import { ProgressBar } from "~/ui/ProgressBar";
@@ -55,7 +54,7 @@ export function CurrentEpoch() {
 						</Heading>
 						<ProgressBar animate progress={progress || 0} />
 					</div>
-					<Checkpoint />
+					{/* <Checkpoint /> */}
 				</div>
 			</Card>
 		</LinkWithQuery>

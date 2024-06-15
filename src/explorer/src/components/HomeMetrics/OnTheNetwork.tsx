@@ -5,13 +5,11 @@ import { CoinFormat, formatBalance } from "@mysten/core";
 import { useSuiClientQuery } from "@mysten/dapp-kit";
 import { Heading } from "@mysten/ui";
 
-import { FormattedStatsAmount, StatsWrapper } from "./FormattedStatsAmount";
-import { useGetNetworkMetrics } from "~/hooks/useGetNetworkMetrics";
+import { StatsWrapper } from "./FormattedStatsAmount";
 import { Card } from "~/ui/Card";
-import { Divider } from "~/ui/Divider";
 
 export function OnTheNetwork() {
-	const { data: networkMetrics } = useGetNetworkMetrics();
+	// const { data: networkMetrics } = useGetNetworkMetrics();
 	const { data: referenceGasPrice } = useSuiClientQuery("getReferenceGasPrice");
 	const gasPriceFormatted =
 		typeof referenceGasPrice === "bigint"
@@ -23,7 +21,7 @@ export function OnTheNetwork() {
 				<Heading variant="heading4/semibold" color="steel-darker">
 					Network Activity
 				</Heading>
-				<div className="flex gap-6">
+				{/* <div className="flex gap-6">
 					<FormattedStatsAmount
 						label="TPS now"
 						amount={networkMetrics?.currentTps ? Math.floor(networkMetrics.currentTps) : undefined}
@@ -36,7 +34,7 @@ export function OnTheNetwork() {
 						size="md"
 					/>
 				</div>
-				<Divider color="hero/10" />
+				<Divider color="hero/10" /> */}
 
 				<StatsWrapper
 					orientation="horizontal"
@@ -48,7 +46,7 @@ export function OnTheNetwork() {
 					{gasPriceFormatted}
 				</StatsWrapper>
 
-				<Divider color="hero/10" />
+				{/* <Divider color="hero/10" />
 
 				<div className="flex flex-1 flex-col gap-2">
 					<FormattedStatsAmount
@@ -63,7 +61,7 @@ export function OnTheNetwork() {
 						amount={networkMetrics?.totalObjects}
 						size="sm"
 					/>
-				</div>
+				</div> */}
 			</div>
 		</Card>
 	);
