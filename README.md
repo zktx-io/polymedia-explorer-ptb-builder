@@ -53,17 +53,3 @@ Run end-to-end browser tests using the website as connected to the static JSON d
 ### `pnpm tunnel`
 
 Expose the local server on port 3000 to the internet using Localtunnel.
-
-## To run end-to-end localnet test
-
-Start validators locally:
-
-```bash
-cargo run --bin sui-test-validator
-```
-
-In a a separate terminal, you can now run the end-to-end tests:
-
-```bash
-pnpm --filter sui-explorer playwright test
-```

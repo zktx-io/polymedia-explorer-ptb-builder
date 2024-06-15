@@ -9,7 +9,6 @@
         "deploy-prod": "pnpm build && wrangler pages deploy dist/ --project-name polymedia-explorer --branch main",
         "dev": "vite --port 3000",
         "lint": "eslint src/ *.ts --report-unused-disable-directives --max-warnings 0",
-        "playwright": "playwright",
         "preview-storybook": "pnpm dlx serve ./storybook-static",
         "preview": "pnpm build && vite preview",
         "storybook": "storybook dev",
@@ -71,7 +70,6 @@
     },
     "devDependencies": {
         "@babel/core": "^7.24.7",
-        "@playwright/test": "^1.44.1",
         "@storybook/addon-a11y": "^8.1.6",
         "@storybook/addon-essentials": "^8.1.6",
         "@storybook/addons": "^7.6.17",
