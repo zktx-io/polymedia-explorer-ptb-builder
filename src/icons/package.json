@@ -10,8 +10,8 @@
         "lint": "eslint src/ --report-unused-disable-directives --max-warnings 0"
     },
     "devDependencies": {
-        "@svgr/cli": "^7.0.0",
-        "@svgr/core": "^7.0.0",
+        "@svgr/cli": "^8.1.0",
+        "@svgr/core": "^8.1.0",
         "@types/react": "^18.3.3",
         "react": "^18.3.1",
         "rimraf": "^5.0.7",

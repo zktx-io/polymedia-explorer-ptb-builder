@@ -53,3 +53,13 @@ Run end-to-end browser tests using the website as connected to the static JSON d
 ### `pnpm tunnel`
 
 Expose the local server on port 3000 to the internet using Localtunnel.
+
+## How to update the repo
+
+```bash
+pnpm upgrade --latest --recursive
+pnpm add -w -D turbo@1
+
+cd src/explorer
+pnpm add @headlessui/react@1 react-resizable-panels@0.0.39 prism-react-renderer@1 vite-plugin-svgr@3
+```

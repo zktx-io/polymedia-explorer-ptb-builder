@@ -100,7 +100,7 @@ export function Signatures({ transaction }: Props) {
 			if (parsed.signatureScheme === "ZkLogin") {
 				return {
 					signatureScheme: parsed.signatureScheme,
-					address: parsed.zkLogin.address,
+					address: String(sender),
 					signature: parsed.signature,
 				};
 			}
