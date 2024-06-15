@@ -4,7 +4,7 @@
     "scripts": {
         "build-storybook": "storybook build",
         "build": "pnpm typecheck && vite build",
-        "clean": "rm -rf dist/ node_modules/ .turbo/ .wrangler/",
+        "clean": "rm -rf dist/ node_modules/ .turbo/ .wrangler/ storybook-static/ test-results/",
         "deploy-dev": "pnpm build && wrangler pages deploy dist/ --project-name polymedia-explorer --branch dev",
         "deploy-prod": "pnpm build && wrangler pages deploy dist/ --project-name polymedia-explorer --branch main",
         "dev": "vite --port 3000",
