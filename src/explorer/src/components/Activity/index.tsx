@@ -68,9 +68,9 @@ export function Activity({ initialTab, initialLimit, disablePagination }: Props)
 						<TabsTrigger value="transactions">
 							<Heading variant="heading4/semibold">Transaction Blocks</Heading>
 						</TabsTrigger>
-						<TabsTrigger value="epochs">
+						{/* <TabsTrigger value="epochs">
 							<Heading variant="heading4/semibold">Epochs</Heading>
-						</TabsTrigger>
+						</TabsTrigger> */}
 						<TabsTrigger value="checkpoints">
 							<Heading variant="heading4/semibold">Checkpoints</Heading>
 						</TabsTrigger>
