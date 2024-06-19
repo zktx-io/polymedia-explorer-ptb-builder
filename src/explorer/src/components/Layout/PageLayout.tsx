@@ -26,22 +26,6 @@ const DEFAULT_HEADER_HEIGHT = 68;
 
 export function PageLayout({ gradient, content, loading, isError }: PageLayoutProps) {
 	const [network] = useNetworkContext();
-	// const { request } = useAppsBackend();
-	// const outageOverride = false;
-
-	/*
-	const { data } = useQuery({
-		queryKey: ['apps-backend', 'monitor-network'],
-		queryFn: () =>
-			request<{ degraded: boolean }>('monitor-network', {
-				project: 'EXPLORER',
-			}),
-		// Keep cached for 2 minutes:
-		staleTime: 2 * 60 * 1000,
-		retry: false,
-		enabled: network === Network.MAINNET,
-	});
-	*/
 	const isGradientVisible = !!gradient;
 	const renderNetworkDegradeBanner = false;
 	const headerRef = useRef<HTMLElement | null>(null);
