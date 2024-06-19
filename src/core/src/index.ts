@@ -24,7 +24,6 @@ export * from "./hooks/useAppsBackend";
 export * from "./hooks/useGetCoins";
 export * from "./utils/hasDisplayData";
 export * from "./hooks/useMultiGetObjects";
-export * from "./hooks/useProductAnalyticsConfig";
 export * from "./hooks/useGetKioskContents";
 export * from "./hooks/useZodForm";
 export * from "./utils/kiosk";
