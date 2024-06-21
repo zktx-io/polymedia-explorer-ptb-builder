@@ -43,12 +43,10 @@ type PageStateByFilterMap = {
 	ToAddress: number;
 };
 
-const FILTER_OPTIONS = [
-	{ label: "Input Objects", value: "InputObject" },
-	{ label: "Updated Objects", value: "ChangedObject" },
-	{ label: "From Address", value: "FromAddress" },
-	{ label: "To Address", value: "ToAddress" },
-];
+type FilterRadioOption = {
+	label: string;
+	value: string;
+};
 
 const reducer = (state: PageStateByFilterMap, action: TransactionBlocksForAddressActionType) => {
 	switch (action.type) {
@@ -73,9 +71,11 @@ const reducer = (state: PageStateByFilterMap, action: TransactionBlocksForAddres
 };
 
 export function FiltersControl({
+	filterOptions,
 	filterValue,
 	setFilterValue,
 }: {
+	filterOptions: FilterRadioOption[];
 	filterValue: string;
 	setFilterValue: any;
 }) {
@@ -85,7 +85,7 @@ export function FiltersControl({
 			value={filterValue}
 			onValueChange={(value) => setFilterValue(value as FILTER_VALUES)}
 		>
-			{FILTER_OPTIONS.map((filter) => (
+			{filterOptions.map(filter => (
 				<RadioGroupItem key={filter.value} value={filter.value} label={filter.label} />
 			))}
 		</RadioGroup>
@@ -117,6 +117,15 @@ function TransactionBlocksForAddress({
 			? genTableDataFromTxData(data.pages[currentPage].data)
 			: undefined;
 
+	const filterOptions: FilterRadioOption[] = type === "object"
+		? [
+			{ label: "Input Objects", value: "InputObject" },
+			{ label: "Updated Objects", value: "ChangedObject" },
+		] : [
+			{ label: "From Address", value: "FromAddress" },
+			{ label: "To Address", value: "ToAddress" },
+		];
+
 	return (
 		<div data-testid="tx">
 			<div className="flex items-center justify-between border-b border-gray-45 pb-5">
@@ -126,7 +135,11 @@ function TransactionBlocksForAddress({
 					</Heading>
 				)}
 
-				<FiltersControl filterValue={filterValue} setFilterValue={setFilterValue} />
+				<FiltersControl
+					filterOptions={filterOptions}
+					filterValue={filterValue}
+					setFilterValue={setFilterValue}
+				/>
 			</div>
 
 			<div className={clsx(header && "pt-5", "flex flex-col space-y-5 text-left xl:pr-10")}>
