@@ -5,17 +5,16 @@ import { isSuiNSName, useResolveSuiNSAddress, useResolveSuiNSName } from "@myste
 import { Domain32 } from "@mysten/icons";
 import { LoadingIndicator } from "@mysten/ui";
 import { useParams } from "react-router-dom";
-
 import { PageLayout } from "~/components/Layout/PageLayout";
 import { OwnedCoins } from "~/components/OwnedCoins";
 import { OwnedObjects } from "~/components/OwnedObjects";
+import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
 import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
-import { TransactionsForAddress } from "~/components/transactions/TransactionsForAddress";
 import { useBreakpoint } from "~/hooks/useBreakpoint";
 import { Divider } from "~/ui/Divider";
 import { PageHeader } from "~/ui/PageHeader";
 import { LOCAL_STORAGE_SPLIT_PANE_KEYS, SplitPanes } from "~/ui/SplitPanes";
-import { TabHeader, TabsList, TabsTrigger } from "~/ui/Tabs";
+import { TabHeader } from "~/ui/Tabs";
 import { TotalStaked } from "./TotalStaked";
 
 const LEFT_RIGHT_PANEL_MIN_SIZE = 30;
@@ -85,19 +84,14 @@ function AddressResult({ address }: { address: string }) {
 	const bottomPane = {
 		panel: (
 			<div className="flex h-full flex-col pt-12">
-				<TabsList>
-					<TabsTrigger value="tab">Transaction Blocks</TabsTrigger>
-				</TabsList>
-
 				<ErrorBoundary>
 					<div data-testid="tx" className="relative mt-4 h-full min-h-14 overflow-auto">
-						<TransactionsForAddress address={address} type="address" />
+						<TransactionBlocksForAddress
+							address={address}
+							header="Transaction Blocks"
+						/>
 					</div>
 				</ErrorBoundary>
-
-				<div className="mt-0.5">
-					<Divider />
-				</div>
 			</div>
 		),
 	};

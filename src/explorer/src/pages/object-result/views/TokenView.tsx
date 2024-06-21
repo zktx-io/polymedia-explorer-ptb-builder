@@ -123,7 +123,10 @@ export function TokenView({ data }: { data: SuiObjectResponse }) {
 		<div className="flex flex-col flex-nowrap gap-14">
 			<FieldsContent objectId={objectId} />
 
-			<TransactionBlocksForAddress address={objectId} header="Transaction Blocks" />
+			<TransactionBlocksForAddress
+				address={objectId}
+				header="Transaction Blocks"
+			/>
 		</div>
 	);
 }
