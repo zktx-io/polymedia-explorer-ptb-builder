@@ -219,7 +219,7 @@ export function OwnedObjects({ id }: { id: string }) {
 						<ThumbnailsView loading={isPending} data={sortedDataByDisplayImages} limit={limit} />
 					)}
 					{showPagination && (
-						<div className="mt-auto flex flex-row flex-wrap gap-2">
+						<div className="mt-auto flex flex-row flex-wrap gap-2 md:pb-4">
 							<Pagination {...pagination} />
 							<div className="ml-auto flex items-center">
 								{!isPending && (
