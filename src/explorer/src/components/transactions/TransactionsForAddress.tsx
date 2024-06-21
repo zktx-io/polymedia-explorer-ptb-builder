@@ -1,3 +1,6 @@
+/// DEPRECATED. Superseded by:
+/// src/explorer/src/components/TransactionBlocksForAddress.tsx
+
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 

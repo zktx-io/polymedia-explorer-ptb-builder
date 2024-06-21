@@ -8,7 +8,7 @@ import { FieldsContent } from "~/pages/object-result/views/TokenView";
 import { TabHeader } from "~/ui/Tabs";
 import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
 import { TransactionsForAddressTable } from "~/components/transactions/TransactionsForAddress";
-import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
+import TransactionBlocksForAddress, { FILTER_VALUES } from "~/components/TransactionBlocksForAddress";
 import { useBreakpoint } from "~/hooks/useBreakpoint";
 import { OwnedCoins } from "~/components/OwnedCoins";
 import { OwnedObjects } from "~/components/OwnedObjects";
@@ -96,7 +96,7 @@ function TransactionsSection({ address, isObject }: { address: string; isObject:
 	return (
 		<ErrorBoundary>
 			{isObject ? (
-				<TransactionBlocksForAddress address={address} />
+				<TransactionBlocksForAddress type="object" address={address} filter={FILTER_VALUES.CHANGED} />
 			) : (
 				<TransactionsForAddressTable
 					data={transactionsForAddressData?.data ?? []}
