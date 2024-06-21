@@ -19,7 +19,7 @@ export enum FILTER_VALUES {
 }
 
 type TransactionBlocksForAddressProps = {
-	type: "address" | "object",
+	type: "address" | "object";
 	address: string;
 	filter: FILTER_VALUES;
 	header?: string;
