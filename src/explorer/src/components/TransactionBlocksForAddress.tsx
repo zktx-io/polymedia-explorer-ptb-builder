@@ -5,7 +5,7 @@ import { type TransactionFilter } from "@mysten/sui/client";
 import { Heading, RadioGroup, RadioGroupItem } from "@mysten/ui";
 import { useReducer, useState } from "react";
 
-import { genTableDataFromTxData } from "../transactions/TxCardUtils";
+import { genTableDataFromTxData } from "./transactions/TxCardUtils";
 import {
 	DEFAULT_TRANSACTIONS_LIMIT,
 	useGetTransactionBlocks,
