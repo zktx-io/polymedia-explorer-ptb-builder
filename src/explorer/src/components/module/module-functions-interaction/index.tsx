@@ -3,10 +3,9 @@
 
 import { LoadingIndicator } from "@mysten/ui";
 import { useMemo } from "react";
-
-// import { ModuleFunction } from './ModuleFunction';
 import { useNormalizedMoveModule } from "~/hooks/useNormalizedMoveModule";
 import { Banner } from "~/ui/Banner";
+import { ModuleFunction } from "./ModuleFunction";
 
 export type ModuleFunctionsInteractionProps = {
 	packageId: string;
@@ -50,7 +49,7 @@ export function ModuleFunctionsInteraction({
 	}
 	return (
 		<div className="flex flex-col gap-3">
-			{/* {executableFunctions.map(({ name, details }) => (
+			{executableFunctions.map(({ name, details }) => (
 				<ModuleFunction
 					key={name}
 					functionName={name}
@@ -58,7 +57,7 @@ export function ModuleFunctionsInteraction({
 					moduleName={moduleName}
 					packageId={packageId}
 				/>
-			))} */}
+			))}
 		</div>
 	);
 }

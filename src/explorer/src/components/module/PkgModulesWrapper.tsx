@@ -3,14 +3,16 @@
 
 import { Search24 } from "@mysten/icons";
 import { Combobox, ComboboxInput, ComboboxList } from "@mysten/ui";
-import { useState, useCallback, useEffect } from "react";
+import clsx from "clsx";
+import { useCallback, useEffect, useState } from "react";
 import { type Direction } from "react-resizable-panels";
-
 import { useBreakpoint } from "~/hooks/useBreakpoint";
 import { SplitPanes } from "~/ui/SplitPanes";
+import { TabHeader } from "~/ui/Tabs";
 import { ListItem, VerticalList } from "~/ui/VerticalList";
 import { useSearchParamsMerged } from "~/ui/utils/LinkWithQuery";
 import { ModuleCodeTabs } from "./ModuleCodeTabs";
+import { ModuleFunctionsInteraction } from "./module-functions-interaction";
 
 type ModuleType = [moduleName: string, code: string];
 
@@ -78,23 +80,23 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 			),
 			defaultSize: 40,
 		},
-		// {
-		// 	panel: (
-		// 		<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
-		// 			<TabHeader size="md" title="Execute">
-		// 				<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
-		// 					<ModuleFunctionsInteraction
-		// 						// force recreating everything when we change modules
-		// 						key={`${id}-${selectedModuleName}`}
-		// 						packageId={id}
-		// 						moduleName={selectedModuleName}
-		// 					/>
-		// 				</div>
-		// 			</TabHeader>
-		// 		</div>
-		// 	),
-		// 	defaultSize: 60,
-		// },
+		{
+			panel: (
+				<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
+					<TabHeader size="md" title="Execute">
+						<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
+							<ModuleFunctionsInteraction
+								// force recreating everything when we change modules
+								key={`${id}-${selectedModuleName}`}
+								packageId={id}
+								moduleName={selectedModuleName}
+							/>
+						</div>
+					</TabHeader>
+				</div>
+			),
+			defaultSize: 60,
+		},
 	];
 
 	return (

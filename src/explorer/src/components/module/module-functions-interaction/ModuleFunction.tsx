@@ -1,30 +1,30 @@
-/*
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
 import { useZodForm } from '@mysten/core';
-import { ArrowRight12 } from '@mysten/icons';
-import { TransactionBlock, getPureSerializationType } from '@mysten/sui/transactions';
-import { Button } from '@mysten/ui';
 import {
 	ConnectButton,
-	useCurrentAccount,
-	useSignAndExecuteTransactionBlock,
+	useCurrentAccount, useSignTransaction,
+	useSuiClient
 } from '@mysten/dapp-kit';
+import { ArrowRight12 } from '@mysten/icons';
+import { Transaction } from '@mysten/sui/transactions';
+import { Button } from '@mysten/ui';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
+import { DisclosureBox } from '~/ui/DisclosureBox';
+import { Input } from '~/ui/Input';
 import { FunctionExecutionResult } from './FunctionExecutionResult';
 import { useFunctionParamsDetails } from './useFunctionParamsDetails';
 import { useFunctionTypeArguments } from './useFunctionTypeArguments';
-import { DisclosureBox } from '~/ui/DisclosureBox';
-import { Input } from '~/ui/Input';
 
 import type { SuiMoveNormalizedFunction } from '@mysten/sui/client';
 import type { TypeOf } from 'zod';
+import { getPureSerializationType } from './serializer';
 
 const argsSchema = z.object({
 	params: z.optional(z.array(z.string().trim().min(1))),
@@ -47,7 +47,8 @@ export function ModuleFunction({
 	functionDetails,
 }: ModuleFunctionProps) {
 	const currentAccount = useCurrentAccount();
-	const { mutateAsync: signAndExecuteTransactionBlock } = useSignAndExecuteTransactionBlock();
+	const suiClient = useSuiClient();
+	const { mutateAsync: signTransaction } = useSignTransaction();
 	const { handleSubmit, formState, register, control } = useZodForm({
 		schema: argsSchema,
 	});
@@ -63,25 +64,33 @@ export function ModuleFunction({
 
 	const execute = useMutation({
 		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) => {
-			const tx = new TransactionBlock();
+			const tx = new Transaction();
 			tx.moveCall({
 				target: `${packageId}::${moduleName}::${functionName}`,
 				typeArguments: types ?? [],
 				arguments:
-					params?.map((param, i) =>
-						getPureSerializationType(functionDetails.parameters[i], param)
-							? tx.pure(param)
-							: tx.object(param),
-					) ?? [],
+					params?.map((param, i) => {
+						const pureType = getPureSerializationType(functionDetails.parameters[i], param);
+						// @ts-expect-error TS7053: Element implicitly has an 'any' type because
+						// expression of type 'string' can't be used to index type.
+						return pureType ? tx.pure[pureType](param) : tx.object(param);
+					}) ?? [],
 			});
-			const result = await signAndExecuteTransactionBlock({
-				transactionBlock: tx,
+
+			const signedTx = await signTransaction({
+				transaction: tx,
+			});
+
+			const result = await suiClient.executeTransactionBlock({
+				transactionBlock: signedTx.bytes,
+				signature: signedTx.signature,
 				options: {
 					showEffects: true,
 					showEvents: true,
 					showInput: true,
 				},
 			});
+
 			if (result.effects?.status.status === 'failure') {
 				throw new Error(result.effects.status.error || 'Transaction failed');
 			}
@@ -156,4 +165,3 @@ export function ModuleFunction({
 		</DisclosureBox>
 	);
 }
-*/
