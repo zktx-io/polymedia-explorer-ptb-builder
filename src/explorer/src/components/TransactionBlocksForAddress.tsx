@@ -3,26 +3,25 @@
 
 import { type TransactionFilter } from "@mysten/sui/client";
 import { Heading, RadioGroup, RadioGroupItem } from "@mysten/ui";
+import clsx from "clsx";
 import { useReducer, useState } from "react";
-
-import { genTableDataFromTxData } from "./transactions/TxCardUtils";
-import {
-	DEFAULT_TRANSACTIONS_LIMIT,
-	useGetTransactionBlocks,
-} from "~/hooks/useGetTransactionBlocks";
+import { DEFAULT_TRANSACTIONS_LIMIT, useGetTransactionBlocks } from "~/hooks/useGetTransactionBlocks";
 import { Pagination } from "~/ui/Pagination";
 import { PlaceholderTable } from "~/ui/PlaceholderTable";
 import { TableCard } from "~/ui/TableCard";
-import clsx from "clsx";
+import { genTableDataFromTxData } from "./transactions/TxCardUtils";
 
 export enum FILTER_VALUES {
 	INPUT = "InputObject",
 	CHANGED = "ChangedObject",
+	FROM_ADDRESS = "FromAddress",
+	TO_ADDRESS = "ToAddress",
 }
 
 type TransactionBlocksForAddressProps = {
+	type: "address" | "object",
 	address: string;
-	filter?: FILTER_VALUES;
+	filter: FILTER_VALUES;
 	header?: string;
 };
 
@@ -40,11 +39,15 @@ type TransactionBlocksForAddressActionType = {
 type PageStateByFilterMap = {
 	InputObject: number;
 	ChangedObject: number;
+	FromAddress: number;
+	ToAddress: number;
 };
 
 const FILTER_OPTIONS = [
 	{ label: "Input Objects", value: "InputObject" },
 	{ label: "Updated Objects", value: "ChangedObject" },
+	{ label: "From Address", value: "FromAddress" },
+	{ label: "To Address", value: "ToAddress" },
 ];
 
 const reducer = (state: PageStateByFilterMap, action: TransactionBlocksForAddressActionType) => {
@@ -90,14 +93,17 @@ export function FiltersControl({
 }
 
 function TransactionBlocksForAddress({
+	type,
 	address,
-	filter = FILTER_VALUES.CHANGED,
+	filter,
 	header,
 }: TransactionBlocksForAddressProps) {
 	const [filterValue, setFilterValue] = useState(filter);
 	const [currentPageState, dispatch] = useReducer(reducer, {
 		InputObject: 0,
 		ChangedObject: 0,
+		FromAddress: 0,
+		ToAddress: 0,
 	});
 
 	const { data, isPending, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =

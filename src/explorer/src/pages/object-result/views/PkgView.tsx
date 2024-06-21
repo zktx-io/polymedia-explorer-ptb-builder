@@ -4,18 +4,15 @@
 import { LoadingIndicator, RadioGroup, RadioGroupItem } from "@mysten/ui";
 import { useState } from "react";
 import { type Direction } from "react-resizable-panels";
-
+import TransactionBlocksForAddress, { FILTER_VALUES } from "~/components/TransactionBlocksForAddress";
+import { AddressLink, ObjectLink } from "~/ui/InternalLink";
+import { TabHeader, Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
 import { ErrorBoundary } from "../../../components/error-boundary/ErrorBoundary";
 import PkgModulesWrapper from "../../../components/module/PkgModulesWrapper";
 import { useGetTransaction } from "../../../hooks/useGetTransaction";
 import { getOwnerStr } from "../../../utils/objectUtils";
 import { trimStdLibPrefix } from "../../../utils/stringUtils";
 import { type DataType } from "../ObjectResultType";
-import TransactionBlocksForAddress, {
-	FILTER_VALUES,
-} from "~/components/TransactionBlocksForAddress";
-import { AddressLink, ObjectLink } from "~/ui/InternalLink";
-import { TabHeader, Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
 
 import styles from "./ObjectView.module.css";
 
@@ -114,6 +111,7 @@ function PkgView({ data }: { data: DataType }) {
 				<div className={styles.txsection}>
 					<ErrorBoundary>
 						<TransactionBlocksForAddress
+							type="object"
 							address={viewedData.id}
 							filter={FILTER_VALUES.INPUT}
 							header="Transaction Blocks"

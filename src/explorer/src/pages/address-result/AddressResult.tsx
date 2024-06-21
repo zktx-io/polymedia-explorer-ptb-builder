@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { PageLayout } from "~/components/Layout/PageLayout";
 import { OwnedCoins } from "~/components/OwnedCoins";
 import { OwnedObjects } from "~/components/OwnedObjects";
-import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
+import TransactionBlocksForAddress, { FILTER_VALUES } from "~/components/TransactionBlocksForAddress";
 import { ErrorBoundary } from "~/components/error-boundary/ErrorBoundary";
 import { useBreakpoint } from "~/hooks/useBreakpoint";
 import { Divider } from "~/ui/Divider";
@@ -87,7 +87,9 @@ function AddressResult({ address }: { address: string }) {
 				<ErrorBoundary>
 					<div data-testid="tx" className="relative mt-4 h-full min-h-14 overflow-auto">
 						<TransactionBlocksForAddress
+							type="address"
 							address={address}
+							filter={FILTER_VALUES.FROM_ADDRESS}
 							header="Transaction Blocks"
 						/>
 					</div>

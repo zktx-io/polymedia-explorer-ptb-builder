@@ -5,11 +5,10 @@ import { useGetDynamicFields, useGetObject } from "@mysten/core";
 import { useSuiClientQuery } from "@mysten/dapp-kit";
 import { type SuiObjectResponse } from "@mysten/sui/client";
 import { Heading } from "@mysten/ui";
-import { type ReactNode, useState } from "react";
-
+import { useState, type ReactNode } from "react";
 import { DynamicFieldsCard } from "~/components/Object/DynamicFieldsCard";
 import { ObjectFieldsCard } from "~/components/Object/ObjectFieldsCard";
-import TransactionBlocksForAddress from "~/components/TransactionBlocksForAddress";
+import TransactionBlocksForAddress, { FILTER_VALUES } from "~/components/TransactionBlocksForAddress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/Tabs";
 
 function FieldsContainer({ children }: { children: ReactNode }) {
@@ -124,7 +123,9 @@ export function TokenView({ data }: { data: SuiObjectResponse }) {
 			<FieldsContent objectId={objectId} />
 
 			<TransactionBlocksForAddress
+				type="object"
 				address={objectId}
+				filter={FILTER_VALUES.CHANGED}
 				header="Transaction Blocks"
 			/>
 		</div>

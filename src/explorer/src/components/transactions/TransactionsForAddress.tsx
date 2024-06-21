@@ -5,10 +5,9 @@ import { useSuiClient } from "@mysten/dapp-kit";
 import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { LoadingIndicator, Text } from "@mysten/ui";
 import { useQuery } from "@tanstack/react-query";
-
-import { genTableDataFromTxData } from "./TxCardUtils";
 import { Banner } from "~/ui/Banner";
 import { TableCard } from "~/ui/TableCard";
+import { genTableDataFromTxData } from "./TxCardUtils";
 
 type Props = {
 	address: string;
