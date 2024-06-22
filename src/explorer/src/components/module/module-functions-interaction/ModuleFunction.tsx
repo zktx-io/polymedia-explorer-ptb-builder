@@ -81,12 +81,18 @@ export function ModuleFunction({
 			});
 			if (functionDetails.return.length > 0) {
 				// Unpack the transaction results
-				let resultArray = [];
+				let objects = [];
 				for (let i = 0; i < functionDetails.return.length; i++) {
-					resultArray.push(results[i]);
+					const returnType = functionDetails.return[i];
+					// We're only interested in returned objects, which are likely not-droppable
+					if (typeof returnType === "object" && "Struct" in returnType) {
+						objects.push(results[i]);
+					}
 				}
-				// Transfer all objects to the sender
-				tx.transferObjects(resultArray, currentAccount.address);
+				if (objects.length > 0) {
+					// Transfer all objects to the sender
+					tx.transferObjects(objects, currentAccount.address);
+				}
 			}
 
 			const signedTx = await signTransaction({
