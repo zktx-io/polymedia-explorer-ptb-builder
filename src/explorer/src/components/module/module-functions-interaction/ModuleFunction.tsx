@@ -64,8 +64,11 @@ export function ModuleFunction({
 
 	const execute = useMutation({
 		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) => {
+			if (!currentAccount) {
+				return;
+			}
 			const tx = new Transaction();
-			tx.moveCall({
+			const results = tx.moveCall({
 				target: `${packageId}::${moduleName}::${functionName}`,
 				typeArguments: types ?? [],
 				arguments:
@@ -76,12 +79,21 @@ export function ModuleFunction({
 						return type ? tx.pure[type](value) : tx.object(param);
 					}) ?? [],
 			});
+			if (functionDetails.return.length > 0) {
+				// Unpack the transaction results
+				let resultArray = [];
+				for (let i = 0; i < functionDetails.return.length; i++) {
+					resultArray.push(results[i]);
+				}
+				// Transfer all objects to the sender
+				tx.transferObjects(resultArray, currentAccount.address);
+			}
 
 			const signedTx = await signTransaction({
 				transaction: tx,
 			});
 
-			const result = await suiClient.executeTransactionBlock({
+			const resp = await suiClient.executeTransactionBlock({
 				transactionBlock: signedTx.bytes,
 				signature: signedTx.signature,
 				options: {
@@ -91,10 +103,10 @@ export function ModuleFunction({
 				},
 			});
 
-			if (result.effects?.status.status === 'failure') {
-				throw new Error(result.effects.status.error || 'Transaction failed');
+			if (resp.effects?.status.status === 'failure') {
+				throw new Error(resp.effects.status.error || 'Transaction failed');
 			}
-			return result;
+			return resp;
 		},
 	});
 

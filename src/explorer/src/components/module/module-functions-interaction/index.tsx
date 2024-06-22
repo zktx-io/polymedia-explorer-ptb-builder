@@ -26,7 +26,7 @@ export function ModuleFunctionsInteraction({
 			return [];
 		}
 		return Object.entries(normalizedModule.exposedFunctions)
-			.filter(([_, anFn]) => anFn.isEntry)
+			// .filter(([_, anFn]) => anFn.isEntry)
 			.map(([fnName, details]) => ({ name: fnName, details }));
 	}, [normalizedModule]);
 	const isEmpty = !isPending && !executableFunctions.length && !error;

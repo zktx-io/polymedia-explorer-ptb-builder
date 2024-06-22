@@ -20,7 +20,7 @@ module tester::tester
         val: u64,
     }
 
-    public fun empty(
+    public fun new_tester(
         ctx: &mut TxContext,
     ): Tester {
         let tester = Tester {
@@ -39,11 +39,17 @@ module tester::tester
         return tester
     }
 
-    public entry fun e_empty(
+    public entry fun e_new_tester(
         ctx: &mut TxContext,
     ) {
-        let tester = empty(ctx);
+        let tester = new_tester(ctx);
         transfer::public_transfer(tester, ctx.sender())
+    }
+
+    public fun two_new_testers(
+        ctx: &mut TxContext,
+    ): (Tester, Tester) {
+        return (new_tester(ctx), new_tester(ctx))
     }
 
     public fun set_bool(tester: &mut Tester, bool: bool) { tester.bool = bool; }
