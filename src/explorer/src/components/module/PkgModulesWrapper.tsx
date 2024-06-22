@@ -71,17 +71,6 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 	const panelContent = [
 		{
 			panel: (
-				<ModuleCodeTabs
-					packageId={id}
-					moduleName={selectedModuleName}
-					moduleBytecode={selectedModuleCode}
-					isCompact={isCompact}
-				/>
-			),
-			defaultSize: 40,
-		},
-		{
-			panel: (
 				<div className="h-full grow overflow-auto border-gray-45 pt-5 md:pl-7">
 					<TabHeader size="md" title="Execute">
 						<div className={clsx("overflow-auto", { "h-verticalListLong": isCompact })}>
@@ -96,6 +85,17 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 				</div>
 			),
 			defaultSize: 60,
+		},
+		{
+			panel: (
+				<ModuleCodeTabs
+					packageId={id}
+					moduleName={selectedModuleName}
+					moduleBytecode={selectedModuleCode}
+					isCompact={isCompact}
+				/>
+			),
+			defaultSize: 40,
 		},
 	];
 

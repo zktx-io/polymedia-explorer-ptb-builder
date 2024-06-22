@@ -24,7 +24,7 @@ import { useFunctionTypeArguments } from './useFunctionTypeArguments';
 
 import type { SuiMoveNormalizedFunction } from '@mysten/sui/client';
 import type { TypeOf } from 'zod';
-import { getPureSerializationType } from './serializer';
+import { getPureSerializationTypeAndValue } from './serializer';
 
 const argsSchema = z.object({
 	params: z.optional(z.array(z.string().trim().min(1))),
@@ -70,10 +70,10 @@ export function ModuleFunction({
 				typeArguments: types ?? [],
 				arguments:
 					params?.map((param, i) => {
-						const pureType = getPureSerializationType(functionDetails.parameters[i], param);
+						const { type, value } = getPureSerializationTypeAndValue(functionDetails.parameters[i], param);
 						// @ts-expect-error TS7053: Element implicitly has an 'any' type because
 						// expression of type 'string' can't be used to index type.
-						return pureType ? tx.pure[pureType](param) : tx.object(param);
+						return type ? tx.pure[type](value) : tx.object(param);
 					}) ?? [],
 			});
 

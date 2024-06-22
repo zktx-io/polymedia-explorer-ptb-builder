@@ -53,70 +53,74 @@ function expectType(typeName: string, argVal?: SuiJsonValue) {
 		return;
 	}
 	if (typeof argVal !== typeName) {
-		throw new Error(`Expect ${argVal} to be ${typeName}, received ${typeof argVal}`);
+		throw new Error(`Expected ${argVal} to be ${typeName}, received ${typeof argVal}`);
 	}
 }
 
 const allowedTypes = ['Address', 'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256'];
 
-export function getPureSerializationType(
+export function getPureSerializationTypeAndValue(
 	normalizedType: SuiMoveNormalizedType,
 	argVal: SuiJsonValue | undefined,
-): string | undefined {
+): { type: string | undefined, value: SuiJsonValue | undefined  } {
 	if (typeof normalizedType === 'string' && allowedTypes.includes(normalizedType)) {
 		if (normalizedType in ['U8', 'U16', 'U32', 'U64', 'U128', 'U256']) {
 			expectType('number', argVal);
 		} else if (normalizedType === 'Bool') {
-			expectType('boolean', argVal);
+			expectType('string', argVal);
+			if ( !["0", "1", "false", "true"].includes(argVal as string) ) {
+				throw new Error('Invalid Bool');
+			}
+			return { type: normalizedType.toLowerCase(), value: !!argVal };
 		} else if (normalizedType === 'Address') {
 			expectType('string', argVal);
 			if (argVal && !isValidSuiAddress(argVal as string)) {
 				throw new Error('Invalid Sui Address');
 			}
 		}
-		return normalizedType.toLowerCase();
+		return { type: normalizedType.toLowerCase(), value: argVal };
 	} else if (typeof normalizedType === 'string') {
 		throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
 	}
 
 	if ('Vector' in normalizedType) {
 		if ((argVal === undefined || typeof argVal === 'string') && normalizedType.Vector === 'U8') {
-			return 'string';
+			return { type: 'string', value: argVal };
 		}
 
 		if (argVal !== undefined && !Array.isArray(argVal)) {
 			throw new Error(`Expect ${argVal} to be a array, received ${typeof argVal}`);
 		}
 
-		const innerType = getPureSerializationType(
+		const { type: innerType } = getPureSerializationTypeAndValue(
 			normalizedType.Vector,
 			// undefined when argVal is empty
 			argVal ? argVal[0] : undefined,
 		);
 
 		if (innerType === undefined) {
-			return;
+			return { type: undefined, value: argVal };
 		}
 
-		return `vector<${innerType}>`;
+		return { type: `vector<${innerType}>`, value: argVal };
 	}
 
 	if ('Struct' in normalizedType) {
 		if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR)) {
-			return 'string';
+			return { type: 'string', value: argVal };
 		} else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
-			return 'utf8string';
+			return { type: 'utf8string', value: argVal };
 		} else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
-			return 'address';
+			return { type: 'address', value: argVal };
 		} else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
 			const optionToVec: SuiMoveNormalizedType = {
 				Vector: normalizedType.Struct.typeArguments[0],
 			};
-			return getPureSerializationType(optionToVec, argVal);
+			return getPureSerializationTypeAndValue(optionToVec, argVal);
 		}
 	}
 
-	return undefined;
+	return { type: undefined, value: argVal };
 }
 
 /// a92b03de42~1:sui/sdk/typescript/src/transactions/utils.ts
