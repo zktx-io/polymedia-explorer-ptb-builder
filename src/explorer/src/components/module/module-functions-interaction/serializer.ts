@@ -68,10 +68,12 @@ export function getPureSerializationTypeAndValue(
 			expectType('number', argVal);
 		} else if (normalizedType === 'Bool') {
 			expectType('string', argVal);
-			if ( !["0", "1", "false", "true"].includes(argVal as string) ) {
+			const argStr = (argVal as string).toLowerCase();
+			if ( !["0", "1", "false", "true"].includes(argStr) ) {
 				throw new Error('Invalid Bool');
 			}
-			return { type: normalizedType.toLowerCase(), value: !!argVal };
+			const boolValue = argStr === "1" || argStr === "true";
+			return { type: normalizedType.toLowerCase(), value: boolValue };
 		} else if (normalizedType === 'Address') {
 			expectType('string', argVal);
 			if (argVal && !isValidSuiAddress(argVal as string)) {
