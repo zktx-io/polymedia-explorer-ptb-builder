@@ -15,6 +15,7 @@ module tester::tester
         str: String,
         foo: Foo,
         opt_u8: Option<u8>,
+        opt_u16: Option<u16>,
 
         vec_bool: vector<bool>,
         vec_u8: vector<u8>,
@@ -22,6 +23,7 @@ module tester::tester
         vec_str: vector<String>,
         vec_foo: vector<Foo>,
         vec_opt_u8: vector<Option<u8>>,
+        vec_opt_u16: vector<Option<u16>>,
     }
 
     public struct Foo has key, store {
@@ -43,6 +45,7 @@ module tester::tester
             str: utf8(b""),
             foo: Foo { id: object::new(ctx), val: 0 },
             opt_u8: option::none(),
+            opt_u16: option::none(),
 
             vec_bool: vector::empty(),
             vec_u8: vector::empty(),
@@ -50,6 +53,7 @@ module tester::tester
             vec_str: vector::empty(),
             vec_foo: vector::empty(),
             vec_opt_u8: vector::empty(),
+            vec_opt_u16: vector::empty(),
         };
         return tester
     }
@@ -80,6 +84,8 @@ module tester::tester
 
     public fun set_opt_u8(tester: &mut Tester, opt_u8: Option<u8>) { tester.opt_u8 = opt_u8; }
 
+    public fun set_opt_u16(tester: &mut Tester, opt_u16: Option<u16>) { tester.opt_u16 = opt_u16; }
+
     // public fun set_foo(tester: &mut Tester, foo: Foo) { tester.foo = foo; }
 
     // === Setters: vectors ===
@@ -105,6 +111,8 @@ module tester::tester
     }
 
     public fun set_vec_opt_u8(tester: &mut Tester, vec_opt_u8: vector<Option<u8>>) { tester.vec_opt_u8 = vec_opt_u8; }
+
+    public fun set_vec_opt_u16(tester: &mut Tester, vec_opt_u16: vector<Option<u16>>) { tester.vec_opt_u16 = vec_opt_u16; }
 
     // public fun set_vec_foo(tester: &mut Tester, vec_foo: vector<Foo>) { tester.vec_foo = vec_foo; }
 

@@ -67,7 +67,8 @@ function expectType(typeName: string, argVal?: SuiJsonValue) {
 export function getPureSerializationTypeAndValue( // TODO: vector, option
 	normalizedType: SuiMoveNormalizedType,
 	argVal: SuiJsonValue | undefined,
-): { type: string | undefined; value: SuiJsonValue | undefined  }
+	isOption = false,
+): { type: string[] | undefined; value: SuiJsonValue | undefined  }
 {
 	if (typeof normalizedType === "string" && ALLOWED_TYPES.includes(normalizedType))
 	{
@@ -79,13 +80,13 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 		{
 			expectType("string", argVal);
 
-			const argStr = (argVal as string).toLowerCase();
+			const argStr = (argVal as string);
 			if ( !["0", "1", "false", "true"].includes(argStr) ) {
 				throw new Error("Invalid Bool");
 			}
 
 			const boolValue = argStr === "1" || argStr === "true";
-			return { type: normalizedType.toLowerCase(), value: boolValue };
+			return { type: [normalizedType], value: boolValue };
 		}
 		else if (normalizedType === "Address")
 		{
@@ -96,10 +97,10 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 				throw new Error("Invalid Sui Address");
 			}
 
-			return { type: normalizedType.toLowerCase(), value: normalizedAddr };
+			return { type: [normalizedType], value: normalizedAddr };
 		}
 
-		return { type: normalizedType.toLowerCase(), value: argVal };
+		return { type: [normalizedType], value: argVal };
 	}
 	else if (typeof normalizedType === "string") {
 		throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
@@ -108,7 +109,7 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 	if ("Vector" in normalizedType)
 	{
 		if ((argVal === undefined || typeof argVal === "string") && normalizedType.Vector === "U8") {
-			return { type: "string", value: argVal };
+			return { type: ["string"], value: argVal };
 		}
 
 		if (argVal !== undefined && !Array.isArray(argVal)) {
@@ -119,31 +120,39 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 			normalizedType.Vector,
 			// undefined when argVal is empty
 			argVal ? argVal[0] : undefined,
+			isOption,
 		);
 
 		if (innerType === undefined) {
 			return { type: undefined, value: argVal };
 		}
 
-		return { type: `vector<${innerType}>`, value: argVal };
+		return {
+			type: [
+				isOption ? "Option": "Vector",
+				...innerType.flat()
+			],
+			value: argVal,
+		};
 	}
 
 	if ("Struct" in normalizedType)
 	{
 		if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR)) {
-			return { type: "string", value: argVal };
+			return { type: ["string"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
-			return { type: "string", value: argVal };
+			return { type: ["string"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
-			return { type: "address", value: argVal };
+			return { type: ["address"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
 			const optionToVec: SuiMoveNormalizedType = {
 				Vector: normalizedType.Struct.typeArguments[0],
 			};
-			return getPureSerializationTypeAndValue(optionToVec, argVal);
+			const argValArr = [argVal as SuiJsonValue];
+			return getPureSerializationTypeAndValue(optionToVec, argValArr, true);
 		}
 	}
 

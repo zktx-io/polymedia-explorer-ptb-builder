@@ -15,21 +15,26 @@ export type ModuleFunctionsInteractionProps = {
 export function ModuleFunctionsInteraction({
 	packageId,
 	moduleName,
-}: ModuleFunctionsInteractionProps) {
+}: ModuleFunctionsInteractionProps)
+{
 	const {
 		data: normalizedModule,
 		error,
 		isPending,
 	} = useNormalizedMoveModule(packageId, moduleName);
+
 	const executableFunctions = useMemo(() => {
 		if (!normalizedModule) {
 			return [];
 		}
+
 		return Object.entries(normalizedModule.exposedFunctions)
 			// .filter(([_, anFn]) => anFn.isEntry)
 			.map(([fnName, details]) => ({ name: fnName, details }));
 	}, [normalizedModule]);
+
 	const isEmpty = !isPending && !executableFunctions.length && !error;
+
 	if (isEmpty || error || isPending) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -47,6 +52,7 @@ export function ModuleFunctionsInteraction({
 			</div>
 		);
 	}
+
 	return (
 		<div className="flex flex-col gap-3">
 			{executableFunctions.map(({ name, details }) => (

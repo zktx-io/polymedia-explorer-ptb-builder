@@ -8,23 +8,22 @@ import {
 	useSuiClient
 } from "@mysten/dapp-kit";
 import { ArrowRight12 } from "@mysten/icons";
+import { bcs } from "@mysten/sui/bcs";
+import type { SuiMoveNormalizedFunction } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
 import { Button } from "@mysten/ui";
 import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useMemo } from "react";
 import { useWatch } from "react-hook-form";
+import type { TypeOf } from "zod";
 import { z } from "zod";
-
 import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
+import { getPureSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
-
-import type { SuiMoveNormalizedFunction } from "@mysten/sui/client";
-import type { TypeOf } from "zod";
-import { getPureSerializationTypeAndValue } from "./serializer";
 
 const argsSchema = z.object({
 	params: z.optional(z.array(z.string().trim().min(1))),
@@ -74,9 +73,42 @@ export function ModuleFunction({
 				arguments:
 					params?.map((param, i) => {
 						const { type, value } = getPureSerializationTypeAndValue(functionDetails.parameters[i], param);
-						// @ts-expect-error TS7053: Element implicitly has an 'any' type because
-						// expression of type 'string' can't be used to index type.
-						return type ? tx.pure[type](value) : tx.object(param);
+
+						// Object arguments
+						if (!type) {
+							return tx.object(param);
+						}
+
+						// Pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
+						if (type.length === 1) {
+							// @ts-expect-error TS7053: Element implicitly has an 'any' type
+							return tx.pure[
+								type[0].toLowerCase()
+							](value);
+						}
+
+						// Vectors
+						if (type[0] === "Vector") {
+							return bcs.vector(
+								// @ts-expect-error TS7053: Element implicitly has an 'any' type
+								bcs[
+									type[1]
+								]
+							// @ts-expect-error TS2345: Argument is not assignable to parameter
+							).serialize(value);
+						}
+
+						// Options
+						if (type[0] === "Option") {
+							return bcs.option(
+								// @ts-expect-error TS7053: Element implicitly has an 'any' type
+								bcs[
+									type[1]
+								]
+							).serialize(value);
+						}
+
+						throw new Error(`Don't know how to deal with argument ${i} = ${param}. Serialized type = ${type}. Serialized value: ${value}`);
 					}) ?? [],
 			});
 			if (functionDetails.return.length > 0) {
