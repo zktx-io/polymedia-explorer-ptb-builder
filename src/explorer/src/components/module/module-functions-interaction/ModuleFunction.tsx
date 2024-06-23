@@ -21,7 +21,7 @@ import { z } from "zod";
 import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
-import { getPureSerializationTypeAndValue } from "./serializer";
+import { SuiJsonValue, getPureSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
@@ -37,6 +37,30 @@ export type ModuleFunctionProps = {
 	functionDetails: SuiMoveNormalizedFunction;
 	defaultOpen?: boolean;
 };
+
+function createBcsType(
+	type: string[],
+	value: SuiJsonValue | undefined): any
+{
+	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
+	if (type.length === 1) {
+		// @ts-expect-error TS7053: Element implicitly has an 'any' type
+		return bcs[type[0]];
+	}
+
+	// vectors and options are handled recursively
+	if (type[0] === "Vector" || type[0] === "Option") {
+		if (!Array.isArray(value)) {
+			throw new Error(`Type ${type.join(", ")} expected an array value, but found: ${JSON.stringify(value)}`);
+		}
+		const vectorOrOption = type[0] === "Vector" ? "vector" : "option";
+		return bcs[vectorOrOption](
+			createBcsType(type.slice(1), value[0])
+		);
+	}
+
+	throw new Error(`Unsupported type: ${type.join(", ")} with value: ${JSON.stringify(value)}`);
+}
 
 export function ModuleFunction({
 	defaultOpen,
@@ -80,36 +104,8 @@ export function ModuleFunction({
 							return tx.object(param);
 						}
 
-						// Pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
-						if (type.length === 1) {
-							// @ts-expect-error TS7053: Element implicitly has an 'any' type
-							return bcs[
-								type[0]
-							].serialize(value);
-						}
-
-						// Vectors
-						if (type[0] === "Vector") {
-							return bcs.vector(
-								// @ts-expect-error TS7053: Element implicitly has an 'any' type
-								bcs[
-									type[1]
-								]
-							// @ts-expect-error TS2345: Argument is not assignable to parameter
-							).serialize(value);
-						}
-
-						// Options
-						if (type[0] === "Option") {
-							return bcs.option(
-								// @ts-expect-error TS7053: Element implicitly has an 'any' type
-								bcs[
-									type[1]
-								]
-							).serialize(value);
-						}
-
-						throw new Error(`Don't know how to deal with argument ${i} = ${param}. Serialized type = ${type}. Serialized value: ${value}`);
+						// Pure arguments and nested types (Vector, Option)
+						return createBcsType(type, value).serialize(value);
 					}) ?? [],
 			});
 			if (functionDetails.return.length > 0) {

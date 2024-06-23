@@ -21,6 +21,7 @@ module tester::tester
         vec_bool: vector<bool>,
         vec_u8: vector<u8>,
         vec_u16: vector<u16>,
+        vec_vec_u16: vector<vector<u16>>,
         vec_addr: vector<address>,
         vec_str: vector<String>,
         vec_foo: vector<Foo>,
@@ -53,6 +54,7 @@ module tester::tester
             vec_bool: vector::empty(),
             vec_u8: vector::empty(),
             vec_u16: vector::empty(),
+            vec_vec_u16: vector::empty(),
             vec_addr: vector::empty(),
             vec_str: vector::empty(),
             vec_foo: vector::empty(),
@@ -102,6 +104,8 @@ module tester::tester
 
     public fun set_vec_u16(tester: &mut Tester, vec_u16: vector<u16>) { tester.vec_u16 = vec_u16; }
 
+    public fun set_vec_vec_u16(tester: &mut Tester, vec_vec_u16: vector<vector<u16>>) { tester.vec_vec_u16 = vec_vec_u16; }
+
     public fun set_vec_addr(tester: &mut Tester, vec_addr: vector<address>) { tester.vec_addr = vec_addr; }
 
     public fun set_vec_str_as_vec_str(tester: &mut Tester, vec_str: vector<String>) { tester.vec_str = vec_str; }
@@ -132,6 +136,10 @@ module tester::tester
 
     public fun get_u8_and_foo(ctx: &mut TxContext): (u8, Foo) {
         return (123, Foo { id: object::new(ctx), val: 33 })
+    }
+
+    public fun sum_three_u8(a: u8, b: u8, c: u8): u8 {
+        return a + b + c
     }
 
 }

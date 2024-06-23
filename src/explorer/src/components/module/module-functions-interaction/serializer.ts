@@ -60,7 +60,7 @@ function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
 		return;
 	}
     if (!typeNames.includes(typeof argVal)) {
-		const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(', ')}`;
+		const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(", ")}`;
 		throw new Error(`Expected ${String(argVal)} to be ${expectedTypes}, received ${typeof argVal}`);
     }
 }
@@ -155,7 +155,7 @@ export function getPureSerializationTypeAndValue(
 					val,
 					isOption,
 				);
-				serializedValues.push(value as SuiJsonValue);
+				serializedValues.push(value!);
 			}
 			argVal = serializedValues;
 		}
@@ -184,7 +184,7 @@ export function getPureSerializationTypeAndValue(
 			const optionToVec: SuiMoveNormalizedType = {
 				Vector: normalizedType.Struct.typeArguments[0],
 			};
-			const argValArr = [argVal as SuiJsonValue];
+			const argValArr = [argVal!];
 			return getPureSerializationTypeAndValue(optionToVec, argValArr, true);
 		}
 	}
