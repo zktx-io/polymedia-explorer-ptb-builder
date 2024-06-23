@@ -82,9 +82,9 @@ export function ModuleFunction({
 						// Pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
 						if (type.length === 1) {
 							// @ts-expect-error TS7053: Element implicitly has an 'any' type
-							return tx.pure[
-								type[0].toLowerCase()
-							](value);
+							return bcs[
+								type[0]
+							].serialize(value);
 						}
 
 						// Vectors

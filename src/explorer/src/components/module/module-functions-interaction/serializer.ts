@@ -64,7 +64,7 @@ function expectType(typeName: string, argVal?: SuiJsonValue) {
 	}
 }
 
-export function getPureSerializationTypeAndValue( // TODO: vector, option
+export function getPureSerializationTypeAndValue(
 	normalizedType: SuiMoveNormalizedType,
 	argVal: SuiJsonValue | undefined,
 	isOption = false,
