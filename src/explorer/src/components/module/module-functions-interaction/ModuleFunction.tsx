@@ -73,6 +73,7 @@ export function ModuleFunction({
 				arguments:
 					params?.map((param, i) => {
 						const { type, value } = getPureSerializationTypeAndValue(functionDetails.parameters[i], param);
+						console.debug("type:", type, "value:", value);
 
 						// Object arguments
 						if (!type) {

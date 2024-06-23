@@ -11,6 +11,7 @@ module tester::tester
 
         bool: bool,
         u8: u8,
+        u16: u16,
         addr: address,
         str: String,
         foo: Foo,
@@ -19,6 +20,7 @@ module tester::tester
 
         vec_bool: vector<bool>,
         vec_u8: vector<u8>,
+        vec_u16: vector<u16>,
         vec_addr: vector<address>,
         vec_str: vector<String>,
         vec_foo: vector<Foo>,
@@ -41,6 +43,7 @@ module tester::tester
 
             bool: false,
             u8: 0,
+            u16: 0,
             addr: @0x1234,
             str: utf8(b""),
             foo: Foo { id: object::new(ctx), val: 0 },
@@ -49,6 +52,7 @@ module tester::tester
 
             vec_bool: vector::empty(),
             vec_u8: vector::empty(),
+            vec_u16: vector::empty(),
             vec_addr: vector::empty(),
             vec_str: vector::empty(),
             vec_foo: vector::empty(),
@@ -77,6 +81,8 @@ module tester::tester
 
     public fun set_u8(tester: &mut Tester, u8: u8) { tester.u8 = u8; }
 
+    public fun set_u16(tester: &mut Tester, u16: u16) { tester.u16 = u16; }
+
     public fun set_addr(tester: &mut Tester, addr: address) { tester.addr = addr; }
 
     public fun set_str_as_str(tester: &mut Tester, str: String) { tester.str = str; }
@@ -93,6 +99,8 @@ module tester::tester
     public fun set_vec_bool(tester: &mut Tester, vec_bool: vector<bool>) { tester.vec_bool = vec_bool; }
 
     public fun set_vec_u8(tester: &mut Tester, vec_u8: vector<u8>) { tester.vec_u8 = vec_u8; }
+
+    public fun set_vec_u16(tester: &mut Tester, vec_u16: vector<u16>) { tester.vec_u16 = vec_u16; }
 
     public fun set_vec_addr(tester: &mut Tester, vec_addr: vector<address>) { tester.vec_addr = vec_addr; }
 

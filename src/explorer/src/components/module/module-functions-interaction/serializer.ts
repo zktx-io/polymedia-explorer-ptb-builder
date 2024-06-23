@@ -70,6 +70,9 @@ export function getPureSerializationTypeAndValue(
 	isOption = false,
 ): { type: string[] | undefined; value: SuiJsonValue | undefined  }
 {
+	console.debug(" ==== getPureSerializationTypeAndValue ====");
+	console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
+
 	if (typeof normalizedType === "string" && ALLOWED_TYPES.includes(normalizedType))
 	{
 		if (normalizedType in ["U8", "U16", "U32", "U64", "U128", "U256"])
@@ -108,8 +111,19 @@ export function getPureSerializationTypeAndValue(
 
 	if ("Vector" in normalizedType)
 	{
-		if ((argVal === undefined || typeof argVal === "string") && normalizedType.Vector === "U8") {
-			return { type: ["string"], value: argVal };
+		const serializeAsString =
+			typeof argVal === "string"
+			&& normalizedType.Vector === "U8"
+			&& !argVal.trim().startsWith("["); // skip actual vector<u8>
+		if (serializeAsString) {
+			return { type: ["String"], value: argVal };
+		}
+
+		if (typeof argVal === "string") {
+			argVal = JSON.parse(argVal);
+		}
+		else if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
+			argVal = [argVal];
 		}
 
 		if (argVal !== undefined && !Array.isArray(argVal)) {
@@ -139,13 +153,13 @@ export function getPureSerializationTypeAndValue(
 	if ("Struct" in normalizedType)
 	{
 		if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR)) {
-			return { type: ["string"], value: argVal };
+			return { type: ["String"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
-			return { type: ["string"], value: argVal };
+			return { type: ["String"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
-			return { type: ["address"], value: argVal };
+			return { type: ["Address"], value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
 			const optionToVec: SuiMoveNormalizedType = {
