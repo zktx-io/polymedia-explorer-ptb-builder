@@ -9,6 +9,10 @@ import {
 	normalizeSuiAddress,
 } from "@mysten/sui/utils";
 
+// === Constants ===
+
+const ALLOWED_TYPES = ['Address', 'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256'];
+
 const OBJECT_MODULE_NAME = 'object';
 const ID_STRUCT_NAME = 'ID';
 
@@ -43,14 +47,12 @@ const RESOLVED_STD_OPTION = {
 	name: STD_OPTION_STRUCT_NAME,
 };
 
-const isSameStruct = (a: any, b: any) =>
-	a.address === b.address && a.module === b.module && a.name === b.name;
+// === Helpers ===
 
-export function isTxContext(param: SuiMoveNormalizedType): boolean {
-	const struct = extractStructTag(param)?.Struct;
-	return (
-		struct?.address === '0x2' && struct?.module === 'tx_context' && struct?.name === 'TxContext'
-	);
+function isSameStruct(a: any, b: any) {
+	return a.address === b.address
+		&& a.module === b.module
+		&& a.name === b.name;
 }
 
 function expectType(typeName: string, argVal?: SuiJsonValue) {
@@ -62,14 +64,12 @@ function expectType(typeName: string, argVal?: SuiJsonValue) {
 	}
 }
 
-const allowedTypes = ['Address', 'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256'];
-
 export function getPureSerializationTypeAndValue( // TODO: vector, option
 	normalizedType: SuiMoveNormalizedType,
 	argVal: SuiJsonValue | undefined,
 ): { type: string | undefined, value: SuiJsonValue | undefined  }
 {
-	if (typeof normalizedType === 'string' && allowedTypes.includes(normalizedType))
+	if (typeof normalizedType === 'string' && ALLOWED_TYPES.includes(normalizedType))
 	{
 		if (normalizedType in ['U8', 'U16', 'U32', 'U64', 'U128', 'U256'])
 		{
@@ -97,15 +97,16 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 			}
 
 			return { type: normalizedType.toLowerCase(), value: normalizedAddr };
-
 		}
+
 		return { type: normalizedType.toLowerCase(), value: argVal };
 	}
 	else if (typeof normalizedType === 'string') {
 		throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
 	}
 
-	if ('Vector' in normalizedType) {
+	if ('Vector' in normalizedType)
+	{
 		if ((argVal === undefined || typeof argVal === 'string') && normalizedType.Vector === 'U8') {
 			return { type: 'string', value: argVal };
 		}
@@ -127,14 +128,18 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 		return { type: `vector<${innerType}>`, value: argVal };
 	}
 
-	if ('Struct' in normalizedType) {
+	if ('Struct' in normalizedType)
+	{
 		if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR)) {
 			return { type: 'string', value: argVal };
-		} else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
+		}
+		else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
 			return { type: 'utf8string', value: argVal };
-		} else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
+		}
+		else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
 			return { type: 'address', value: argVal };
-		} else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
+		}
+		else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
 			const optionToVec: SuiMoveNormalizedType = {
 				Vector: normalizedType.Struct.typeArguments[0],
 			};
@@ -143,44 +148,6 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 	}
 
 	return { type: undefined, value: argVal };
-}
-
-/// a92b03de42~1:sui/sdk/typescript/src/transactions/utils.ts
-
-export function extractMutableReference(
-	normalizedType: SuiMoveNormalizedType,
-): SuiMoveNormalizedType | undefined {
-	return typeof normalizedType === 'object' && 'MutableReference' in normalizedType
-		? normalizedType.MutableReference
-		: undefined;
-}
-
-export function extractReference(
-	normalizedType: SuiMoveNormalizedType,
-): SuiMoveNormalizedType | undefined {
-	return typeof normalizedType === 'object' && 'Reference' in normalizedType
-		? normalizedType.Reference
-		: undefined;
-}
-
-export function extractStructTag(
-	normalizedType: SuiMoveNormalizedType,
-): Extract<SuiMoveNormalizedType, { Struct: unknown }> | undefined {
-	if (typeof normalizedType === 'object' && 'Struct' in normalizedType) {
-		return normalizedType;
-	}
-
-	const ref = extractReference(normalizedType);
-	const mutRef = extractMutableReference(normalizedType);
-
-	if (typeof ref === 'object' && 'Struct' in ref) {
-		return ref;
-	}
-
-	if (typeof mutRef === 'object' && 'Struct' in mutRef) {
-		return mutRef;
-	}
-	return undefined;
 }
 
 /// a92b03de42~1:sui/sdk/typescript/src/client/types/common.ts
