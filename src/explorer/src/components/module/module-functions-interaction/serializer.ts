@@ -55,13 +55,14 @@ function isSameStruct(a: any, b: any) {
 		&& a.name === b.name;
 }
 
-function expectType(typeName: string, argVal?: SuiJsonValue) {
+function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
 	if (typeof argVal === "undefined") {
 		return;
 	}
-	if (typeof argVal !== typeName) {
-		throw new Error(`Expected ${String(argVal)} to be ${typeName}, received ${typeof argVal}`);
-	}
+    if (!typeNames.includes(typeof argVal)) {
+		const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(', ')}`;
+		throw new Error(`Expected ${String(argVal)} to be ${expectedTypes}, received ${typeof argVal}`);
+    }
 }
 
 export function getPureSerializationTypeAndValue(
@@ -77,14 +78,14 @@ export function getPureSerializationTypeAndValue(
 	{
 		if (normalizedType in ["U8", "U16", "U32", "U64", "U128", "U256"])
 		{
-			expectType("number", argVal);
+			expectTypes(["number"], argVal);
 		}
 		else if (normalizedType === "Bool")
 		{
-			expectType("string", argVal);
+			expectTypes(["string", "number"], argVal);
 
 			const argStr = (argVal as string);
-			if ( !["0", "1", "false", "true"].includes(argStr) ) {
+			if ( ![0, 1, "0", "1", "false", "true"].includes(argStr) ) {
 				throw new Error("Invalid Bool");
 			}
 
@@ -93,7 +94,7 @@ export function getPureSerializationTypeAndValue(
 		}
 		else if (normalizedType === "Address")
 		{
-			expectType("string", argVal);
+			expectTypes(["string"], argVal);
 
 			const normalizedAddr = normalizeSuiAddress(argVal as string);
 			if (argVal && !isValidSuiAddress(normalizedAddr)) {
@@ -130,7 +131,7 @@ export function getPureSerializationTypeAndValue(
 			argVal = [argVal];
 		}
 
-		if (!Array.isArray(argVal) && argVal !== undefined) {
+		if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
 			throw new Error(`Expect ${String(argVal)} to be a array, received ${typeof argVal}`);
 		}
 
@@ -141,7 +142,7 @@ export function getPureSerializationTypeAndValue(
 			isOption,
 		);
 
-		if (innerType === undefined) {
+		if (typeof innerType === "undefined") {
 			return { type: undefined, value: argVal };
 		}
 
