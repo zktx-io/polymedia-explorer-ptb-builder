@@ -82,14 +82,14 @@ export function getPureSerializationTypeAndValue(
 		}
 		else if (normalizedType === "Bool")
 		{
-			expectTypes(["string", "number"], argVal);
+			expectTypes(["string", "number", "boolean"], argVal);
 
-			const argStr = (argVal as string);
-			if ( ![0, 1, "0", "1", "false", "true"].includes(argStr) ) {
-				throw new Error("Invalid Bool");
+			const argStr = String(argVal);
+			if ( !["true", "false", "1", "0"].includes(argStr) ) {
+				throw new Error(`Invalid Bool: ${JSON.stringify(argStr)}`);
 			}
 
-			const boolValue = argStr === "1" || argStr === "true";
+			const boolValue = argStr === "true" || argStr === "1";
 			return { type: [normalizedType], value: boolValue };
 		}
 		else if (normalizedType === "Address")
@@ -98,7 +98,7 @@ export function getPureSerializationTypeAndValue(
 
 			const normalizedAddr = normalizeSuiAddress(argVal as string);
 			if (argVal && !isValidSuiAddress(normalizedAddr)) {
-				throw new Error("Invalid Sui Address");
+				throw new Error(`Invalid Sui address: ${JSON.stringify(argVal)}`);
 			}
 
 			return { type: [normalizedType], value: normalizedAddr };
@@ -112,6 +112,7 @@ export function getPureSerializationTypeAndValue(
 
 	if ("Vector" in normalizedType)
 	{
+		// Some vector<u8> args should be serialized with bcs.string
 		const serializeAsString =
 			typeof argVal === "string"
 			&& normalizedType.Vector === "U8"
@@ -120,6 +121,7 @@ export function getPureSerializationTypeAndValue(
 			return { type: ["String"], value: argVal };
 		}
 
+		// Actual vector<u8> args come in the form of a JSON string that needs to be parsed
 		if (typeof argVal === "string") {
 			try {
 				argVal = JSON.parse(argVal);
@@ -127,14 +129,12 @@ export function getPureSerializationTypeAndValue(
 				throw new Error(`Malformed array: ${String(argVal)}`);
 			}
 		}
-		else if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
-			argVal = [argVal];
-		}
 
 		if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
 			throw new Error(`Expect ${String(argVal)} to be a array, received ${typeof argVal}`);
 		}
 
+		// Infer the type of the vector from its first element
 		const { type: innerType } = getPureSerializationTypeAndValue(
 			normalizedType.Vector,
 			// undefined when argVal is empty
@@ -144,6 +144,20 @@ export function getPureSerializationTypeAndValue(
 
 		if (typeof innerType === "undefined") {
 			return { type: undefined, value: argVal };
+		}
+
+		// Transform the vector elements into actual booleans, normalized addresses, etc
+		if (Array.isArray(argVal)) {
+			const serializedValues: SuiJsonValue[] = [];
+			for (const val of argVal) {
+				const { value } = getPureSerializationTypeAndValue(
+					normalizedType.Vector,
+					val,
+					isOption,
+				);
+				serializedValues.push(value as SuiJsonValue);
+			}
+			argVal = serializedValues;
 		}
 
 		return {
