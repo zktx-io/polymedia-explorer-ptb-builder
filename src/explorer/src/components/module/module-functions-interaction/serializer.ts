@@ -134,7 +134,7 @@ export function getPureSerializationTypeAndValue( // TODO: vector, option
 			return { type: "string", value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
-			return { type: "utf8string", value: argVal };
+			return { type: "string", value: argVal };
 		}
 		else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
 			return { type: "address", value: argVal };
