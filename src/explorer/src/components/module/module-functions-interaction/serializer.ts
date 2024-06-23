@@ -120,13 +120,17 @@ export function getPureSerializationTypeAndValue(
 		}
 
 		if (typeof argVal === "string") {
-			argVal = JSON.parse(argVal);
+			try {
+				argVal = JSON.parse(argVal);
+			} catch (err) {
+				throw new Error(`Malformed array: ${String(argVal)}`);
+			}
 		}
 		else if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
 			argVal = [argVal];
 		}
 
-		if (argVal !== undefined && !Array.isArray(argVal)) {
+		if (!Array.isArray(argVal) && argVal !== undefined) {
 			throw new Error(`Expect ${String(argVal)} to be a array, received ${typeof argVal}`);
 		}
 
