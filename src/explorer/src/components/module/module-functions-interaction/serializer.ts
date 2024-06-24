@@ -120,7 +120,7 @@ export function getPureSerializationTypeAndValue(
             argVal,
             typeArguments,
             isOption,
-        )
+        );
     }
 
     if ("Vector" in normalizedType)
@@ -219,14 +219,14 @@ export type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
 /// Helpers
 
 const validPrimitiveTypes = [
-    'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256', 'Address', 'Signer'
+    "Bool", "U8", "U16", "U32", "U64", "U128", "U256", "Address", "Signer"
 ];
 
 function parseTypeArgument(input: string): SuiMoveNormalizedType {
     input = input.trim();
 
     // Handle vector type
-    const isVector = input.startsWith('vector<') && input.endsWith('>');
+    const isVector = input.startsWith("vector<") && input.endsWith(">");
     if (isVector) {
         const innerType = input.slice(7, -1).trim();
         return { Vector: parseTypeArgument(innerType) };
@@ -261,14 +261,14 @@ function parseTypeArgument(input: string): SuiMoveNormalizedType {
 function parseTypeArguments(input: string): SuiMoveNormalizedType[] {
     const typeArguments: SuiMoveNormalizedType[] = [];
     let depth = 0;
-    let currentArg = '';
+    let currentArg = "";
 
-    for (let char of input) {
-        if (char === '<') depth++;
-        if (char === '>') depth--;
-        if (char === ',' && depth === 0) {
+    for (const char of input) {
+        if (char === "<") depth++;
+        if (char === ">") depth--;
+        if (char === "," && depth === 0) {
             typeArguments.push(parseTypeArgument(currentArg.trim()));
-            currentArg = '';
+            currentArg = "";
         } else {
             currentArg += char;
         }
