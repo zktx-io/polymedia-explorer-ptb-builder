@@ -34,6 +34,25 @@ module test::test
         val: u64,
     }
 
+    public struct GenFoo<T1, T2> has key, store {
+        id: UID,
+        v1: T1,
+        v2: T2,
+    }
+
+    public fun new_gen_foo<T1, T2>(
+        v1: T1,
+        v2: T2,
+        ctx: &mut TxContext,
+    ): GenFoo<T1, T2> {
+        let genFoo = GenFoo {
+            id: object::new(ctx),
+            v1,
+            v2
+        };
+        return genFoo
+    }
+
     // === Constructors ===
 
     public fun new_test(

@@ -111,12 +111,16 @@ export function getPureSerializationTypeAndValue(
         throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
     }
 
-    if ("TypeParameter" in normalizedType) {
-        const typeArg = parseType(
-            typeArguments[normalizedType.TypeParameter]
-        );
+    if ("TypeParameter" in normalizedType)
+    {
+        const typeArg = typeArguments[normalizedType.TypeParameter].trim();
+        if (typeArg.startsWith("0x")) {
+            return { type: undefined, value: argVal };
+        }
+
+        const typeArgType = parsePrimitiveType(typeArg);
         return getPureSerializationTypeAndValue(
-            typeArg,
+            typeArgType,
             argVal,
             typeArguments,
             isOption,
@@ -222,13 +226,13 @@ const validPrimitiveTypes = [
     'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256', 'Address', 'Signer'
 ];
 
-function parseType(input: string): SuiMoveNormalizedType {
+function parsePrimitiveType(input: string): SuiMoveNormalizedType {
     input = input.trim().toLowerCase();
 
     const isVector = input.startsWith('vector<') && input.endsWith('>');
     if (isVector) {
         const innerType = input.slice(7, -1).trim();
-        return { Vector: parseType(innerType) };
+        return { Vector: parsePrimitiveType(innerType) };
     }
 
     const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
