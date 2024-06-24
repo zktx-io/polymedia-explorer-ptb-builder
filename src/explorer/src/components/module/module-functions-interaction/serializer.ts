@@ -114,19 +114,7 @@ export function getPureSerializationTypeAndValue(
     if ("TypeParameter" in normalizedType)
     {
         const typeArg = typeArguments[normalizedType.TypeParameter].trim();
-
-        // Give strings a special treatment
-        if (/0*x1::string::String/.test(typeArg)) {
-            return { type: ["String"], value: argVal };
-        }
-
-        // Don't parse objects
-        if (typeArg.startsWith("0x")) {
-            return { type: undefined, value: argVal };
-        }
-
-        // Parse primitive types and vectors thereof
-        const typeArgType = parsePrimitiveType(typeArg);
+        const typeArgType = parseTypeArgument(typeArg);
         return getPureSerializationTypeAndValue(
             typeArgType,
             argVal,
@@ -234,21 +222,61 @@ const validPrimitiveTypes = [
     'Bool', 'U8', 'U16', 'U32', 'U64', 'U128', 'U256', 'Address', 'Signer'
 ];
 
-function parsePrimitiveType(input: string): SuiMoveNormalizedType {
-    input = input.trim().toLowerCase();
+function parseTypeArgument(input: string): SuiMoveNormalizedType {
+    input = input.trim();
 
+    // Handle vector type
     const isVector = input.startsWith('vector<') && input.endsWith('>');
     if (isVector) {
         const innerType = input.slice(7, -1).trim();
-        return { Vector: parsePrimitiveType(innerType) };
+        return { Vector: parseTypeArgument(innerType) };
     }
 
-    const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
+    // Handle primitive types
+    const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
     if (validPrimitiveTypes.includes(capitalizedInput)) {
         return capitalizedInput as SuiMoveNormalizedType;
+    }
+
+    // Handle struct types
+    const structMatch = input.match(/^(0x[a-fA-F0-9]+)::([a-zA-Z0-9_]+)::([a-zA-Z0-9_]+)(<(.+)>)?$/);
+    if (structMatch) {
+        const [, address, module, name, , typeArgsStr] = structMatch;
+        const typeArguments = typeArgsStr ? parseTypeArguments(typeArgsStr) : [];
+        return {
+            Struct: {
+                address,
+                module,
+                name,
+                typeArguments,
+            }
+        };
     }
 
     const errMsg = `Unsupported type: ${input}`;
     console.warn(errMsg);
     throw new Error(errMsg);
+}
+
+function parseTypeArguments(input: string): SuiMoveNormalizedType[] {
+    const typeArguments: SuiMoveNormalizedType[] = [];
+    let depth = 0;
+    let currentArg = '';
+
+    for (let char of input) {
+        if (char === '<') depth++;
+        if (char === '>') depth--;
+        if (char === ',' && depth === 0) {
+            typeArguments.push(parseTypeArgument(currentArg.trim()));
+            currentArg = '';
+        } else {
+            currentArg += char;
+        }
+    }
+
+    if (currentArg.trim()) {
+        typeArguments.push(parseTypeArgument(currentArg.trim()));
+    }
+
+    return typeArguments;
 }
