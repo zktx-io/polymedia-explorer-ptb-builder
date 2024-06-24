@@ -1,4 +1,4 @@
-module tester::tester
+module test::test
 {
     // === Imports ===
 
@@ -6,7 +6,7 @@ module tester::tester
 
     // === Structs ===
 
-    public struct Tester has key, store {
+    public struct Test has key, store {
         id: UID,
 
         bool: bool,
@@ -36,10 +36,10 @@ module tester::tester
 
     // === Constructors ===
 
-    public fun new_tester(
+    public fun new_test(
         ctx: &mut TxContext,
-    ): Tester {
-        let tester = Tester {
+    ): Test {
+        let test = Test {
             id: object::new(ctx),
 
             bool: false,
@@ -61,28 +61,28 @@ module tester::tester
             vec_opt_u8: vector::empty(),
             vec_opt_u16: vector::empty(),
         };
-        return tester
+        return test
     }
 
-    public entry fun e_new_tester(
+    public entry fun e_new_test(
         ctx: &mut TxContext,
     ) {
-        let tester = new_tester(ctx);
-        transfer::public_transfer(tester, ctx.sender())
+        let test = new_test(ctx);
+        transfer::public_transfer(test, ctx.sender())
     }
 
-    public fun two_new_testers(
+    public fun two_new_tests(
         ctx: &mut TxContext,
-    ): (Tester, Tester) {
-        return (new_tester(ctx), new_tester(ctx))
+    ): (Test, Test) {
+        return (new_test(ctx), new_test(ctx))
     }
 
     // === Destructors ===
 
-    public fun destroy_tester(
-        tester: Tester,
+    public fun destroy_test(
+        test: Test,
     ) {
-        let Tester {
+        let Test {
             id,
             bool: _,
             u8: _,
@@ -101,7 +101,7 @@ module tester::tester
             mut vec_foo,
             vec_opt_u8: _,
             vec_opt_u16: _,
-        } = tester;
+        } = test;
 
         id.delete();
         foo.destroy_foo();
@@ -122,37 +122,37 @@ module tester::tester
 
     // === Setters: single-value ===
 
-    public fun set_bool(tester: &mut Tester, bool: bool) { tester.bool = bool; }
+    public fun set_bool(test: &mut Test, bool: bool) { test.bool = bool; }
 
-    public fun set_u8(tester: &mut Tester, u8: u8) { tester.u8 = u8; }
+    public fun set_u8(test: &mut Test, u8: u8) { test.u8 = u8; }
 
-    public fun set_u16(tester: &mut Tester, u16: u16) { tester.u16 = u16; }
+    public fun set_u16(test: &mut Test, u16: u16) { test.u16 = u16; }
 
-    public fun set_addr(tester: &mut Tester, addr: address) { tester.addr = addr; }
+    public fun set_addr(test: &mut Test, addr: address) { test.addr = addr; }
 
-    public fun set_str_as_str(tester: &mut Tester, str: String) { tester.str = str; }
-    public fun set_str_as_vec_u8(tester: &mut Tester, str: vector<u8>) { tester.str = utf8(str); }
+    public fun set_str_as_str(test: &mut Test, str: String) { test.str = str; }
+    public fun set_str_as_vec_u8(test: &mut Test, str: vector<u8>) { test.str = utf8(str); }
 
-    public fun set_opt_u8(tester: &mut Tester, opt_u8: Option<u8>) { tester.opt_u8 = opt_u8; }
+    public fun set_opt_u8(test: &mut Test, opt_u8: Option<u8>) { test.opt_u8 = opt_u8; }
 
-    public fun set_opt_u16(tester: &mut Tester, opt_u16: Option<u16>) { tester.opt_u16 = opt_u16; }
+    public fun set_opt_u16(test: &mut Test, opt_u16: Option<u16>) { test.opt_u16 = opt_u16; }
 
-    // public fun set_foo(tester: &mut Tester, foo: Foo) { tester.foo = foo; }
+    // public fun set_foo(test: &mut Test, foo: Foo) { test.foo = foo; }
 
     // === Setters: vectors ===
 
-    public fun set_vec_bool(tester: &mut Tester, vec_bool: vector<bool>) { tester.vec_bool = vec_bool; }
+    public fun set_vec_bool(test: &mut Test, vec_bool: vector<bool>) { test.vec_bool = vec_bool; }
 
-    public fun set_vec_u8(tester: &mut Tester, vec_u8: vector<u8>) { tester.vec_u8 = vec_u8; }
+    public fun set_vec_u8(test: &mut Test, vec_u8: vector<u8>) { test.vec_u8 = vec_u8; }
 
-    public fun set_vec_u16(tester: &mut Tester, vec_u16: vector<u16>) { tester.vec_u16 = vec_u16; }
+    public fun set_vec_u16(test: &mut Test, vec_u16: vector<u16>) { test.vec_u16 = vec_u16; }
 
-    public fun set_vec_vec_u16(tester: &mut Tester, vec_vec_u16: vector<vector<u16>>) { tester.vec_vec_u16 = vec_vec_u16; }
+    public fun set_vec_vec_u16(test: &mut Test, vec_vec_u16: vector<vector<u16>>) { test.vec_vec_u16 = vec_vec_u16; }
 
-    public fun set_vec_addr(tester: &mut Tester, vec_addr: vector<address>) { tester.vec_addr = vec_addr; }
+    public fun set_vec_addr(test: &mut Test, vec_addr: vector<address>) { test.vec_addr = vec_addr; }
 
-    public fun set_vec_str_as_vec_str(tester: &mut Tester, vec_str: vector<String>) { tester.vec_str = vec_str; }
-    public fun set_vec_str_as_vec_vec_u8(tester: &mut Tester, vec_vec_u8: vector<vector<u8>>) {
+    public fun set_vec_str_as_vec_str(test: &mut Test, vec_str: vector<String>) { test.vec_str = vec_str; }
+    public fun set_vec_str_as_vec_vec_u8(test: &mut Test, vec_vec_u8: vector<vector<u8>>) {
         let len = vec_vec_u8.length();
         let mut i = 0;
         let mut vec_str = vector::empty<String>();
@@ -162,14 +162,14 @@ module tester::tester
             let str = utf8(*raw);
             vec_str.push_back(str);
         };
-        tester.vec_str = vec_str;
+        test.vec_str = vec_str;
     }
 
-    public fun set_vec_opt_u8(tester: &mut Tester, vec_opt_u8: vector<Option<u8>>) { tester.vec_opt_u8 = vec_opt_u8; }
+    public fun set_vec_opt_u8(test: &mut Test, vec_opt_u8: vector<Option<u8>>) { test.vec_opt_u8 = vec_opt_u8; }
 
-    public fun set_vec_opt_u16(tester: &mut Tester, vec_opt_u16: vector<Option<u16>>) { tester.vec_opt_u16 = vec_opt_u16; }
+    public fun set_vec_opt_u16(test: &mut Test, vec_opt_u16: vector<Option<u16>>) { test.vec_opt_u16 = vec_opt_u16; }
 
-    // public fun set_vec_foo(tester: &mut Tester, vec_foo: vector<Foo>) { tester.vec_foo = vec_foo; }
+    // public fun set_vec_foo(test: &mut Test, vec_foo: vector<Foo>) { test.vec_foo = vec_foo; }
 
     // === Functions that return values ===
 
