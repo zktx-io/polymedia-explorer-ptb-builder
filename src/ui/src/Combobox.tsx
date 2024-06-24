@@ -39,10 +39,10 @@ function ComboboxItem({ item, onSelect }: ComboboxItemProps) {
 			onSelect={() => onSelect()}
 		>
 			<div className="flex w-full items-center justify-between">
-				<div className="text-body font-medium text-steel-dark group-data-[selected]:text-hero">
+				<div className="text-body font-medium text-steel-dark group-data-[selected]:text-hero break-all">
 					{item.label}
 				</div>
-				{item.after}
+				<span className="pl-4">{item.after}</span>
 			</div>
 		</Command.Item>
 	);
