@@ -45,7 +45,7 @@ function createBcsType(
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
 	if (type.length === 1) {
 		// @ts-expect-error TS7053: Element implicitly has an 'any' type
-		return bcs[type[0]];
+		return bcs[type[0].toLowerCase()]();
 	}
 
 	// vectors and options are handled recursively
@@ -96,7 +96,11 @@ export function ModuleFunction({
 				typeArguments: types ?? [],
 				arguments:
 					params?.map((param, i) => {
-						const { type, value } = getPureSerializationTypeAndValue(functionDetails.parameters[i], param);
+						const { type, value } = getPureSerializationTypeAndValue(
+							functionDetails.parameters[i],
+							param,
+							resolvedTypeArguments,
+						);
 						console.debug("type:", type, "value:", value);
 
 						// Object arguments

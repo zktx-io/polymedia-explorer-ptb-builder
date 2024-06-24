@@ -68,6 +68,7 @@ function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
 export function getPureSerializationTypeAndValue(
 	normalizedType: SuiMoveNormalizedType,
 	argVal: SuiJsonValue | undefined,
+	typeArguments: string[],
 	isOption = false,
 ): { type: string[] | undefined; value: SuiJsonValue | undefined  }
 {
@@ -110,6 +111,13 @@ export function getPureSerializationTypeAndValue(
 		throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
 	}
 
+	if ("TypeParameter" in normalizedType) {
+		return {
+			type: [ typeArguments[normalizedType.TypeParameter] ],
+			value: argVal,
+		};
+	}
+
 	if ("Vector" in normalizedType)
 	{
 		// Some vector<u8> args should be serialized with bcs.string
@@ -139,6 +147,7 @@ export function getPureSerializationTypeAndValue(
 			normalizedType.Vector,
 			// undefined when argVal is empty
 			argVal ? argVal[0] : undefined,
+			typeArguments,
 			isOption,
 		);
 
@@ -153,6 +162,7 @@ export function getPureSerializationTypeAndValue(
 				const { value } = getPureSerializationTypeAndValue(
 					normalizedType.Vector,
 					val,
+					typeArguments,
 					isOption,
 				);
 				serializedValues.push(value!);
@@ -185,7 +195,12 @@ export function getPureSerializationTypeAndValue(
 				Vector: normalizedType.Struct.typeArguments[0],
 			};
 			const argValArr = [argVal!];
-			return getPureSerializationTypeAndValue(optionToVec, argValArr, true);
+			return getPureSerializationTypeAndValue(
+				optionToVec,
+				argValArr,
+				typeArguments,
+				true,
+			);
 		}
 	}
 
