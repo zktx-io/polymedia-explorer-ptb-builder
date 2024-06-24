@@ -114,10 +114,18 @@ export function getPureSerializationTypeAndValue(
     if ("TypeParameter" in normalizedType)
     {
         const typeArg = typeArguments[normalizedType.TypeParameter].trim();
+
+        // Give strings a special treatment
+        if (/0*x1::string::String/.test(typeArg)) {
+            return { type: ["String"], value: argVal };
+        }
+
+        // Don't parse objects
         if (typeArg.startsWith("0x")) {
             return { type: undefined, value: argVal };
         }
 
+        // Parse primitive types and vectors thereof
         const typeArgType = parsePrimitiveType(typeArg);
         return getPureSerializationTypeAndValue(
             typeArgType,
