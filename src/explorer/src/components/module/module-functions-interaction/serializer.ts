@@ -112,8 +112,9 @@ export function getPureSerializationTypeAndValue(
 	}
 
 	if ("TypeParameter" in normalizedType) {
+		const typeArg = typeArguments[normalizedType.TypeParameter];
 		return {
-			type: [ typeArguments[normalizedType.TypeParameter] ],
+			type: typeArg.startsWith("0x") ? undefined : [typeArg],
 			value: argVal,
 		};
 	}

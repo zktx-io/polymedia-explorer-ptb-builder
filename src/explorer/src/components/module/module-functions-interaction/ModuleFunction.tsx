@@ -86,7 +86,8 @@ export function ModuleFunction({
 	const paramsDetails = useFunctionParamsDetails(functionDetails.parameters, resolvedTypeArguments);
 
 	const execute = useMutation({
-		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) => {
+		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) =>
+		{
 			if (!currentAccount) {
 				return;
 			}
@@ -112,19 +113,33 @@ export function ModuleFunction({
 						return createBcsType(type, value).serialize(value);
 					}) ?? [],
 			});
-			if (functionDetails.return.length > 0) {
-				// Unpack the transaction results
-				const objects = [];
+
+			if (functionDetails.return.length > 0)
+			{
+				// Find returned objects in the transaction results
+				const returnedObjects = [];
 				for (let i = 0; i < functionDetails.return.length; i++) {
 					const returnType = functionDetails.return[i];
-					// We're only interested in returned objects, which are likely not-droppable
-					if (typeof returnType === "object" && "Struct" in returnType) {
-						objects.push(results[i]);
+					const isObject =
+						(
+							typeof returnType === "object"
+						) && (
+							(
+								"Struct" in returnType
+							) || (
+								"TypeParameter" in returnType
+								&&
+								resolvedTypeArguments[returnType.TypeParameter].startsWith("0x")
+							)
+						);
+					if (isObject) {
+						returnedObjects.push(results[i]);
 					}
 				}
-				if (objects.length > 0) {
-					// Transfer all objects to the sender
-					tx.transferObjects(objects, currentAccount.address);
+
+				// Transfer all returned objects to the sender // TODO: transfer only suitable objects
+				if (returnedObjects.length > 0) {
+					tx.transferObjects(returnedObjects, currentAccount.address);
 				}
 			}
 
