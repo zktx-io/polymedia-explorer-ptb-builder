@@ -10,14 +10,14 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^3.6.0",
-        "@mysten/dapp-kit": "^0.14.9",
-        "@mysten/kiosk": "^0.9.8",
-        "@mysten/sui": "^1.1.2",
-        "@tanstack/react-query": "^5.45.0",
+        "@mysten/dapp-kit": "^0.14.10",
+        "@mysten/kiosk": "^0.9.9",
+        "@mysten/sui": "^1.2.0",
+        "@tanstack/react-query": "^5.45.1",
         "bignumber.js": "^9.1.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-hook-form": "^7.51.5",
+        "react-hook-form": "^7.52.0",
         "zod": "^3.23.8"
     },
     "devDependencies": {
@@ -28,7 +28,7 @@
         "@vanilla-extract/vite-plugin": "^4.0.11",
         "postcss": "^8.4.38",
         "tailwindcss": "^3.4.4",
-        "typescript": "^5.4.5",
+        "typescript": "^5.5.2",
         "vite": "^5.3.1",
         "vitest": "^1.6.0"
     },
