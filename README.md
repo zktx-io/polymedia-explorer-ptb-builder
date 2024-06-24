@@ -59,7 +59,9 @@ Expose the local server on port 3000 to the internet using Localtunnel.
 ```bash
 pnpm upgrade --latest --recursive
 cd src/explorer
-pnpm add @headlessui/react@1 react-resizable-panels@0.0.39 prism-react-renderer@1 vite-plugin-svgr@3
+pnpm add @headlessui/react@1 react-resizable-panels@0.0.39 prism-react-renderer@1 vite-plugin-svgr@3 cmdk@0
+cd ../ui
+pnpm add cmdk@0
 ```
 
 TODO: upgrade the dependencies above to their latest versions.
