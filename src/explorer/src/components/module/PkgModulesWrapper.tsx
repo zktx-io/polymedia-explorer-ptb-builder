@@ -45,7 +45,7 @@ function PkgModuleViewWrapper({ id, modules, splitPanelOrientation }: Props) {
 
 	const moduleNames = modules.map(([name]) => name);
 	const filteredModules = query
-		? moduleNames.filter(([name]) => name.toLowerCase().includes(query.toLowerCase()))
+		? moduleNames.filter((name) => name.toLowerCase().includes(query.toLowerCase()))
 		: moduleNames;
 
 	const submitSearch = useCallback(() => {
