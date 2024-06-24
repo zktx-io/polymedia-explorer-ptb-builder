@@ -77,6 +77,49 @@ module tester::tester
         return (new_tester(ctx), new_tester(ctx))
     }
 
+    // === Destructors ===
+
+    public fun destroy_tester(
+        tester: Tester,
+    ) {
+        let Tester {
+            id,
+            bool: _,
+            u8: _,
+            u16: _,
+            addr: _,
+            str: _,
+            foo,
+            opt_u8: _,
+            opt_u16: _,
+            vec_bool: _,
+            vec_u8: _,
+            vec_u16: _,
+            vec_vec_u16: _,
+            vec_addr: _,
+            vec_str: _,
+            mut vec_foo,
+            vec_opt_u8: _,
+            vec_opt_u16: _,
+        } = tester;
+
+        id.delete();
+        foo.destroy_foo();
+
+        while ( vec_foo.length() > 0 ) {
+            let foo = vec_foo.pop_back();
+            foo.destroy_foo();
+        };
+        vec_foo.destroy_empty();
+    }
+
+    public fun destroy_foo(
+        foo: Foo,
+    ) {
+        let Foo { id, val: _ } = foo;
+        id.delete();
+    }
+
     // === Setters: single-value ===
 
     public fun set_bool(tester: &mut Tester, bool: bool) { tester.bool = bool; }
