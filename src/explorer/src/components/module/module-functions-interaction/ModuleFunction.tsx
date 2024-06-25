@@ -20,6 +20,7 @@ import type { TypeOf } from "zod";
 import { z } from "zod";
 import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
+import { Label } from "~/ui/utils/Label";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
 import { SuiJsonValue, getPureSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
@@ -84,6 +85,7 @@ export function ModuleFunction({
 		[typeArguments, formTypeInputs],
 	);
 	const paramsDetails = useFunctionParamsDetails(functionDetails.parameters, resolvedTypeArguments);
+	const returnDetails = useFunctionParamsDetails(functionDetails.return, resolvedTypeArguments);
 
 	const execute = useMutation({
 		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) =>
@@ -185,6 +187,7 @@ export function ModuleFunction({
 						placeholder={aTypeArgument}
 					/>
 				))}
+
 				{paramsDetails.map(({ paramTypeText }, index) => (
 					<Input
 						key={index}
@@ -194,7 +197,16 @@ export function ModuleFunction({
 						disabled={isSubmitting}
 					/>
 				))}
-				<div className="flex items-stretch justify-end gap-1.5">
+
+				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90">
+					returns:
+				</div>
+				{returnDetails.map(({ paramTypeText }, index) => (
+					<Label key={index} label={paramTypeText} />
+				))}
+				{returnDetails.length === 0 && <Label label="nothing" />}
+
+				<div className="flex items-stretch justify-end gap-1.5 py-1.5">
 					<Button
 						variant="primary"
 						type="submit"
@@ -218,6 +230,7 @@ export function ModuleFunction({
 						)}
 					/>
 				</div>
+
 				{execute.error || execute.data ? (
 					<FunctionExecutionResult
 						error={execute.error ? (execute.error).message || "Error" : false}
