@@ -40,7 +40,7 @@ export type ModuleFunctionProps = {
 };
 
 function createBcsType(
-	type: string[],
+	type: (string|undefined)[],
 ): any
 {
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
@@ -50,9 +50,8 @@ function createBcsType(
 	}
 
 	// vectors and options are handled recursively
-	if (type[0] === "Vector" || type[0] === "Option") {
-		const vectorOrOption = type[0] === "Vector" ? "vector" : "option";
-		return bcs[vectorOrOption](
+	if (type[0] === "vector" || type[0] === "option") {
+		return bcs[type[0]](
 			createBcsType(type.slice(1))
 		);
 	}
@@ -111,9 +110,6 @@ export function ModuleFunction({
 						}
 
 						// Pure arguments and nested types (Vector, Option)
-						if (type[0] === "Option" && Array.isArray(value)) {
-							value = value[0];
-						}
 						return createBcsType(type).serialize(value);
 					}) ?? [],
 			});

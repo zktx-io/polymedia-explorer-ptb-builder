@@ -69,8 +69,7 @@ export function getPureSerializationTypeAndValue(
     normalizedType: SuiMoveNormalizedType,
     argVal: SuiJsonValue | undefined,
     typeArguments: string[],
-    isOption = false,
-): { type: string[] | undefined; value: SuiJsonValue | undefined  }
+): { type: (string|undefined)[] | undefined; value: SuiJsonValue | undefined  }
 {
     console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
 
@@ -118,7 +117,6 @@ export function getPureSerializationTypeAndValue(
             typeArgType,
             argVal,
             typeArguments,
-            isOption,
         );
     }
 
@@ -133,16 +131,19 @@ export function getPureSerializationTypeAndValue(
             return { type: ["Address"], value: argVal };
         }
         else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
-            const optionToVec: SuiMoveNormalizedType = {
-                Vector: normalizedType.Struct.typeArguments[0],
-            };
-            const argValArr = [argVal!];
-            return getPureSerializationTypeAndValue(
-                optionToVec,
-                argValArr,
+            const { type: innerType } = getPureSerializationTypeAndValue(
+                normalizedType.Struct.typeArguments[0],
+                argVal,
                 typeArguments,
-                true,
             );
+
+            return {
+                type: [
+                    "option",
+                    ...(innerType ? innerType.flat() : [undefined])
+                ],
+                value: argVal,
+            };
         }
     }
 
@@ -176,11 +177,13 @@ export function getPureSerializationTypeAndValue(
             // undefined when argVal is empty
             argVal ? argVal[0] : undefined,
             typeArguments,
-            isOption,
         );
 
         if (typeof innerType === "undefined") {
-            return { type: undefined, value: argVal };
+            return {
+                type: [ "vector", undefined, ],
+                value: argVal,
+            };
         }
 
         // Transform the vector elements into actual booleans, normalized addresses, etc
@@ -191,7 +194,6 @@ export function getPureSerializationTypeAndValue(
                     normalizedType.Vector,
                     val,
                     typeArguments,
-                    isOption,
                 );
                 serializedValues.push(value!);
             }
@@ -200,7 +202,7 @@ export function getPureSerializationTypeAndValue(
 
         return {
             type: [
-                isOption ? "Option": "Vector",
+                "vector",
                 ...innerType.flat()
             ],
             value: argVal,
