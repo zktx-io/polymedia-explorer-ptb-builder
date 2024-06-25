@@ -46,7 +46,7 @@ function createBcsType(
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
 	if (type.length === 1) {
 		// @ts-expect-error TS7053: Element implicitly has an 'any' type
-		return bcs[type[0].toLowerCase()]();
+		return bcs[type[0]];
 	}
 
 	// vectors and options are handled recursively
