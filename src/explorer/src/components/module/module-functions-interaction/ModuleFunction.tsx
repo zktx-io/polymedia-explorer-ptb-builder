@@ -98,7 +98,7 @@ export function ModuleFunction({
 				arguments:
 					params?.map((param, i) => {
 						console.debug(`=== param ${i}:`, param);
-						const { type, value } = getPureSerializationTypeAndValue(
+						let { type, value } = getPureSerializationTypeAndValue(
 							functionDetails.parameters[i],
 							param,
 							resolvedTypeArguments,
@@ -111,6 +111,9 @@ export function ModuleFunction({
 						}
 
 						// Pure arguments and nested types (Vector, Option)
+						if (type[0] === "Option" && Array.isArray(value)) {
+							value = value[0];
+						}
 						return createBcsType(type).serialize(value);
 					}) ?? [],
 			});
