@@ -36,25 +36,6 @@ module test::test
         val: u64,
     }
 
-    public struct GenFoo<T1, T2> has key, store {
-        id: UID,
-        v1: T1,
-        v2: T2,
-    }
-
-    public fun new_gen_foo<T1, T2>(
-        v1: T1,
-        v2: T2,
-        ctx: &mut TxContext,
-    ): GenFoo<T1, T2> {
-        let genFoo = GenFoo {
-            id: object::new(ctx),
-            v1,
-            v2
-        };
-        return genFoo
-    }
-
     // === Constructors ===
 
     public fun new_test(
@@ -191,10 +172,10 @@ module test::test
         let mut i = 0;
         let mut vec_str = vector::empty<String>();
         while ( i < len ) {
-            i = i + 1;
             let raw = vec_vec_u8.borrow(i);
             let str = utf8(*raw);
             vec_str.push_back(str);
+            i = i + 1;
         };
         test.vec_str = vec_str;
     }
@@ -209,15 +190,15 @@ module test::test
         let mut i = 0;
         let mut vec_opt_str = vector::empty<Option<String>>();
         while ( i < len ) {
-            i = i + 1;
             let opt = *vec_opt_vec_u8.borrow(i);
             if (opt.is_none()) {
-                vec_opt_str.push_back(option::none())
+                vec_opt_str.push_back(option::none());
             } else {
                 let raw = opt.destroy_some();
                 let str = utf8(raw);
                 vec_opt_str.push_back(option::some(str));
-            }
+            };
+            i = i + 1;
         };
         test.vec_opt_str = vec_opt_str;
     }
@@ -236,6 +217,33 @@ module test::test
 
     public fun sum_three_u8(a: u8, b: u8, c: u8): u8 {
         return a + b + c
+    }
+
+    // === GenTest ===
+
+    public struct GenTest<T> has key, store {
+        id: UID,
+        val: vector<T>,
+    }
+
+    public fun new_gen_test<T>(
+        val: T,
+        ctx: &mut TxContext,
+    ): GenTest<T> {
+        let genTest = GenTest {
+            id: object::new(ctx),
+            val: vector[val],
+        };
+        return genTest
+    }
+
+    public fun gen_set<T>(
+        genTest: &mut GenTest<T>,
+        val: T,
+    ): T {
+        let oldVal = genTest.val.pop_back();
+        genTest.val.push_back(val);
+        return oldVal
     }
 
 }
