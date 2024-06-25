@@ -22,7 +22,7 @@ import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { Label } from "~/ui/utils/Label";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
-import { SuiJsonValue, getPureSerializationTypeAndValue } from "./serializer";
+import { getPureSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
@@ -41,7 +41,7 @@ export type ModuleFunctionProps = {
 
 function createBcsType(
 	type: string[],
-	value: SuiJsonValue | undefined): any
+): any
 {
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
 	if (type.length === 1) {
@@ -51,16 +51,13 @@ function createBcsType(
 
 	// vectors and options are handled recursively
 	if (type[0] === "Vector" || type[0] === "Option") {
-		if (!Array.isArray(value)) {
-			throw new Error(`Type ${type.join(", ")} expected an array value, but found: ${JSON.stringify(value)}`);
-		}
 		const vectorOrOption = type[0] === "Vector" ? "vector" : "option";
 		return bcs[vectorOrOption](
-			createBcsType(type.slice(1), value[0])
+			createBcsType(type.slice(1))
 		);
 	}
 
-	throw new Error(`Unsupported type: ${type.join(", ")} with value: ${JSON.stringify(value)}`);
+	throw new Error(`Unsupported type: ${type.join(", ")}`);
 }
 
 export function ModuleFunction({
@@ -94,11 +91,13 @@ export function ModuleFunction({
 				return;
 			}
 			const tx = new Transaction();
+			console.debug(`\n===== ${functionName} =====\n`);
 			const results = tx.moveCall({
 				target: `${packageId}::${moduleName}::${functionName}`,
 				typeArguments: types ?? [],
 				arguments:
 					params?.map((param, i) => {
+						console.debug(`=== param ${i}:`, param);
 						const { type, value } = getPureSerializationTypeAndValue(
 							functionDetails.parameters[i],
 							param,
@@ -112,7 +111,7 @@ export function ModuleFunction({
 						}
 
 						// Pure arguments and nested types (Vector, Option)
-						return createBcsType(type, value).serialize(value);
+						return createBcsType(type).serialize(value);
 					}) ?? [],
 			});
 

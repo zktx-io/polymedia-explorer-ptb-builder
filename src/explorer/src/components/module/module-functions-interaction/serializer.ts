@@ -72,7 +72,6 @@ export function getPureSerializationTypeAndValue(
     isOption = false,
 ): { type: string[] | undefined; value: SuiJsonValue | undefined  }
 {
-    console.debug(" ==== getPureSerializationTypeAndValue ====");
     console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
 
     if (typeof normalizedType === "string" && ALLOWED_TYPES.includes(normalizedType))
@@ -121,6 +120,30 @@ export function getPureSerializationTypeAndValue(
             typeArguments,
             isOption,
         );
+    }
+
+    if ("Struct" in normalizedType)
+    {
+        if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR) ||
+            isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)
+        ) {
+            return { type: ["String"], value: argVal };
+        }
+        else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
+            return { type: ["Address"], value: argVal };
+        }
+        else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
+            const optionToVec: SuiMoveNormalizedType = {
+                Vector: normalizedType.Struct.typeArguments[0],
+            };
+            const argValArr = [argVal!];
+            return getPureSerializationTypeAndValue(
+                optionToVec,
+                argValArr,
+                typeArguments,
+                true,
+            );
+        }
     }
 
     if ("Vector" in normalizedType)
@@ -182,31 +205,6 @@ export function getPureSerializationTypeAndValue(
             ],
             value: argVal,
         };
-    }
-
-    if ("Struct" in normalizedType)
-    {
-        if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR)) {
-            return { type: ["String"], value: argVal };
-        }
-        else if (isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)) {
-            return { type: ["String"], value: argVal };
-        }
-        else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
-            return { type: ["Address"], value: argVal };
-        }
-        else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
-            const optionToVec: SuiMoveNormalizedType = {
-                Vector: normalizedType.Struct.typeArguments[0],
-            };
-            const argValArr = [argVal!];
-            return getPureSerializationTypeAndValue(
-                optionToVec,
-                argValArr,
-                typeArguments,
-                true,
-            );
-        }
     }
 
     return { type: undefined, value: argVal };
