@@ -179,6 +179,10 @@ export function ModuleFunction({
 				autoComplete="off"
 				className="flex flex-col flex-nowrap items-stretch gap-4"
 			>
+
+				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
+					type arguments:
+				</div>
 				{typeArguments.map((aTypeArgument, index) => (
 					<Input
 						key={index}
@@ -187,7 +191,11 @@ export function ModuleFunction({
 						placeholder={aTypeArgument}
 					/>
 				))}
+				{typeArguments.length === 0 && <Label label="none" />}
 
+				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
+					arguments:
+				</div>
 				{paramsDetails.map(({ paramTypeText }, index) => (
 					<Input
 						key={index}
@@ -197,8 +205,9 @@ export function ModuleFunction({
 						disabled={isSubmitting}
 					/>
 				))}
+				{paramsDetails.length === 0 && <Label label="none" />}
 
-				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90">
+				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
 					returns:
 				</div>
 				{returnDetails.map(({ paramTypeText }, index) => (
