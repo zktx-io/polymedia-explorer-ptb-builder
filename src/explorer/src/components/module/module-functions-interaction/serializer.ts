@@ -7,11 +7,16 @@ import {
     normalizeSuiAddress,
 } from "@mysten/sui/utils";
 
+type PureSerializationTypeAndValue = {
+    type: (string|undefined)[] | undefined;
+    value: SuiJsonValue | undefined;
+};
+
 export function getPureSerializationTypeAndValue(
     normalizedType: SuiMoveNormalizedType,
     argVal: SuiJsonValue | undefined,
     typeArguments: string[],
-): { type: (string|undefined)[] | undefined; value: SuiJsonValue | undefined  }
+): PureSerializationTypeAndValue
 {
     console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
 
@@ -156,7 +161,7 @@ export function getPureSerializationTypeAndValue(
 
 // === Constants ===
 
-const ALLOWED_TYPES = ["Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"];
+const ALLOWED_TYPES = [ "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"];
 
 const OBJECT_MODULE_NAME = "object";
 const ID_STRUCT_NAME = "ID";
@@ -192,10 +197,6 @@ const RESOLVED_STD_OPTION = {
     name: STD_OPTION_STRUCT_NAME,
 };
 
-const validPrimitiveTypes = [
-    "Bool", "U8", "U16", "U32", "U64", "U128", "U256", "Address", "Signer"
-];
-
 // === Types ===
 
 type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
@@ -230,7 +231,7 @@ function parseTypeArgument(input: string): SuiMoveNormalizedType {
 
     // Handle primitive types
     const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-    if (validPrimitiveTypes.includes(capitalizedInput)) {
+    if (ALLOWED_TYPES.includes(capitalizedInput)) {
         return capitalizedInput as SuiMoveNormalizedType;
     }
 
