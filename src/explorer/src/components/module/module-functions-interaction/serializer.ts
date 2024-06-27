@@ -1,5 +1,3 @@
-/// a92b03de42~1:sui/sdk/typescript/src/transactions/serializer.ts
-
 import { SuiMoveNormalizedType } from "@mysten/sui/client";
 import { CallArg } from "@mysten/sui/transactions";
 import {
@@ -8,62 +6,6 @@ import {
     isValidSuiAddress,
     normalizeSuiAddress,
 } from "@mysten/sui/utils";
-
-// === Constants ===
-
-const ALLOWED_TYPES = ["Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"];
-
-const OBJECT_MODULE_NAME = "object";
-const ID_STRUCT_NAME = "ID";
-
-const STD_ASCII_MODULE_NAME = "ascii";
-const STD_ASCII_STRUCT_NAME = "String";
-
-const STD_UTF8_MODULE_NAME = "string";
-const STD_UTF8_STRUCT_NAME = "String";
-
-const STD_OPTION_MODULE_NAME = "option";
-const STD_OPTION_STRUCT_NAME = "Option";
-
-const RESOLVED_SUI_ID = {
-    address: SUI_FRAMEWORK_ADDRESS,
-    module: OBJECT_MODULE_NAME,
-    name: ID_STRUCT_NAME,
-};
-const RESOLVED_ASCII_STR = {
-    address: MOVE_STDLIB_ADDRESS,
-    module: STD_ASCII_MODULE_NAME,
-    name: STD_ASCII_STRUCT_NAME,
-};
-const RESOLVED_UTF8_STR = {
-    address: MOVE_STDLIB_ADDRESS,
-    module: STD_UTF8_MODULE_NAME,
-    name: STD_UTF8_STRUCT_NAME,
-};
-
-const RESOLVED_STD_OPTION = {
-    address: MOVE_STDLIB_ADDRESS,
-    module: STD_OPTION_MODULE_NAME,
-    name: STD_OPTION_STRUCT_NAME,
-};
-
-// === Helpers ===
-
-function isSameStruct(a: any, b: any) {
-    return a.address === b.address
-        && a.module === b.module
-        && a.name === b.name;
-}
-
-function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
-    if (typeof argVal === "undefined") {
-        return;
-    }
-    if (!typeNames.includes(typeof argVal)) {
-        const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(", ")}`;
-        throw new Error(`Expected ${String(argVal)} to be ${expectedTypes}, received ${typeof argVal}`);
-    }
-}
 
 export function getPureSerializationTypeAndValue(
     normalizedType: SuiMoveNormalizedType,
@@ -212,15 +154,69 @@ export function getPureSerializationTypeAndValue(
     return { type: undefined, value: argVal };
 }
 
-/// a92b03de42~1:sui/sdk/typescript/src/client/types/common.ts
+// === Constants ===
 
-export type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
+const ALLOWED_TYPES = ["Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"];
 
-/// Helpers
+const OBJECT_MODULE_NAME = "object";
+const ID_STRUCT_NAME = "ID";
+
+const STD_ASCII_MODULE_NAME = "ascii";
+const STD_ASCII_STRUCT_NAME = "String";
+
+const STD_UTF8_MODULE_NAME = "string";
+const STD_UTF8_STRUCT_NAME = "String";
+
+const STD_OPTION_MODULE_NAME = "option";
+const STD_OPTION_STRUCT_NAME = "Option";
+
+const RESOLVED_SUI_ID = {
+    address: SUI_FRAMEWORK_ADDRESS,
+    module: OBJECT_MODULE_NAME,
+    name: ID_STRUCT_NAME,
+};
+const RESOLVED_ASCII_STR = {
+    address: MOVE_STDLIB_ADDRESS,
+    module: STD_ASCII_MODULE_NAME,
+    name: STD_ASCII_STRUCT_NAME,
+};
+const RESOLVED_UTF8_STR = {
+    address: MOVE_STDLIB_ADDRESS,
+    module: STD_UTF8_MODULE_NAME,
+    name: STD_UTF8_STRUCT_NAME,
+};
+
+const RESOLVED_STD_OPTION = {
+    address: MOVE_STDLIB_ADDRESS,
+    module: STD_OPTION_MODULE_NAME,
+    name: STD_OPTION_STRUCT_NAME,
+};
 
 const validPrimitiveTypes = [
     "Bool", "U8", "U16", "U32", "U64", "U128", "U256", "Address", "Signer"
 ];
+
+// === Types ===
+
+type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
+
+// === Helpers ===
+
+function isSameStruct(a: any, b: any) {
+    return a.address === b.address
+        && a.module === b.module
+        && a.name === b.name;
+}
+
+function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
+    if (typeof argVal === "undefined") {
+        return;
+    }
+    if (!typeNames.includes(typeof argVal)) {
+        const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(", ")}`;
+        throw new Error(`Expected ${String(argVal)} to be ${expectedTypes}, received ${typeof argVal}`);
+    }
+}
 
 function parseTypeArgument(input: string): SuiMoveNormalizedType {
     input = input.trim();
