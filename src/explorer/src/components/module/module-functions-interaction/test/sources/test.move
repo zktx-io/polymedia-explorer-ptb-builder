@@ -218,32 +218,4 @@ module test::test
     public fun sum_three_u8(a: u8, b: u8, c: u8): u8 {
         return a + b + c
     }
-
-    // === GenTest ===
-
-    public struct GenTest<T> has key, store {
-        id: UID,
-        val: vector<T>,
-    }
-
-    public fun new_gen_test<T>(
-        val: T,
-        ctx: &mut TxContext,
-    ): GenTest<T> {
-        let genTest = GenTest {
-            id: object::new(ctx),
-            val: vector[val],
-        };
-        return genTest
-    }
-
-    public fun gen_set<T>(
-        genTest: &mut GenTest<T>,
-        val: T,
-    ): T {
-        let oldVal = genTest.val.pop_back();
-        genTest.val.push_back(val);
-        return oldVal
-    }
-
 }
