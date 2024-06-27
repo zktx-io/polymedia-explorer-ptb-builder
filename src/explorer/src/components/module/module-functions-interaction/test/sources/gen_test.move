@@ -25,7 +25,6 @@ module test::gen_test
         test.val = val;
     }
 
-
     public struct CheckTypeEvent<T> has copy, drop {
         value: T,
     }
