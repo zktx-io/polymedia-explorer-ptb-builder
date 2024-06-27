@@ -156,7 +156,7 @@ export function getPureSerializationTypeAndValue(
 
 // === Types ===
 
-const PRIMITIVE_TYPES = [ "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"] as const;
+const PRIMITIVE_TYPES = [ "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256" ] as const;
 
 type PrimitiveType = typeof PRIMITIVE_TYPES[number];
 
