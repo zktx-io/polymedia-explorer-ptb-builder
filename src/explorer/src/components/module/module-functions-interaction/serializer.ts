@@ -7,11 +7,6 @@ import {
     normalizeSuiAddress,
 } from "@mysten/sui/utils";
 
-type PureSerializationTypeAndValue = {
-    type: (string|undefined)[] | undefined;
-    value: SuiJsonValue | undefined;
-};
-
 export function getPureSerializationTypeAndValue(
     normalizedType: SuiMoveNormalizedType,
     argVal: SuiJsonValue | undefined,
@@ -20,7 +15,7 @@ export function getPureSerializationTypeAndValue(
 {
     console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
 
-    if (typeof normalizedType === "string" && ALLOWED_TYPES.includes(normalizedType))
+    if (isPrimitiveType(normalizedType))
     {
         if (normalizedType in ["U8", "U16", "U32", "U64", "U128", "U256"])
         {
@@ -159,9 +154,26 @@ export function getPureSerializationTypeAndValue(
     return { type: undefined, value: argVal };
 }
 
-// === Constants ===
+// === Types ===
 
-const ALLOWED_TYPES = [ "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"];
+const PRIMITIVE_TYPES = [ "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"] as const;
+
+type PrimitiveType = typeof PRIMITIVE_TYPES[number];
+
+function isPrimitiveType(type: unknown): type is PrimitiveType {
+    return typeof type === "string" && PRIMITIVE_TYPES.includes(type as PrimitiveType);
+}
+
+export type SerializationType = PrimitiveType | "String" | "vector" | "option";
+
+type PureSerializationTypeAndValue = {
+    type: (SerializationType|undefined)[] | undefined;
+    value: SuiJsonValue | undefined;
+};
+
+type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
+
+// === Constants ===
 
 const OBJECT_MODULE_NAME = "object";
 const ID_STRUCT_NAME = "ID";
@@ -197,10 +209,6 @@ const RESOLVED_STD_OPTION = {
     name: STD_OPTION_STRUCT_NAME,
 };
 
-// === Types ===
-
-type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
-
 // === Helpers ===
 
 function isSameStruct(a: any, b: any) {
@@ -231,8 +239,8 @@ function parseTypeArgument(input: string): SuiMoveNormalizedType {
 
     // Handle primitive types
     const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-    if (ALLOWED_TYPES.includes(capitalizedInput)) {
-        return capitalizedInput as SuiMoveNormalizedType;
+    if (isPrimitiveType(capitalizedInput)) {
+        return capitalizedInput;
     }
 
     // Handle struct types

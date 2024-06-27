@@ -22,7 +22,7 @@ import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { Label } from "~/ui/utils/Label";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
-import { getPureSerializationTypeAndValue } from "./serializer";
+import { SerializationType, getPureSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
@@ -40,12 +40,15 @@ export type ModuleFunctionProps = {
 };
 
 function createBcsType(
-	type: (string|undefined)[],
+	type: (SerializationType|undefined)[],
 ): any
 {
+	if (typeof type[0] === "undefined") {
+		throw new Error("Type cannot be undefined");
+	}
+
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
 	if (type.length === 1) {
-		// @ts-expect-error TS7053: Element implicitly has an 'any' type
 		return bcs[type[0]];
 	}
 
