@@ -22,7 +22,7 @@ import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { Label } from "~/ui/utils/Label";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
-import { SerializationType, getPureSerializationTypeAndValue } from "./serializer";
+import { SerializationType, getSerializationTypeAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
@@ -100,7 +100,7 @@ export function ModuleFunction({
 				arguments:
 					params?.map((param, i) => {
 						console.debug(`=== param ${i}:`, param);
-						let { type, value } = getPureSerializationTypeAndValue(
+						let { type, value } = getSerializationTypeAndValue(
 							functionDetails.parameters[i],
 							param,
 							resolvedTypeArguments,

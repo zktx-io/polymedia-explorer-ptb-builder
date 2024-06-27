@@ -7,11 +7,11 @@ import {
     normalizeSuiAddress,
 } from "@mysten/sui/utils";
 
-export function getPureSerializationTypeAndValue(
+export function getSerializationTypeAndValue(
     normalizedType: SuiMoveNormalizedType,
     argVal: SuiJsonValue | undefined,
     typeArguments: string[],
-): PureSerializationTypeAndValue
+): SerializationTypeAndValue
 {
     console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
 
@@ -55,7 +55,7 @@ export function getPureSerializationTypeAndValue(
     {
         const typeArg = typeArguments[normalizedType.TypeParameter].trim();
         const typeArgType = parseTypeArgument(typeArg);
-        return getPureSerializationTypeAndValue(
+        return getSerializationTypeAndValue(
             typeArgType,
             argVal,
             typeArguments,
@@ -73,7 +73,7 @@ export function getPureSerializationTypeAndValue(
             return { type: ["Address"], value: argVal };
         }
         else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
-            const { type: innerType } = getPureSerializationTypeAndValue(
+            const { type: innerType } = getSerializationTypeAndValue(
                 normalizedType.Struct.typeArguments[0],
                 argVal,
                 typeArguments,
@@ -114,7 +114,7 @@ export function getPureSerializationTypeAndValue(
         }
 
         // Infer the type of the vector from its first element
-        const { type: innerType } = getPureSerializationTypeAndValue(
+        const { type: innerType } = getSerializationTypeAndValue(
             normalizedType.Vector,
             // undefined when argVal is empty
             argVal ? argVal[0] : undefined,
@@ -132,7 +132,7 @@ export function getPureSerializationTypeAndValue(
         if (Array.isArray(argVal)) {
             const serializedValues: SuiJsonValue[] = [];
             for (const val of argVal) {
-                const { value } = getPureSerializationTypeAndValue(
+                const { value } = getSerializationTypeAndValue(
                     normalizedType.Vector,
                     val,
                     typeArguments,
@@ -166,7 +166,7 @@ function isPrimitiveType(type: unknown): type is PrimitiveType {
 
 export type SerializationType = PrimitiveType | "String" | "vector" | "option";
 
-type PureSerializationTypeAndValue = {
+type SerializationTypeAndValue = {
     type: (SerializationType|undefined)[] | undefined;
     value: SuiJsonValue | undefined;
 };
