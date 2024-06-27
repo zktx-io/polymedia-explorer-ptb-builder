@@ -173,6 +173,12 @@ type PureSerializationTypeAndValue = {
 
 type SuiJsonValue = boolean | number | string | CallArg | SuiJsonValue[];
 
+type Struct = {
+    address: string;
+    module: string;
+    name: string;
+}
+
 // === Constants ===
 
 const OBJECT_MODULE_NAME = "object";
@@ -187,23 +193,23 @@ const STD_UTF8_STRUCT_NAME = "String";
 const STD_OPTION_MODULE_NAME = "option";
 const STD_OPTION_STRUCT_NAME = "Option";
 
-const RESOLVED_SUI_ID = {
+const RESOLVED_SUI_ID: Struct = {
     address: SUI_FRAMEWORK_ADDRESS,
     module: OBJECT_MODULE_NAME,
     name: ID_STRUCT_NAME,
 };
-const RESOLVED_ASCII_STR = {
+const RESOLVED_ASCII_STR: Struct = {
     address: MOVE_STDLIB_ADDRESS,
     module: STD_ASCII_MODULE_NAME,
     name: STD_ASCII_STRUCT_NAME,
 };
-const RESOLVED_UTF8_STR = {
+const RESOLVED_UTF8_STR: Struct = {
     address: MOVE_STDLIB_ADDRESS,
     module: STD_UTF8_MODULE_NAME,
     name: STD_UTF8_STRUCT_NAME,
 };
 
-const RESOLVED_STD_OPTION = {
+const RESOLVED_STD_OPTION: Struct = {
     address: MOVE_STDLIB_ADDRESS,
     module: STD_OPTION_MODULE_NAME,
     name: STD_OPTION_STRUCT_NAME,
@@ -211,7 +217,7 @@ const RESOLVED_STD_OPTION = {
 
 // === Helpers ===
 
-function isSameStruct(a: any, b: any) {
+function isSameStruct(a: Struct, b: Struct) {
     return a.address === b.address
         && a.module === b.module
         && a.name === b.name;
