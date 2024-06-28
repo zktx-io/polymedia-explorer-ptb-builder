@@ -31,10 +31,11 @@ export function getSerializationTypeAndValue(
 
         if (normalizedType === "Bool")
         {
-            const argStr = String(argVal).trim().toLowerCase();
+            const argStr: string | undefined
+                = argVal === undefined ? undefined : String(argVal).trim().toLowerCase();
             if (
                 ( !["string", "number", "boolean", "undefined"].includes(typeof argVal) ) ||
-                ( argVal !== undefined && !["true", "false", "1", "0"].includes(argStr) )
+                ( argVal !== undefined && !["true", "false", "1", "0"].includes(argStr!) )
             ) {
                 throw new Error(`Invalid boolean: ${JSON.stringify(argVal)}`);
             }
@@ -42,22 +43,22 @@ export function getSerializationTypeAndValue(
                 type: [normalizedType],
                 value: argVal === undefined
                     ? undefined
-                    : ["true", "1"].includes(argStr)
+                    : ["true", "1"].includes(argStr!)
                 };
         }
 
         if (normalizedType === "Address") {
+            const argAddr: string | undefined =
+                argVal === undefined ? undefined : normalizeSuiAddress(String(argVal).trim());
             if (
-                (!["string", "undefined"].includes(typeof argVal)) ||
-                (argVal !== undefined && !isValidSuiAddress(normalizeSuiAddress(argVal as string)))
+                ( !["string", "undefined"].includes(typeof argVal) ) ||
+                ( argVal !== undefined && !isValidSuiAddress(argAddr!) )
             ) {
                 throw new Error(`Invalid Sui address: ${JSON.stringify(argVal)}`);
             }
             return {
                 type: [normalizedType],
-                value: argVal === undefined
-                    ? undefined
-                    : normalizeSuiAddress(argVal as string),
+                value: argAddr,
             };
         }
 
