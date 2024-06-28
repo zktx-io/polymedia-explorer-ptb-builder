@@ -31,9 +31,10 @@ export function getSerializationTypeAndValue(
 
         if (normalizedType === "Bool")
         {
+            const argStr = String(argVal).trim().toLowerCase();
             if (
                 ( !["string", "number", "boolean", "undefined"].includes(typeof argVal) ) ||
-                ( argVal !== undefined && !["true", "false", "1", "0"].includes(String(argVal)) )
+                ( argVal !== undefined && !["true", "false", "1", "0"].includes(argStr) )
             ) {
                 throw new Error(`Invalid boolean: ${JSON.stringify(argVal)}`);
             }
@@ -41,7 +42,7 @@ export function getSerializationTypeAndValue(
                 type: [normalizedType],
                 value: argVal === undefined
                     ? undefined
-                    : ["true", "1"].includes(String(argVal))
+                    : ["true", "1"].includes(argStr)
                 };
         }
 
