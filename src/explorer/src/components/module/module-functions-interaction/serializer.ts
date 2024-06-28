@@ -24,7 +24,7 @@ export function getSerializationTypeAndValue(
                 ( typeof argVal === "string" && !/^\d+$/.test(argVal.trim()) ) ||
                 ( typeof argVal === "number" && (!Number.isInteger(argVal) || argVal < 0) )
             ) {
-                throw new Error(`Expected unsigned integer but received: ${argVal}`);
+                throw new Error(`Invalid unsigned integer: ${JSON.stringify(argVal)}`);
             }
             return { type: [normalizedType], value: argVal };
         }
@@ -45,14 +45,19 @@ export function getSerializationTypeAndValue(
                 };
         }
 
-        if (normalizedType === "Address")
-        {
-            expectTypes(["string"], argVal);
-            const normalizedAddr = normalizeSuiAddress(argVal as string);
-            if (argVal && !isValidSuiAddress(normalizedAddr)) {
+        if (normalizedType === "Address") {
+            if (
+                (!["string", "undefined"].includes(typeof argVal)) ||
+                (argVal !== undefined && !isValidSuiAddress(normalizeSuiAddress(argVal as string)))
+            ) {
                 throw new Error(`Invalid Sui address: ${JSON.stringify(argVal)}`);
             }
-            return { type: [normalizedType], value: normalizedAddr };
+            return {
+                type: [normalizedType],
+                value: argVal === undefined
+                    ? undefined
+                    : normalizeSuiAddress(argVal as string),
+            };
         }
 
         throw new Error(`Unsupported normalized type: ${JSON.stringify(normalizedType, null, 2)}`);
@@ -231,16 +236,6 @@ function isSameStruct(a: Struct, b: Struct) {
     return a.address === b.address
         && a.module === b.module
         && a.name === b.name;
-}
-
-function expectTypes(typeNames: string[], argVal?: SuiJsonValue) {
-    if (typeof argVal === "undefined") {
-        return;
-    }
-    if (!typeNames.includes(typeof argVal)) {
-        const expectedTypes = typeNames.length === 1 ? typeNames[0] : `one of ${typeNames.join(", ")}`;
-        throw new Error(`Expected ${String(argVal)} to be ${expectedTypes}, received ${typeof argVal}`);
-    }
 }
 
 function parseTypeArgument(input: string): SuiMoveNormalizedType {
