@@ -31,13 +31,18 @@ export function getSerializationTypeAndValue(
 
         if (normalizedType === "Bool")
         {
-            expectTypes(["string", "number", "boolean"], argVal);
-            const argStr = String(argVal);
-            if ( !["true", "false", "1", "0"].includes(argStr) ) {
-                throw new Error(`Invalid Bool: ${JSON.stringify(argStr)}`);
+            if (
+                ( !["string", "number", "boolean", "undefined"].includes(typeof argVal) ) ||
+                ( argVal !== undefined && !["true", "false", "1", "0"].includes(String(argVal)) )
+            ) {
+                throw new Error(`Invalid boolean: ${JSON.stringify(argVal)}`);
             }
-            const boolValue = argStr === "true" || argStr === "1";
-            return { type: [normalizedType], value: boolValue };
+            return {
+                type: [normalizedType],
+                value: argVal === undefined
+                    ? undefined
+                    : ["true", "1"].includes(String(argVal))
+                };
         }
 
         if (normalizedType === "Address")
