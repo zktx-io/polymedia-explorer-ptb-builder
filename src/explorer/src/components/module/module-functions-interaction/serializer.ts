@@ -13,7 +13,7 @@ export function getSerializationTypeAndValue(
     typeArguments: string[],
 ): SerializationTypeAndValue
 {
-    console.debug("normalizedType:", JSON.stringify(normalizedType), "argVal:", argVal);
+    console.debug("argVal:", argVal, "normalizedType:", JSON.stringify(normalizedType, null, 2));
 
     if (isPrimitiveType(normalizedType))
     {
@@ -73,7 +73,7 @@ export function getSerializationTypeAndValue(
             return { type: ["Address"], value: argVal };
         }
         else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
-            const { type: innerType } = getSerializationTypeAndValue(
+            const { type: innerType, value: innerValue } = getSerializationTypeAndValue(
                 normalizedType.Struct.typeArguments[0],
                 argVal,
                 typeArguments,
@@ -84,7 +84,7 @@ export function getSerializationTypeAndValue(
                     "option",
                     ...(innerType ? innerType.flat() : [undefined])
                 ],
-                value: argVal,
+                value: innerValue,
             };
         }
     }
