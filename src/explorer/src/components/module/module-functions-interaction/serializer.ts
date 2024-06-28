@@ -20,35 +20,34 @@ export function getSerializationTypeAndValue(
         if (normalizedType in ["U8", "U16", "U32", "U64", "U128", "U256"])
         {
             expectTypes(["number"], argVal);
+            return { type: [normalizedType], value: argVal };
         }
-        else if (normalizedType === "Bool")
+
+        if (normalizedType === "Bool")
         {
             expectTypes(["string", "number", "boolean"], argVal);
-
             const argStr = String(argVal);
             if ( !["true", "false", "1", "0"].includes(argStr) ) {
                 throw new Error(`Invalid Bool: ${JSON.stringify(argStr)}`);
             }
-
             const boolValue = argStr === "true" || argStr === "1";
             return { type: [normalizedType], value: boolValue };
         }
-        else if (normalizedType === "Address")
+
+        if (normalizedType === "Address")
         {
             expectTypes(["string"], argVal);
-
             const normalizedAddr = normalizeSuiAddress(argVal as string);
             if (argVal && !isValidSuiAddress(normalizedAddr)) {
                 throw new Error(`Invalid Sui address: ${JSON.stringify(argVal)}`);
             }
-
             return { type: [normalizedType], value: normalizedAddr };
         }
 
-        return { type: [normalizedType], value: argVal };
+        throw new Error(`Unsupported normalized type: ${JSON.stringify(normalizedType, null, 2)}`);
     }
     else if (typeof normalizedType === "string") {
-        throw new Error(`Unknown pure normalized type ${JSON.stringify(normalizedType, null, 2)}`);
+        throw new Error(`Unknown type: ${JSON.stringify(normalizedType, null, 2)}`);
     }
 
     if ("TypeParameter" in normalizedType)
@@ -91,7 +90,7 @@ export function getSerializationTypeAndValue(
 
     if ("Vector" in normalizedType)
     {
-        // Some vector<u8> args should be serialized with bcs.string
+        // Some vector<u8> args should be serialized with bcs.String
         const serializeAsString =
             typeof argVal === "string"
             && normalizedType.Vector === "U8"
@@ -100,7 +99,7 @@ export function getSerializationTypeAndValue(
             return { type: ["String"], value: argVal };
         }
 
-        // Actual vector<u8> args come in the form of a JSON string that needs to be parsed
+        // Actual vector args come in the form of a JSON string that needs to be parsed
         if (typeof argVal === "string") {
             try {
                 argVal = JSON.parse(argVal);
@@ -264,7 +263,7 @@ function parseTypeArgument(input: string): SuiMoveNormalizedType {
         };
     }
 
-    const errMsg = `Unsupported type: ${input}`;
+    const errMsg = `Unsupported type argument: ${input}`;
     console.warn(errMsg);
     throw new Error(errMsg);
 }

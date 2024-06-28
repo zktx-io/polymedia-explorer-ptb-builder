@@ -108,7 +108,7 @@ export function ModuleFunction({
 						console.debug("type:", type, "value:", value);
 
 						// Object arguments
-						if (!type) {
+						if (typeof type === "undefined") {
 							return tx.object(param);
 						}
 
