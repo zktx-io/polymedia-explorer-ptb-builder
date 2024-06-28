@@ -19,7 +19,13 @@ export function getSerializationTypeAndValue(
     {
         if (["U8", "U16", "U32", "U64", "U128", "U256"].includes(normalizedType))
         {
-            expectTypes(["number", "string"], argVal);
+            if (
+                ( !["string", "number", "undefined"].includes(typeof argVal) ) ||
+                ( typeof argVal === "string" && !/^\d+$/.test(argVal.trim()) ) ||
+                ( typeof argVal === "number" && (!Number.isInteger(argVal) || argVal < 0) )
+            ) {
+                throw new Error(`Expected unsigned integer but received: ${argVal}`);
+            }
             return { type: [normalizedType], value: argVal };
         }
 
