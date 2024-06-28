@@ -17,9 +17,9 @@ export function getSerializationTypeAndValue(
 
     if (isPrimitiveType(normalizedType))
     {
-        if (normalizedType in ["U8", "U16", "U32", "U64", "U128", "U256"])
+        if (["U8", "U16", "U32", "U64", "U128", "U256"].includes(normalizedType))
         {
-            expectTypes(["number"], argVal);
+            expectTypes(["number", "string"], argVal);
             return { type: [normalizedType], value: argVal };
         }
 
