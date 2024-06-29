@@ -26,7 +26,10 @@ export function getSerializationTypeAndValue(
             ) {
                 throw new Error(`Invalid unsigned integer: ${JSON.stringify(argVal)}`);
             }
-            return { type: [normalizedType], value: argVal };
+            return {
+                type: [normalizedType],
+                value: typeof argVal === "string" ? argVal.trim() : argVal,
+             };
         }
 
         if (normalizedType === "Bool")
@@ -62,10 +65,10 @@ export function getSerializationTypeAndValue(
             };
         }
 
-        throw new Error(`Unsupported normalized type: ${JSON.stringify(normalizedType, null, 2)}`);
+        throw new Error(`Unsupported primitive type: ${JSON.stringify(normalizedType, null, 2)}`);
     }
     else if (typeof normalizedType === "string") {
-        throw new Error(`Unknown type: ${JSON.stringify(normalizedType, null, 2)}`);
+        throw new Error(`Unsupported normalized type: ${JSON.stringify(normalizedType, null, 2)}`);
     }
 
     if ("TypeParameter" in normalizedType)
