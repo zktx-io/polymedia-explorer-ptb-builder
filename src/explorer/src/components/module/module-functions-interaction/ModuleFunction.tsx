@@ -22,7 +22,7 @@ import { DisclosureBox } from "~/ui/DisclosureBox";
 import { Input } from "~/ui/Input";
 import { Label } from "~/ui/utils/Label";
 import { FunctionExecutionResult } from "./FunctionExecutionResult";
-import { SerializationType, getSerializationTypeAndValue } from "./serializer";
+import { SerializationType, getSerializationTypesAndValue } from "./serializer";
 import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
@@ -40,26 +40,26 @@ export type ModuleFunctionProps = {
 };
 
 function createBcsType(
-	type: (SerializationType|undefined)[],
+	types: (SerializationType|undefined)[],
 ): any
 {
-	if (typeof type[0] === "undefined") {
+	if (typeof types[0] === "undefined") {
 		throw new Error("Type cannot be undefined");
 	}
 
 	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
-	if (type.length === 1) {
-		return bcs[type[0]];
+	if (types.length === 1) {
+		return bcs[types[0]];
 	}
 
 	// vectors and options are handled recursively
-	if (type[0] === "vector" || type[0] === "option") {
-		return bcs[type[0]](
-			createBcsType(type.slice(1))
+	if (types[0] === "vector" || types[0] === "option") {
+		return bcs[types[0]](
+			createBcsType(types.slice(1))
 		);
 	}
 
-	throw new Error(`Unsupported type: ${type.join(", ")}`);
+	throw new Error(`Unsupported types: [${types.join(", ")}]`);
 }
 
 export function ModuleFunction({
@@ -100,20 +100,20 @@ export function ModuleFunction({
 				arguments:
 					params?.map((param, i) => {
 						console.debug(`=== param ${i}:`, param);
-						let { type, value } = getSerializationTypeAndValue(
+						let { types, value } = getSerializationTypesAndValue(
 							functionDetails.parameters[i],
 							param,
 							resolvedTypeArguments,
 						);
-						console.debug("type:", type, "value:", value);
+						console.debug("types:", types, "value:", value);
 
 						// Object arguments
-						if (typeof type === "undefined") {
+						if (typeof types[0] === "undefined") {
 							return tx.object(param);
 						}
 
 						// Pure arguments and nested types (Vector, Option)
-						return createBcsType(type).serialize(value);
+						return createBcsType(types).serialize(value);
 					}) ?? [],
 			});
 

@@ -7,11 +7,11 @@ import {
     normalizeSuiAddress,
 } from "@mysten/sui/utils";
 
-export function getSerializationTypeAndValue(
+export function getSerializationTypesAndValue(
     normalizedType: SuiMoveNormalizedType,
     argVal: SuiJsonValue | undefined,
     typeArguments: string[],
-): SerializationTypeAndValue
+): SerializationTypesAndValue
 {
     console.debug("argVal:", argVal, "normalizedType:", JSON.stringify(normalizedType, null, 2));
 
@@ -27,7 +27,7 @@ export function getSerializationTypeAndValue(
                 throw new Error(`Invalid unsigned integer: ${JSON.stringify(argVal)}`);
             }
             return {
-                type: [normalizedType],
+                types: [normalizedType],
                 value: typeof argVal === "string" ? argVal.trim() : argVal,
              };
         }
@@ -43,7 +43,7 @@ export function getSerializationTypeAndValue(
                 throw new Error(`Invalid boolean: ${JSON.stringify(argVal)}`);
             }
             return {
-                type: [normalizedType],
+                types: [normalizedType],
                 value: argVal === undefined
                     ? undefined
                     : ["true", "1"].includes(argStr!)
@@ -60,7 +60,7 @@ export function getSerializationTypeAndValue(
                 throw new Error(`Invalid Sui address: ${JSON.stringify(argVal)}`);
             }
             return {
-                type: [normalizedType],
+                types: [normalizedType],
                 value: argAddr,
             };
         }
@@ -75,7 +75,7 @@ export function getSerializationTypeAndValue(
     {
         const typeArg = typeArguments[normalizedType.TypeParameter].trim();
         const typeArgType = parseTypeArgument(typeArg);
-        return getSerializationTypeAndValue(
+        return getSerializationTypesAndValue(
             typeArgType,
             argVal,
             typeArguments,
@@ -87,23 +87,20 @@ export function getSerializationTypeAndValue(
         if (isSameStruct(normalizedType.Struct, RESOLVED_ASCII_STR) ||
             isSameStruct(normalizedType.Struct, RESOLVED_UTF8_STR)
         ) {
-            return { type: ["String"], value: argVal };
+            return { types: ["String"], value: argVal };
         }
         else if (isSameStruct(normalizedType.Struct, RESOLVED_SUI_ID)) {
-            return { type: ["Address"], value: argVal };
+            return { types: ["Address"], value: argVal };
         }
         else if (isSameStruct(normalizedType.Struct, RESOLVED_STD_OPTION)) {
-            const { type: innerType, value: innerValue } = getSerializationTypeAndValue(
+            const { types: innerTypes, value: innerValue } = getSerializationTypesAndValue(
                 normalizedType.Struct.typeArguments[0],
                 argVal,
                 typeArguments,
             );
 
             return {
-                type: [
-                    "option",
-                    ...(innerType ? innerType.flat() : [undefined])
-                ],
+                types: [ "option", ...innerTypes.flat() ],
                 value: innerValue,
             };
         }
@@ -117,7 +114,7 @@ export function getSerializationTypeAndValue(
             && normalizedType.Vector === "U8"
             && !argVal.trim().startsWith("["); // skip actual vector<u8>
         if (serializeAsString) {
-            return { type: ["String"], value: argVal };
+            return { types: ["String"], value: argVal };
         }
 
         // Actual vector args come in the form of a JSON string that needs to be parsed
@@ -134,16 +131,16 @@ export function getSerializationTypeAndValue(
         }
 
         // Infer the type of the vector from its first element
-        const { type: innerType } = getSerializationTypeAndValue(
+        const { types: innerTypes } = getSerializationTypesAndValue(
             normalizedType.Vector,
             // undefined when argVal is empty
             argVal ? argVal[0] : undefined,
             typeArguments,
         );
 
-        if (typeof innerType === "undefined") {
+        if (typeof innerTypes === "undefined") {
             return {
-                type: [ "vector", undefined, ],
+                types: [ "vector", undefined, ],
                 value: argVal,
             };
         }
@@ -152,7 +149,7 @@ export function getSerializationTypeAndValue(
         if (Array.isArray(argVal)) {
             const serializedValues: SuiJsonValue[] = [];
             for (const val of argVal) {
-                const { value } = getSerializationTypeAndValue(
+                const { value } = getSerializationTypesAndValue(
                     normalizedType.Vector,
                     val,
                     typeArguments,
@@ -163,15 +160,12 @@ export function getSerializationTypeAndValue(
         }
 
         return {
-            type: [
-                "vector",
-                ...innerType.flat()
-            ],
+            types: [ "vector", ...innerTypes.flat() ],
             value: argVal,
         };
     }
 
-    return { type: undefined, value: argVal };
+    return { types: [undefined], value: argVal };
 }
 
 // === Types ===
@@ -186,8 +180,8 @@ function isPrimitiveType(type: unknown): type is PrimitiveType {
 
 export type SerializationType = PrimitiveType | "String" | "vector" | "option";
 
-type SerializationTypeAndValue = {
-    type: (SerializationType|undefined)[] | undefined;
+type SerializationTypesAndValue = {
+    types: (SerializationType|undefined)[];
     value: SuiJsonValue | undefined;
 };
 
