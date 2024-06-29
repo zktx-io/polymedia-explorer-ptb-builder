@@ -3,9 +3,9 @@
 
 import { useZodForm } from "@mysten/core";
 import {
-	ConnectButton,
-	useCurrentAccount, useSignTransaction,
-	useSuiClient
+    ConnectButton,
+    useCurrentAccount, useSignTransaction,
+    useSuiClient
 } from "@mysten/dapp-kit";
 import { ArrowRight12 } from "@mysten/icons";
 import { bcs } from "@mysten/sui/bcs";
@@ -27,230 +27,230 @@ import { useFunctionParamsDetails } from "./useFunctionParamsDetails";
 import { useFunctionTypeArguments } from "./useFunctionTypeArguments";
 
 const argsSchema = z.object({
-	params: z.optional(z.array(z.string().trim().min(1))),
-	types: z.optional(z.array(z.string().trim().min(1))),
+    params: z.optional(z.array(z.string().trim().min(1))),
+    types: z.optional(z.array(z.string().trim().min(1))),
 });
 
 export type ModuleFunctionProps = {
-	packageId: string;
-	moduleName: string;
-	functionName: string;
-	functionDetails: SuiMoveNormalizedFunction;
-	defaultOpen?: boolean;
+    packageId: string;
+    moduleName: string;
+    functionName: string;
+    functionDetails: SuiMoveNormalizedFunction;
+    defaultOpen?: boolean;
 };
 
 function createBcsType(
-	types: (SerializationType|undefined)[],
+    types: (SerializationType|undefined)[],
 ): any
 {
-	if (typeof types[0] === "undefined") {
-		throw new Error("Type cannot be undefined");
-	}
+    if (typeof types[0] === "undefined") {
+        throw new Error("Type cannot be undefined");
+    }
 
-	// pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
-	if (types.length === 1) {
-		return bcs[types[0]];
-	}
+    // pure arguments: "Address", "Bool", "U8", "U16", "U32", "U64", "U128", "U256"
+    if (types.length === 1) {
+        return bcs[types[0]];
+    }
 
-	// vectors and options are handled recursively
-	if (types[0] === "vector" || types[0] === "option") {
-		return bcs[types[0]](
-			createBcsType(types.slice(1))
-		);
-	}
+    // vectors and options are handled recursively
+    if (types[0] === "vector" || types[0] === "option") {
+        return bcs[types[0]](
+            createBcsType(types.slice(1))
+        );
+    }
 
-	throw new Error(`Unsupported types: [${types.join(", ")}]`);
+    throw new Error(`Unsupported types: [${types.join(", ")}]`);
 }
 
 export function ModuleFunction({
-	defaultOpen,
-	packageId,
-	moduleName,
-	functionName,
-	functionDetails,
+    defaultOpen,
+    packageId,
+    moduleName,
+    functionName,
+    functionDetails,
 }: ModuleFunctionProps) {
-	const currentAccount = useCurrentAccount();
-	const suiClient = useSuiClient();
-	const { mutateAsync: signTransaction } = useSignTransaction();
-	const { handleSubmit, formState, register, control } = useZodForm({
-		schema: argsSchema,
-	});
-	const { isValidating, isValid, isSubmitting } = formState;
+    const currentAccount = useCurrentAccount();
+    const suiClient = useSuiClient();
+    const { mutateAsync: signTransaction } = useSignTransaction();
+    const { handleSubmit, formState, register, control } = useZodForm({
+        schema: argsSchema,
+    });
+    const { isValidating, isValid, isSubmitting } = formState;
 
-	const typeArguments = useFunctionTypeArguments(functionDetails.typeParameters);
-	const formTypeInputs = useWatch({ control, name: "types" });
-	const resolvedTypeArguments = useMemo(
-		() => typeArguments.map((aType, index) => formTypeInputs?.[index] || aType),
-		[typeArguments, formTypeInputs],
-	);
-	const paramsDetails = useFunctionParamsDetails(functionDetails.parameters, resolvedTypeArguments);
-	const returnDetails = useFunctionParamsDetails(functionDetails.return, resolvedTypeArguments);
+    const typeArguments = useFunctionTypeArguments(functionDetails.typeParameters);
+    const formTypeInputs = useWatch({ control, name: "types" });
+    const resolvedTypeArguments = useMemo(
+        () => typeArguments.map((aType, index) => formTypeInputs?.[index] || aType),
+        [typeArguments, formTypeInputs],
+    );
+    const paramsDetails = useFunctionParamsDetails(functionDetails.parameters, resolvedTypeArguments);
+    const returnDetails = useFunctionParamsDetails(functionDetails.return, resolvedTypeArguments);
 
-	const execute = useMutation({
-		mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) =>
-		{
-			if (!currentAccount) {
-				return;
-			}
-			const tx = new Transaction();
-			console.debug(`\n===== ${functionName} =====\n`);
-			const results = tx.moveCall({
-				target: `${packageId}::${moduleName}::${functionName}`,
-				typeArguments: types ?? [],
-				arguments:
-					params?.map((param, i) => {
-						console.debug(`=== param ${i}:`, param);
-						let { types, value } = getSerializationTypesAndValue(
-							functionDetails.parameters[i],
-							param,
-							resolvedTypeArguments,
-						);
-						console.debug("types:", types, "value:", value);
+    const execute = useMutation({
+        mutationFn: async ({ params, types }: TypeOf<typeof argsSchema>) =>
+        {
+            if (!currentAccount) {
+                return;
+            }
+            const tx = new Transaction();
+            console.debug(`\n===== ${functionName} =====\n`);
+            const results = tx.moveCall({
+                target: `${packageId}::${moduleName}::${functionName}`,
+                typeArguments: types ?? [],
+                arguments:
+                    params?.map((param, i) => {
+                        console.debug(`=== param ${i}:`, param);
+                        let { types, value } = getSerializationTypesAndValue(
+                            functionDetails.parameters[i],
+                            param,
+                            resolvedTypeArguments,
+                        );
+                        console.debug("types:", types, "value:", value);
 
-						// Object arguments
-						if (typeof types[0] === "undefined") {
-							return tx.object(param);
-						}
+                        // Object arguments
+                        if (typeof types[0] === "undefined") {
+                            return tx.object(param);
+                        }
 
-						// Pure arguments and nested types (Vector, Option)
-						return createBcsType(types).serialize(value);
-					}) ?? [],
-			});
+                        // Pure arguments and nested types (Vector, Option)
+                        return createBcsType(types).serialize(value);
+                    }) ?? [],
+            });
 
-			if (functionDetails.return.length > 0)
-			{
-				// Find returned objects in the transaction results
-				const returnedObjects = [];
-				for (let i = 0; i < functionDetails.return.length; i++) {
-					const returnType = functionDetails.return[i];
-					const isObject =
-						(
-							typeof returnType === "object"
-						) && (
-							(
-								"Struct" in returnType
-							) || (
-								"TypeParameter" in returnType
-								&&
-								resolvedTypeArguments[returnType.TypeParameter].startsWith("0x")
-							)
-						);
-					if (isObject) {
-						returnedObjects.push(results[i]);
-					}
-				}
+            if (functionDetails.return.length > 0)
+            {
+                // Find returned objects in the transaction results
+                const returnedObjects = [];
+                for (let i = 0; i < functionDetails.return.length; i++) {
+                    const returnType = functionDetails.return[i];
+                    const isObject =
+                        (
+                            typeof returnType === "object"
+                        ) && (
+                            (
+                                "Struct" in returnType
+                            ) || (
+                                "TypeParameter" in returnType
+                                &&
+                                resolvedTypeArguments[returnType.TypeParameter].startsWith("0x")
+                            )
+                        );
+                    if (isObject) {
+                        returnedObjects.push(results[i]);
+                    }
+                }
 
-				// Transfer all returned objects to the sender // TODO: transfer only suitable objects
-				if (returnedObjects.length > 0) {
-					tx.transferObjects(returnedObjects, currentAccount.address);
-				}
-			}
+                // Transfer all returned objects to the sender // TODO: transfer only suitable objects
+                if (returnedObjects.length > 0) {
+                    tx.transferObjects(returnedObjects, currentAccount.address);
+                }
+            }
 
-			const signedTx = await signTransaction({
-				transaction: tx,
-			});
+            const signedTx = await signTransaction({
+                transaction: tx,
+            });
 
-			const resp = await suiClient.executeTransactionBlock({
-				transactionBlock: signedTx.bytes,
-				signature: signedTx.signature,
-				options: {
-					showEffects: true,
-					showEvents: true,
-					showInput: true,
-				},
-			});
+            const resp = await suiClient.executeTransactionBlock({
+                transactionBlock: signedTx.bytes,
+                signature: signedTx.signature,
+                options: {
+                    showEffects: true,
+                    showEvents: true,
+                    showInput: true,
+                },
+            });
 
-			if (resp.effects?.status.status === "failure") {
-				throw new Error(resp.effects.status.error || "Transaction failed");
-			}
-			return resp;
-		},
-	});
+            if (resp.effects?.status.status === "failure") {
+                throw new Error(resp.effects.status.error || "Transaction failed");
+            }
+            return resp;
+        },
+    });
 
-	const isExecuteDisabled = isValidating || !isValid || isSubmitting || !currentAccount;
+    const isExecuteDisabled = isValidating || !isValid || isSubmitting || !currentAccount;
 
-	return (
-		<DisclosureBox defaultOpen={defaultOpen} title={functionName}>
-			<form
-				onSubmit={handleSubmit((formData) =>
-					execute.mutateAsync(formData).catch(() => {
-						// ignore tx execution errors
-					}),
-				)}
-				autoComplete="off"
-				className="flex flex-col flex-nowrap items-stretch gap-4"
-			>
+    return (
+        <DisclosureBox defaultOpen={defaultOpen} title={functionName}>
+            <form
+                onSubmit={handleSubmit((formData) =>
+                    execute.mutateAsync(formData).catch(() => {
+                        // ignore tx execution errors
+                    }),
+                )}
+                autoComplete="off"
+                className="flex flex-col flex-nowrap items-stretch gap-4"
+            >
 
-				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
-					type arguments:
-				</div>
-				{typeArguments.map((aTypeArgument, index) => (
-					<Input
-						key={index}
-						label={`Type${index}`}
-						{...register(`types.${index}` as const)}
-						placeholder={aTypeArgument}
-					/>
-				))}
-				{typeArguments.length === 0 && <Label label="none" />}
+                <div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
+                    type arguments:
+                </div>
+                {typeArguments.map((aTypeArgument, index) => (
+                    <Input
+                        key={index}
+                        label={`Type${index}`}
+                        {...register(`types.${index}` as const)}
+                        placeholder={aTypeArgument}
+                    />
+                ))}
+                {typeArguments.length === 0 && <Label label="none" />}
 
-				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
-					arguments:
-				</div>
-				{paramsDetails.map(({ paramTypeText }, index) => (
-					<Input
-						key={index}
-						label={`Arg${index}`}
-						{...register(`params.${index}` as const)}
-						placeholder={paramTypeText}
-						disabled={isSubmitting}
-					/>
-				))}
-				{paramsDetails.length === 0 && <Label label="none" />}
+                <div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
+                    arguments:
+                </div>
+                {paramsDetails.map(({ paramTypeText }, index) => (
+                    <Input
+                        key={index}
+                        label={`Arg${index}`}
+                        {...register(`params.${index}` as const)}
+                        placeholder={paramTypeText}
+                        disabled={isSubmitting}
+                    />
+                ))}
+                {paramsDetails.length === 0 && <Label label="none" />}
 
-				<div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
-					returns:
-				</div>
-				{returnDetails.map(({ paramTypeText }, index) => (
-					<Label key={index} label={paramTypeText} />
-				))}
-				{returnDetails.length === 0 && <Label label="nothing" />}
+                <div className="flex w-11/12 flex-1 gap-1 text-body font-semibold text-gray-90 pt-2">
+                    returns:
+                </div>
+                {returnDetails.map(({ paramTypeText }, index) => (
+                    <Label key={index} label={paramTypeText} />
+                ))}
+                {returnDetails.length === 0 && <Label label="nothing" />}
 
-				<div className="flex items-stretch justify-end gap-1.5 py-1.5">
-					<Button
-						variant="primary"
-						type="submit"
-						disabled={isExecuteDisabled}
-						loading={execute.isPending}
-					>
-						Execute
-					</Button>
-					<ConnectButton
-						connectText={
-							<>
-								Connect Wallet
-								<ArrowRight12 fill="currentColor" className="-rotate-45" />
-							</>
-						}
-						className={clsx(
-							"!rounded-md !text-bodySmall",
-							currentAccount
-								? "!border !border-solid !border-steel !bg-white !font-mono !text-hero-dark !shadow-sm !shadow-ebony/5"
-								: "!flex !flex-nowrap !items-center !gap-1 !bg-sui-dark !font-sans !text-sui-light hover:!bg-sui-dark hover:!text-white",
-						)}
-					/>
-				</div>
+                <div className="flex items-stretch justify-end gap-1.5 py-1.5">
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        disabled={isExecuteDisabled}
+                        loading={execute.isPending}
+                    >
+                        Execute
+                    </Button>
+                    <ConnectButton
+                        connectText={
+                            <>
+                                Connect Wallet
+                                <ArrowRight12 fill="currentColor" className="-rotate-45" />
+                            </>
+                        }
+                        className={clsx(
+                            "!rounded-md !text-bodySmall",
+                            currentAccount
+                                ? "!border !border-solid !border-steel !bg-white !font-mono !text-hero-dark !shadow-sm !shadow-ebony/5"
+                                : "!flex !flex-nowrap !items-center !gap-1 !bg-sui-dark !font-sans !text-sui-light hover:!bg-sui-dark hover:!text-white",
+                        )}
+                    />
+                </div>
 
-				{execute.error || execute.data ? (
-					<FunctionExecutionResult
-						error={execute.error ? (execute.error).message || "Error" : false}
-						result={execute.data || null}
-						onClear={() => {
-							execute.reset();
-						}}
-					/>
-				) : null}
-			</form>
-		</DisclosureBox>
-	);
+                {execute.error || execute.data ? (
+                    <FunctionExecutionResult
+                        error={execute.error ? (execute.error).message || "Error" : false}
+                        result={execute.data || null}
+                        onClear={() => {
+                            execute.reset();
+                        }}
+                    />
+                ) : null}
+            </form>
+        </DisclosureBox>
+    );
 }
