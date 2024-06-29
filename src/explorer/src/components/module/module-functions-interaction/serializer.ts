@@ -17,6 +17,9 @@ export function getSerializationTypesAndValue(
 
     if (isPrimitiveType(normalizedType))
     {
+        // argVal can be undefined, e.g. for an empty `vector<u16>`,
+        // the outer argVal is `[]` and the inner argVal is `undefined`.
+
         if (["U8", "U16", "U32", "U64", "U128", "U256"].includes(normalizedType))
         {
             if (
@@ -126,42 +129,35 @@ export function getSerializationTypesAndValue(
             }
         }
 
-        if (!Array.isArray(argVal) && typeof argVal !== "undefined") {
-            throw new Error(`Expect ${String(argVal)} to be a array, received ${typeof argVal}`);
+        // argVal can be undefined, e.g. for an empty `vector<vector<u16>>`,
+        // the outer argVal is `[]` and the inner argVal is `undefined`.
+        if (!Array.isArray(argVal) && argVal !== undefined) {
+            throw new Error(`Expect ${String(argVal)} to be an array, received ${typeof argVal}`);
         }
 
-        // Infer the type of the vector from its first element
-        const { types: innerTypes } = getSerializationTypesAndValue(
-            normalizedType.Vector,
-            // undefined when argVal is empty
-            argVal ? argVal[0] : undefined,
-            typeArguments,
-        );
+        let innerTypes: (SerializationType | undefined)[] = [];
+        let innerValues: SuiJsonValue[] | undefined;
 
-        if (typeof innerTypes === "undefined") {
-            return {
-                types: [ "vector", undefined, ],
-                value: argVal,
-            };
-        }
-
-        // Transform the vector elements into actual booleans, normalized addresses, etc
-        if (Array.isArray(argVal)) {
-            const serializedValues: SuiJsonValue[] = [];
-            for (const val of argVal) {
-                const { value } = getSerializationTypesAndValue(
-                    normalizedType.Vector,
-                    val,
-                    typeArguments,
+        if (Array.isArray(argVal) && argVal.length > 0) {
+            // Transform the vector elements into actual booleans, normalized addresses, etc
+            innerValues = argVal.map(element => {
+                const { types, value } = getSerializationTypesAndValue(
+                    normalizedType.Vector, element, typeArguments
                 );
-                serializedValues.push(value!);
-            }
-            argVal = serializedValues;
+                innerTypes = types; // overwrite each time (all elements should be of the same type)
+                return value!;
+            });
+        } else {
+            // For empty arrays, just find the type but keep the original argVal
+            innerValues = argVal;
+            innerTypes = getSerializationTypesAndValue(
+                normalizedType.Vector, undefined, typeArguments
+            ).types;
         }
 
         return {
             types: [ "vector", ...innerTypes.flat() ],
-            value: argVal,
+            value: innerValues,
         };
     }
 
