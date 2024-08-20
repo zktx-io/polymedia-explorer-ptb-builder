@@ -16,7 +16,7 @@ import {
 	type RefObject,
 } from "react";
 
-import { shortenSuiAddress } from "@polymedia/suitcase-core";
+import { shortenAddress } from "@polymedia/suitcase-core";
 import { useOnClickOutside } from "./hooks/useOnClickOutside";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { Text } from "./Text";
@@ -41,7 +41,7 @@ function ComboboxItem({ item, onSelect }: ComboboxItemProps) {
 		>
 			<div className="flex w-full items-center justify-between">
 				<div className="text-body font-medium text-steel-dark group-data-[selected]:text-hero break-all">
-					{item.label.startsWith("0x") ? shortenSuiAddress(item.label) : item.label}
+					{item.label.startsWith("0x") ? shortenAddress(item.label) : item.label}
 				</div>
 				<span className="pl-4">{item.after}</span>
 			</div>
