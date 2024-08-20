@@ -100,7 +100,7 @@ export function ModuleFunction({
                 arguments:
                     params?.map((param, i) => {
                         console.debug(`=== param ${i}:`, param);
-                        let { types, value } = getSerializationTypesAndValue(
+                        const { types, value } = getSerializationTypesAndValue(
                             functionDetails.parameters[i],
                             param,
                             resolvedTypeArguments,

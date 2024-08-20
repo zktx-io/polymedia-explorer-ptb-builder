@@ -16,7 +16,7 @@ export function hexToAscii(hex: string) {
 
 export const trimStdLibPrefix = (str: string): string => str.replace(/^0x2::/, "");
 
-export const findIPFSvalue = (url: string): string | undefined => url.match(/^ipfs:\/\/(.*)/)?.[1];
+export const findIPFSvalue = (url: string): string | undefined => (/^ipfs:\/\/(.*)/.exec(url))?.[1];
 
 export function transformURL(url: string) {
 	const found = findIPFSvalue(url);

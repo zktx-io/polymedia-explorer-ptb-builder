@@ -187,7 +187,7 @@ type Struct = {
     address: string;
     module: string;
     name: string;
-}
+};
 
 // === Constants ===
 
@@ -250,7 +250,7 @@ function parseTypeArgument(input: string): SuiMoveNormalizedType {
     }
 
     // Handle struct types
-    const structMatch = input.match(/^(0x[a-fA-F0-9]+)::([a-zA-Z0-9_]+)::([a-zA-Z0-9_]+)(<(.+)>)?$/);
+    const structMatch = /^(0x[a-fA-F0-9]+)::([a-zA-Z0-9_]+)::([a-zA-Z0-9_]+)(<(.+)>)?$/.exec(input);
     if (structMatch) {
         const [, address, module, name, , typeArgsStr] = structMatch;
         const typeArguments = typeArgsStr ? parseTypeArguments(typeArgsStr) : [];

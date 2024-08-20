@@ -16,7 +16,7 @@ export function useCopyToClipboard(onSuccessCallback?: () => void) {
 					onSuccessCallback();
 				}
 				return true;
-			} catch (error) {
+			} catch (_error) {
 				return false;
 			}
 		},

@@ -55,7 +55,7 @@ export function getDisplayUrl(url?: string) {
 				href: url,
 				display: parsedUrl.hostname,
 			};
-		} catch (e) {
+		} catch (_e) {
 			// do nothing
 		}
 	}
