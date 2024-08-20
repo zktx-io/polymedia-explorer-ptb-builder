@@ -17,6 +17,7 @@ export function useRecognizedPackages() {
 		return [
 			...DEFAULT_RECOGNIZED_PACKAGES,
 			/* AFSUI */ "0xf325ce1300e8dac124071d3152c5c5ee6174914f8bc2161e88329cf579246efc",
+			/* BLUB */ "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0",
 			/* BUCK */ "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2",
 			/* BURRY */ "0x6db9a7bb22829898fd281879778a175120ebfc77eafc1f8ee341654cfc3f8dc2",
 			/* CETUS */ "0x6864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b",
