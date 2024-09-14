@@ -32,13 +32,6 @@ export function PolymediaCard() {
 					</ButtonOrLink>
 				</div>
 
-				<div className="break-words text-pBody font-semibold text-steel-dark">
-					<ButtonOrLink href="https://spamsui.com/" className="flex items-center">
-						<img alt="polymedia" className="inline-block h-5 aspect-square mr-1" src="https://spamsui.com/img/spam-logo.webp" />
-						<span className="text-hero-dark font-semibold">JOIN THE CULT</span>
-					</ButtonOrLink>
-				</div>
-
 			</div>
 		</Card>
 	);
