@@ -109,9 +109,12 @@ function TransactionBlocksForAddress({
 	});
 
 	const { data, isPending, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
-		useGetTransactionBlocks({
-			[filterValue]: address,
-		} as TransactionFilter);
+		useGetTransactionBlocks(
+			{ [filterValue]: address } as TransactionFilter,
+			undefined,
+			undefined,
+			type === "object", // useAltRpc
+		);
 
 	const currentPage = currentPageState[filterValue];
 	const cardData =
