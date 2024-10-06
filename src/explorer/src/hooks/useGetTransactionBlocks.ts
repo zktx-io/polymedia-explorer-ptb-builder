@@ -4,9 +4,7 @@
 import { useSuiClient } from "@mysten/dapp-kit";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
-import { SuiClient, type PaginatedTransactionResponse, type TransactionFilter } from "@mysten/sui/client";
-import { useNetworkContext } from "~/context";
-import { Network } from "~/utils/api/DefaultRpcClient";
+import { type PaginatedTransactionResponse, type TransactionFilter } from "@mysten/sui/client";
 
 export const DEFAULT_TRANSACTIONS_LIMIT = 20;
 
@@ -15,13 +13,14 @@ export function useGetTransactionBlocks(
 	filter?: TransactionFilter,
 	limit = DEFAULT_TRANSACTIONS_LIMIT,
 	refetchInterval?: number,
-	useAltRpc = false,
+	_useAltRpc = false,
 ) {
-	const [network] = useNetworkContext();
-	const client =
-		 (useAltRpc && network === Network.MAINNET)  ? new SuiClient({ url: "https://mainnet.suiet.app" })
-		: (useAltRpc && network === Network.TESTNET) ? new SuiClient({ url: "https://testnet.suiet.app" })
-		: useSuiClient();
+	// const [network] = useNetworkContext();
+	// const client =
+	// 	 (useAltRpc && network === Network.MAINNET)  ? new SuiClient({ url: "https://mainnet.suiet.app" })
+	// 	: (useAltRpc && network === Network.TESTNET) ? new SuiClient({ url: "https://testnet.suiet.app" })
+	// 	: useSuiClient();
+	const client = useSuiClient();
 
 	return useInfiniteQuery<PaginatedTransactionResponse>({
 		queryKey: ["get-transaction-blocks", filter, limit],
