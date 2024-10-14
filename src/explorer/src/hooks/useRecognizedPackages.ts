@@ -21,6 +21,7 @@ export function useRecognizedPackages() {
 			/* BUCK */ "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2",
 			/* BURRY */ "0x6db9a7bb22829898fd281879778a175120ebfc77eafc1f8ee341654cfc3f8dc2",
 			/* CETUS */ "0x6864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b",
+			/* DEEP */ "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270",
 			/* FUD */ "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1",
 			/* HASUI */ "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d",
 			/* HHS */ "0x996374e9df45796fe8112663a37272af4d33e7531c67d21aaa5cc93b3d1ded5c",
@@ -37,8 +38,8 @@ export function useRecognizedPackages() {
 			/* SUIA */ "0x1d58e26e85fbf9ee8596872686da75544342487f95b1773be3c9a49ab1061b19",
 			/* TABLE */ "0x93c5b75322b5f9fc194e16d869b30a1db8d1f1826b2371c776c21c3d6a375b10",
 			/* TURBOS */ "0x5d1f47ea69bb0de31c313d7acf89b890dbb8991ea8e03c6c355171f84bb1ba4a",
-			/* USDC */ "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7",
 			/* USDC (Bridged) */ "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf",
+			/* USDC */ "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7",
 			/* USDT */ "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c",
 			/* ZUKI */ "0x8d84e98518cab8bd2941cfb23fa78ad0538ed07ba8887e451f0b93380d479908",
 		];
