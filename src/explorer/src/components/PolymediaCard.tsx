@@ -8,7 +8,7 @@ export function PolymediaCard() {
 			<div className="flex h-full flex-col gap-4 overflow-hidden">
 
 				<div className="md:text-heading4 text-heading6 text-steel-darker font-semibold">
-					Polymedia Explorer
+					Polymedia Explorer (PTB Builder PoC)
 				</div>
 
 				<div className="break-words text-pBody font-semibold text-steel-dark">
@@ -19,19 +19,26 @@ export function PolymediaCard() {
 				</div>
 
 				<div className="break-words text-pBody font-semibold text-steel-dark">
-					<ButtonOrLink href="https://github.com/juzybits/polymedia-explorer" className="flex items-center">
-						<GitHubLogo />
-						<span className="text-hero-dark font-semibold">SOURCE CODE</span>
+					PTB Builder version by&nbsp;
+					<ButtonOrLink href="https://x.com/zktx_io" className="break-words text-pBody font-semibold text-steel-dark">
+						<span className="text-hero-dark font-semibold">@zktx_io</span>
 					</ButtonOrLink>
 				</div>
 
+				<div className="break-words text-pBody font-semibold text-steel-dark">
+					<ButtonOrLink href="https://github.com/zktx-io/polymedia-explorer" className="flex items-center">
+						<GitHubLogo />
+						<span className="text-hero-dark font-semibold">SOURCE CODE (Forked)</span>
+					</ButtonOrLink>
+				</div>
+				{/*
 				<div className="break-words text-pBody font-semibold text-steel-dark">
 					<ButtonOrLink href="https://polymedia.app/" className="flex items-center">
 						<img alt="polymedia" className="inline-block h-5 aspect-square mr-1.25" src="https://assets.polymedia.app/img/all/logo-nomargin-transparent-512x512.webp" />
 						<span className="text-hero-dark font-semibold">MORE PROJECTS</span>
 					</ButtonOrLink>
 				</div>
-
+				*/}
 			</div>
 		</Card>
 	);
