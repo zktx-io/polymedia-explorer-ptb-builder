@@ -47,12 +47,12 @@ export function TransactionData({ transaction }: Props) {
 
 	return (
 		<div className="flex flex-col gap-3 pl-1 pr-2 md:gap-6">
-			<Tabs size="lg" defaultValue="summary">
+			<Tabs size="lg" defaultValue="data">
 				<TabsList>
-					<TabsTrigger value="summary">Summary</TabsTrigger>
+					<TabsTrigger value="data">Data</TabsTrigger>
 					{isProgrammableTransaction && network && transaction.digest && <TabsTrigger value="ptbBuilder">PTB Builder</TabsTrigger>}
 				</TabsList>
-				<TabsContentContainer value="summary">
+				<TabsContentContainer value="data">
 					<section className="flex w-full flex-1 flex-col gap-3 md:gap-6">
 						<TransactionDetailCard
 							timestamp={summary?.timestamp}
@@ -72,27 +72,19 @@ export function TransactionData({ transaction }: Props) {
 					</section>
 				</TabsContentContainer>
 				<TabsContentContainer value="ptbBuilder">
-					<section className="flex w-full flex-1 flex-col gap-3 md:gap-6">
-						<TransactionDetailCard
-							timestamp={summary?.timestamp}
-							sender={summary?.sender}
-							checkpoint={transaction.checkpoint}
-							executedEpoch={transaction.effects?.executedEpoch}
+					<div style={{ width: "100%", height: "720px" }}>
+						<PTBBuilder
+							network={`${network}`.toLowerCase() as any}
+							restore={transaction.digest}
+							options={{
+								canEdit: false,
+								themeSwitch: true,
+							}}
+							enqueueToast={(message, options) =>
+								enqueueSnackbar(message, options)
+							}
 						/>
-						<div style={{ width: "100%", height: "720px" }}>
-							<PTBBuilder
-								network={`${network}`.toLowerCase() as any}
-								restore={transaction.digest}
-								options={{
-									canEdit: false,
-									themeSwitch: true,
-								}}
-								enqueueToast={(message, options) =>
-									enqueueSnackbar(message, options)
-								}
-							/>
-						</div>
-					</section>
+					</div>
 				</TabsContentContainer>
 			</Tabs>
 		</div>
