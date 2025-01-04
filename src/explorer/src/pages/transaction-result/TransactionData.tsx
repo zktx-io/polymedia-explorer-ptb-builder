@@ -47,46 +47,53 @@ export function TransactionData({ transaction }: Props) {
 
 	return (
 		<div className="flex flex-col gap-3 pl-1 pr-2 md:gap-6">
-			<Tabs size="lg" defaultValue="data">
-				<TabsList>
-					<TabsTrigger value="data">Data</TabsTrigger>
-					{isProgrammableTransaction && network && transaction.digest && <TabsTrigger value="ptbBuilder">PTB Builder</TabsTrigger>}
-				</TabsList>
-				<TabsContentContainer value="data">
-					<section className="flex w-full flex-1 flex-col gap-3 md:gap-6">
-						<TransactionDetailCard
-							timestamp={summary?.timestamp}
-							sender={summary?.sender}
-							checkpoint={transaction.checkpoint}
-							executedEpoch={transaction.effects?.executedEpoch}
-						/>
-						<div data-testid="inputs-card">
-							<InputsCard inputs={programmableTxn.inputs} />
-						</div>
-						<div data-testid="transactions-card">
-							<TransactionsCard transactions={programmableTxn.transactions} />
-						</div>
-						<div data-testid="gas-breakdown">
-							<GasBreakdown summary={summary} />
-						</div>
-					</section>
-				</TabsContentContainer>
-				<TabsContentContainer value="ptbBuilder">
-					<div style={{ width: "100%", height: "720px" }}>
-						<PTBBuilder
-							network={`${network}`.toLowerCase() as any}
-							restore={transaction.digest}
-							options={{
-								canEdit: false,
-								themeSwitch: true,
-							}}
-							enqueueToast={(message, options) =>
-								enqueueSnackbar(message, options)
-							}
-						/>
-					</div>
-				</TabsContentContainer>
-			</Tabs>
-		</div>
+        <Tabs size="lg" defaultValue="data">
+          <TabsList>
+            <TabsTrigger value="data">Data</TabsTrigger>
+            {isProgrammableTransaction &&
+              network &&
+              network !== "LOCAL" &&
+              transaction.digest && (
+                <TabsTrigger value="ptbBuilder">PTB Builder</TabsTrigger>
+              )}
+          </TabsList>
+          <TabsContentContainer value="data">
+            <section className="flex w-full flex-1 flex-col gap-3 md:gap-6">
+              <TransactionDetailCard
+                timestamp={summary?.timestamp}
+                sender={summary?.sender}
+                checkpoint={transaction.checkpoint}
+                executedEpoch={transaction.effects?.executedEpoch}
+              />
+              <div data-testid="inputs-card">
+                <InputsCard inputs={programmableTxn.inputs} />
+              </div>
+              <div data-testid="transactions-card">
+                <TransactionsCard transactions={programmableTxn.transactions} />
+              </div>
+              <div data-testid="gas-breakdown">
+                <GasBreakdown summary={summary} />
+              </div>
+            </section>
+          </TabsContentContainer>
+          <TabsContentContainer value="ptbBuilder">
+            {network !== "LOCAL" && (
+              <div style={{ width: "100%", height: "720px" }}>
+                <PTBBuilder
+                  network={`${network}`.toLowerCase() as any}
+                  restore={transaction.digest}
+                  options={{
+                    canEdit: false,
+                    themeSwitch: true,
+                  }}
+                  enqueueToast={(message, options) =>
+                    enqueueSnackbar(message, options)
+                  }
+                />
+              </div>
+            )}
+          </TabsContentContainer>
+        </Tabs>
+      </div>
 	);
 }
