@@ -3,6 +3,7 @@
 
 import { type SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { useParams } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 
 import { TransactionView } from "./TransactionView";
 import { PageLayout } from "~/components/Layout/PageLayout";
@@ -72,7 +73,12 @@ export default function TransactionResult() {
 							: `Data could not be extracted for the following specified transaction ID: ${id}`}
 					</Banner>
 				) : (
-					<TransactionView transaction={data} />
+					<SnackbarProvider
+						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+						hideIconVariant
+				  	>
+						<TransactionView transaction={data} />
+					</SnackbarProvider>
 				)
 			}
 		/>
