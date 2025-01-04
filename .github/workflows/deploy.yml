@@ -18,14 +18,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies in temporary directory and Build React app
+      - name: Install dependencies in temporary directory and Build Explorer
         run: |
           cd ./src/explorer
           npm install -g pnpm
           pnpm install
           npm run build
 
-      - name: Deploy PTB Explorer to Walrus
+      - name: Deploy PTB Explorer PoC to Walrus
         uses: zktx-io/walrus-sites-ga@v0.2.15
         with:
           site-path: ${{ github.workspace }}/src/explorer/dist
