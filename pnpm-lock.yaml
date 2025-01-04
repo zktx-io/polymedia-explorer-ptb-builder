@@ -190,8 +190,8 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@zktx.io/ptb-builder':
-        specifier: ^0.1.7
-        version: 0.1.7(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
+        specifier: ^0.1.8
+        version: 0.1.8(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
       bignumber.js:
         specifier: ^9.1.2
         version: 9.1.2
@@ -3256,8 +3256,8 @@ packages:
     resolution: {integrity: sha512-6xm38yGVIa6mKm/DUCF2zFFJhERh/QWp1ufm4cNUvxsONBmfPg8uZ9pZBdOmF6qFGr/HlT6ABBkCSx/dlEtvWg==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
 
-  '@zktx.io/ptb-builder@0.1.7':
-    resolution: {integrity: sha512-P2jrNv6fFOZ3/VRmhuso5KWmsky7I2sbF279AhiYA6JeemCJ/Ntm1YX0wlE7ZpH2OYQvEfa/ho7O32x1syJLeQ==}
+  '@zktx.io/ptb-builder@0.1.8':
+    resolution: {integrity: sha512-fHMvUrqDbWXfc8HCX1g0LAO2MEUK3bXRXuJKummpSIDBnUpnhtSKVXVCl2LgET+hFbj4799gKka66ks0rBig1w==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -9820,7 +9820,7 @@ snapshots:
       '@types/emscripten': 1.39.13
       tslib: 1.14.1
 
-  '@zktx.io/ptb-builder@0.1.7(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
+  '@zktx.io/ptb-builder@0.1.8(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
     dependencies:
       '@mysten/sui': 1.18.0(typescript@5.5.4)
       '@xyflow/react': 12.3.6(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
