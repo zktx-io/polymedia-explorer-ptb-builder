@@ -21,7 +21,8 @@ jobs:
       - name: Install dependencies in temporary directory and Build React app
         run: |
           cd ./src/explorer
-          npm install
+          npm install -g pnpm
+          pnpm install
           npm run build
 
       - name: Deploy PTB Explorer to Walrus
