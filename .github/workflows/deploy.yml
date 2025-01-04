@@ -29,6 +29,7 @@ jobs:
         uses: zktx-io/walrus-sites-ga@v0.2.15
         with:
           site-path: ${{ github.workspace }}/src/explorer/dist
+          object-id: '0x06f08ae0283fcda4d20bceff1b678f217625adfaddce903f14784542c314101a'
           network: 'testnet'
           epochs: 200
         env:
