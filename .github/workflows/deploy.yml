@@ -18,21 +18,16 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Copy explorer package to temporary directory
-        run: |
-          mkdir -p /tmp/explorer
-          cp -r ./src/explorer/* /tmp/explorer/
-
       - name: Install dependencies in temporary directory and Build React app
         run: |
-          cd /tmp/explorer
+          cd ./src/explorer
           npm install
           npm run build
 
       - name: Deploy PTB Explorer to Walrus
         uses: zktx-io/walrus-sites-ga@v0.2.15
         with:
-          site-path: '/tmp/explorer/dist'
+          site-path: '.src/explorer/dist'
           network: 'testnet'
           epochs: 200
         env:
