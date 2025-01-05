@@ -51,7 +51,15 @@ export function TransactionData({ transaction }: Props) {
 
   const handleSavePTB = () => {
     if (ptb) {
-      const jsonString = JSON.stringify(ptb);
+      const modifyPTBFolw = ptb.flow?.nodes.map((node) => {
+        if(node.id === "@end") {
+          node.data = {
+            label: node.data.label,
+          };
+        }
+        return node;
+      });
+      const jsonString = JSON.stringify({ ...ptb, flow: { ...ptb.flow, nodes: modifyPTBFolw } });
       const blob = new Blob([jsonString], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -61,6 +69,7 @@ export function TransactionData({ transaction }: Props) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+     console.log(ptb);
     } else {
       enqueueSnackbar("No PTB data available.", { variant: "error" });
     }
