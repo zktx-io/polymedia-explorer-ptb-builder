@@ -1,7 +1,7 @@
 {
-	"name": "Polymedia Explorer",
+	"name": "Polymedia Explorer (PTB Builder PoC)",
 	"short_name": "Explorer",
-	"description": "Explore Sui transactions, objects, etc.",
+	"description": "Explore Sui Programmable Transactions.",
 
 	"start_url": "/",
 	"scope": "/",
