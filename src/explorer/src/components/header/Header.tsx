@@ -5,9 +5,9 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 import { LinkWithQuery } from "~/ui/utils/LinkWithQuery";
-import { PolymediaLogo } from "../PolymediaLogo";
 import NetworkSelect from "../network/Network";
 import Search from "../search/Search";
+import { ZktxLogo } from "../zktxLogo";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(window.scrollY > 0);
@@ -34,7 +34,7 @@ function Header() {
 					to="/"
 					className="flex flex-nowrap items-center gap-1 text-hero-darkest"
 				>
-					<PolymediaLogo />
+					<ZktxLogo />
 				</LinkWithQuery>
 				<div className="flex w-full gap-2">
 					<div className="flex-1">
