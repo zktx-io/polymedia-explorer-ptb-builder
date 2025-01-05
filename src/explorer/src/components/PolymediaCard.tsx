@@ -33,7 +33,7 @@ export function PolymediaCard() {
 				</div>
 
 				<div className="break-words text-pBody font-semibold text-steel-dark">
-					<ButtonOrLink href="https://github.com/zktx-io/polymedia-explorer" className="flex items-center">
+					<ButtonOrLink href="https://github.com/zktx-io/polymedia-explorer-ptb-builder" className="flex items-center">
 						<GitHubLogo />
 						<span className="text-hero-dark font-semibold">SOURCE CODE (Forked)</span>
 					</ButtonOrLink>
