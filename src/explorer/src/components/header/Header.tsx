@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { LinkWithQuery } from "~/ui/utils/LinkWithQuery";
 import NetworkSelect from "../network/Network";
 import Search from "../search/Search";
-import { ZktxLogo } from "../zktxLogo";
+import { ZktxLogo } from "../ZktxLogo";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(window.scrollY > 0);

@@ -6,7 +6,7 @@ import { Text } from "@mysten/ui";
 import { footerLinks } from "./footerLinks";
 import { Link } from "~/ui/Link";
 import { ButtonOrLink } from "~/ui/utils/ButtonOrLink";
-import { ZktxLogo } from "../zktxLogo";
+import { ZktxLogo } from "../ZktxLogo";
 
 function FooterLinks() {
 	return (
