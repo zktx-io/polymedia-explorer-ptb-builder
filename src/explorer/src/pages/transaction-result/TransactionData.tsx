@@ -78,7 +78,7 @@ export function TransactionData({ transaction }: Props) {
           </TabsContentContainer>
           <TabsContentContainer value="ptbBuilder">
             {network !== "LOCAL" && (
-              <div style={{ width: "100%", height: "720px" }}>
+              <div style={{ width: "100%", height: "620px" }}>
                 <PTBBuilder
                   network={`${network}`.toLowerCase() as any}
                   restore={transaction.digest}
