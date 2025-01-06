@@ -9,6 +9,7 @@ import {
 } from "@mysten/sui/client";
 import { PTB_SCHEME, PTBBuilder } from "@zktx.io/ptb-builder";
 import { enqueueSnackbar } from "notistack";
+import { Resizable } from "re-resizable";
 
 import { TransactionDetailCard } from "./transaction-summary/TransactionDetailCard";
 import { GasBreakdown } from "~/components/GasBreakdown";
@@ -115,7 +116,17 @@ export function TransactionData({ transaction }: Props) {
           </TabsContentContainer>
           <TabsContentContainer value="ptbBuilder">
             {network !== "LOCAL" && (
-              <div className="w-full h-[480px] lg:h-[620px] xl:h-[700px]">
+              <Resizable
+                defaultSize={{
+                  width: "100%",
+                  height: "480px",
+                }}
+                minHeight="300px"
+                maxHeight="1024px"
+                enable={{
+                  bottom: true,
+                }}
+              >
                 <PTBBuilder
                   network={`${network}`.toLowerCase() as any}
                   restore={transaction.digest}
@@ -130,7 +141,7 @@ export function TransactionData({ transaction }: Props) {
                     enqueueSnackbar(message, options)
                   }
                 />
-              </div>
+              </Resizable>
             )}
           </TabsContentContainer>
         </Tabs>
