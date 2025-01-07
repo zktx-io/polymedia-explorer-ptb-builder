@@ -53,12 +53,15 @@ export function TransactionData({ transaction }: Props) {
   const handleSavePTB = () => {
     if (ptb) {
       const modifyPTBFolw = ptb.flow?.nodes.map((node) => {
-        if(node.id === "@end") {
-          node.data = {
-            label: node.data.label,
+        const newNode = { ...node };
+        if(newNode.id === "@end") {
+          newNode.data = {
+            label: newNode.data.label,
           };
+        } else if (newNode.id !== "@start") {
+          delete newNode.deletable;
         }
-        return node;
+        return newNode;
       });
       const jsonString = JSON.stringify({ ...ptb, flow: { ...ptb.flow, nodes: modifyPTBFolw } });
       const blob = new Blob([jsonString], { type: "application/json" });
