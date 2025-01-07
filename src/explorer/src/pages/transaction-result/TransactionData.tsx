@@ -122,7 +122,7 @@ export function TransactionData({ transaction }: Props) {
               <Resizable
                 defaultSize={{
                   width: "100%",
-                  height: "480px",
+                  height: "75vh",
                 }}
                 minHeight="300px"
                 maxHeight="1024px"
