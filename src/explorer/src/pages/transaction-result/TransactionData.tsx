@@ -68,7 +68,7 @@ export function TransactionData({ transaction }: Props) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${`${network}`.toLowerCase()}:${transaction.digest}.ptb`;
+      a.download = `[${`${network}`.toLowerCase()}] ${transaction.digest}.ptb`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
