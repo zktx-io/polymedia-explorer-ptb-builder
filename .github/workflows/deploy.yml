@@ -31,7 +31,7 @@ jobs:
           site-path: ${{ github.workspace }}/src/explorer/dist
           object-id: '0x06f08ae0283fcda4d20bceff1b678f217625adfaddce903f14784542c314101a'
           network: 'testnet'
-          epochs: 180
+          epochs: 181
         env:
           SUI_ADDRESS: ${{ vars.SUI_ADDRESS }}
           SUI_KEYSTORE: ${{ secrets.SUI_KEYSTORE }}
