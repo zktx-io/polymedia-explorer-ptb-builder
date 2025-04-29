@@ -1,0 +1,17 @@
+{
+  "network": "mainnet",
+  "owner": "0x581f7a81a582b72d1212c7ba7806fa3cc99c1466c8ef403456d0ad0ec4311ebf",
+  "site_name": "PTB explorer",
+  "metadata": {
+    "link": "https://path.wal.app",
+    "image_url": "https://docs.zktx.io/images/ptb-builder.png",
+    "name": "PTB explorer",
+    "description": "PTB Builder is a visual development tool for managing Programmable Transaction Blocks on the Sui blockchain.",
+    "project_url": "https://github.com/zktx-io/polymedia-explorer-ptb-builder",
+    "creator": "zktx.io"
+  },
+  "epochs": 10,
+  "path": "./dist",
+  "gas_budget": 100000000,
+  "write_retry_limit": 15
+}
