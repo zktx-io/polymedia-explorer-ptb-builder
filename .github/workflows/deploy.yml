@@ -1,37 +1,18 @@
-name: Deploy Walrus Site using Walrus Sites GA
+name: Deploy My Static Site to Walrus with Provenance
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: write
+  actions: read
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-  
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies in temporary directory and Build Explorer
-        run: |
-          cd ./src/explorer
-          npm install -g pnpm
-          pnpm install
-          npm run build
-
-      - name: Deploy PTB Explorer PoC to Walrus
-        uses: zktx-io/walrus-sites-ga@v0.3.0
-        with:
-          site-path: ${{ github.workspace }}/src/explorer/dist
-          object-id: '0x06f08ae0283fcda4d20bceff1b678f217625adfaddce903f14784542c314101a'
-          network: 'testnet'
-          epochs: 181
-        env:
-          SUI_ADDRESS: ${{ vars.SUI_ADDRESS }}
-          SUI_KEYSTORE: ${{ secrets.SUI_KEYSTORE }}
+  deploy-with-provenance:
+    uses: zktx-io/walrus-sites-provenance/.github/workflows/deploy_with_slsa3.yml@v0.4.1
+    with:
+      working-directory: './src/explorer'
+    secrets:
+      ED25519_PRIVATE_KEY: ${{ secrets.ED25519_PRIVATE_KEY }}
