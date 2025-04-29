@@ -10,9 +10,27 @@ permissions:
   actions: read
 
 jobs:
-  deploy-with-provenance:
-    uses: zktx-io/walrus-sites-provenance/.github/workflows/deploy_with_slsa3.yml@v0.4.1
-    with:
-      working-directory: './src/explorer'
-    secrets:
-      ED25519_PRIVATE_KEY: ${{ secrets.ED25519_PRIVATE_KEY }}
+  build_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies in temporary directory and Build Explorer
+        run: |
+          cd ./src/explorer
+          npm install -g pnpm
+          pnpm install
+          npm run build
+          cp -r ./dist ../../dist
+          cp ./site.config.json ../../site.config.json
+
+      - name: Deploy to Walrus Sites
+        uses: zktx-io/walrus-sites-provenance@v0.4.1
+        env:
+          ED25519_PRIVATE_KEY: ${{ secrets.ED25519_PRIVATE_KEY }}
